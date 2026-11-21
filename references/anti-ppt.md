@@ -1,110 +1,33 @@
-# Anti-PPT — hukum desain adegan
+# Anti-PPT — Hukum Desain Adegan & Kalibrasi Visual
 
-Dokumen ini adalah alasan skill ini ada: hasil yang "secara teknis benar" tetap
-gagal bila terasa seperti presentasi PPT.
+Dokumen ini memastikan hasil explainer (**Cartoon Stage**, **Continuous Action**, dan **Cartoon Collage**) benar-benar bergerak seperti motion graphic — bukan slide presentasi yang diberi efek masuk-keluar.
 
-## Kenapa model selalu jatuh ke pola slide
+## Kenapa Animasi Web Sering Jatuh ke Pola Slide
 
-Model dilatih menyusun INFORMASI: judul → penjelas → bukti pendukung.
-Struktur itu bagus untuk dokumen, dan fatal untuk motion graphic.
-Video promosi tidak menjelaskan — ia **menyatakan**, satu pukulan per shot,
-dan membiarkan gerakan + musik yang membawa emosinya. Kalau kamu merasa
-sebuah adegan "kurang informasi", itu justru tanda adegannya sudah benar.
+Model terbiasa menyusun informasi seperti dokumen: judul → sub-judul → daftar poin → kotak pendukung. Struktur itu bagus untuk slide, tetapi mematikan ritme video. Dalam explainer motion graphic, **dunia dan aksi visual** adalah pembawa cerita utama; teks (bila dipakai) hanya menjadi penegas.
 
-## Tabel pelanggaran → perbaikan
+> **Referensi Visual & Contoh:** Lihat pasangan visual **`references/visuals/shared-good-vs-bad.svg`**, lembar skala & sudut kamera **`references/visuals/shared-scale-perspective.svg`**, bedah kontrastif **`examples/good-vs-bad.md`**, dan studi perbaikan **`examples/before-after.md`**.
 
-| Pelanggaran | Perbaikan |
-|---|---|
-| Kicker "02 — FITUR" + judul 2 baris + body copy 2 baris + 4 chip badge, layout kolom kiri-kanan | Satu kalimat ≤ 5 kata di tengah-atas + satu objek produk naik ke tengah |
-| Tiga baris teks besar berisi tiga klaim "TANPA …" | Headline 2 kata + satu cara dari menu fitur (`opener-konsep.md`): satu fitur didemokan, kata berganti, objek bertransformasi, kartu dikocok, grid tile… — dipilih per proyek |
-| Opener produk B memakai kulit opener produk A (palet, glow, nebula, font yang sama) karena diambil dari starter/proyek lama | Gaya diturunkan dari brand B lewat style brief: palet dari logo/ikon B, font berkarakter lain, bahasa latar lain, tanda tangan gerak lain (SKILL.md Hukum #3) |
-| Semua judul KAPITAL SEMUA, font lebar bobot 800, selalu di tengah, masuk dengan stagger huruf yang sama — terasa kaku | Sentence case bobot 500, penekanan pada kata kunci (sorotan kata opsional — bisa juga kata per kata, ukuran, jeda, objek di samping kata), tanpa titik otomatis (tanda baca hanya bila mengubah arti), ukuran/arah/posisi bergantian (techniques.md §1) |
-| Setiap judul/klaim diakhiri titik, termasuk frase dua kata — terasa kaku dan seperti template | Default tanpa titik; `?` untuk pertanyaan sungguhan, titik hanya untuk gaya dua kalimat pendek yang disengaja dan konsisten (techniques.md §1 aturan 5) |
-| Ladang 96 batang cahaya putih ber-bloom di belakang judul — latar ramai, teks tidak kontras | Kantong gelap di bawah teks, partikel berwarna sisi gelap palet dan redup, ≤ 40 elemen terang, bloom hanya di objek (techniques.md §1b) |
-| Semua opener gelap dengan nebula/partikel, latar tidak pernah dipertimbangkan per segmen | Latar dari tema (gradien terang, warna lembut, blok warna, kertas, foto, atau gelap); pergantian diputuskan per segmen di style brief dan terjadi di balik cut/wipe (techniques.md §7b) |
-| Setiap opener memberi kata sorotan (garis bawah/pill) di setiap kalimat, atau memakai pill + bintang yang sama persis dengan proyek lain | Sorotan kata opsional dan diputuskan di style brief; bila dipakai, satu bentuk per video yang dipilih per proyek, tidak di setiap kalimat, ornamen hanya dari bentuk brand (techniques.md §1) |
-| Opener app/SaaS hanya menampilkan screenshot diam yang di-zoom atau digeser | UI dirakit ulang dari komponen produk, dipakai (kursor, jari, atau UI yang bereaksi sendiri), data mengisi, transisi dibawa UI (`opener-konsep.md` bagian animasi UI) |
-| Video ditempel layar penuh dengan `autoplay loop`, berjalan dengan jamnya sendiri, dan animasi lain berhenti selama klip diputar | Klip dipasang lewat `clip()` sebagai layer footage yang terikat timeline, dibungkus wadah/perangkat/bingkai yang ikut dianimasikan, teks dan anotasi tetap hidup di atasnya (techniques.md §9b) |
-| Dua opener untuk produk berbeda sama-sama berlatar batang/potongan cahaya melesat ke samping ("lane" / "range") — hasil aturan "objek melintas tiap detik" | Gerak latar dipilih dari menu techniques.md §7c (gradien berpindah, blob, grain hidup, sapuan cahaya, bentuk berputar, partikel naik, grid bernapas…) dan berbeda dari proyek sebelumnya; aliran horizontal hanya untuk tema kecepatan/aliran |
-| Transisi: balok/persegi warna datar raksasa menyapu miring di setiap cut ("kotak persegi aneh"), atau garis tipis menyapu | Menu transisi techniques.md §4c: push-through 3D, kartu berputar dari kedalaman, objek berketebalan melewati lensa, mask bentuk brand, sapuan cahaya; minimal dua jenis, satu berkedalaman, wipe ≤ 2 |
-| Latar flat satu warna (gelap atau terang) dari awal sampai akhir | Permukaan latar ≥ 2 lapis dari menu §7d: glow horizon, duotone diagonal, mesh blob, spotlight + tint, langit berlapis, tekstur — warna dari palet |
-| Latar diam, atau warna latar tidak pernah berganti walau segmen/energi berubah | Latar selalu bergerak (§7c); warna latar boleh berganti kapan dibutuhkan asal ada pemicu terlihat: benda menutup lensa, aksi UI, push ke bidang warna, medan menyapu, cut di ketukan (techniques.md §7b) |
-| Menyalin palet, font, dan tata letak video referensi yang disodorkan user | Ambil ritme dan energinya saja; kulit lahir dari tema produk — katakan itu ke user satu kalimat |
-| Menampilkan `com.example.app` (nama package) di adegan CTA | Dihapus. User tidak peduli; kalau perlu, cukup baris hasil pencarian store |
-| Teks in/out dengan kamera statis | Ukuran shot berganti ke elemen yang sedang bercerita (techniques.md §3b) + koreografi elemen beririsan (§4b); napas kamera sebagai lapisan dasar; push-through hanya bila termotivasi, ±1 per video |
-| "Zoom in-out" dikerjakan sebagai napas kamera beberapa persen — tidak terlihat, video tetap terasa statis | Pergantian ukuran shot yang jelas: kamera mendekat ke elemen (medium close-up / close-up) lalu mundur ke wide saat komposisi butuh seluruh frame; label di lapisan layar supaya tidak terpotong (techniques.md §3b) |
-| Glow tebal 4 lapis di semua judul | Judul putih bersih + drop shadow tipis; glow disimpan untuk OBJEK (objek produk, ornamen) |
-| Latar warp 520 garis putih panjang | 300 partikel pendek berwarna gelap senada — latar tidak boleh bersaing dengan subjek |
-| Latar biru merata (flat) | Gradasi vertikal tegas: nyaris hitam di atas, menyala di horizon bawah |
-| Elemen UI (badge status) muncul mendahului kalimat utamanya | Urutan atensi: kalimat → objek utama → detail pendukung |
-| Zoom push-through dipakai di SEMUA transisi | Perpustakaan gerakan: spin, yaw 3D, roll, elemen terbang melewati lensa; zoom hanya saat termotivasi (mis. menyelam ke layar mockup). "Satu jenis transisi di semua cut" = template transisi PPT, cuma versi mahal |
-| Whip-pan translasi — tepi panggung tersingkap jadi gap hitam | Terbaca "pindah halaman". Jangan pernah menggeser dunia sampai tepinya terlihat |
-| Spin/yaw/roll kejut (zoom+putar tiba-tiba dengan blur di tiap cut) | Itu bahasa PRESET editor video, bukan motion design. Ganti: kamera bernapas + koreografi elemen beririsan + object wipe |
-| Demo UI terasa statis: UI penuh di frame, kamera diam, hanya kursor bergerak, klik terlalu kecil untuk terbaca | Kamera mengikuti interaksi bila perlu: dekati area yang akan diklik (scale 1,4–2,2, 0,6–0,9 dtk ease in-out), klik terbaca, lalu mundur/geser ke hasilnya; tidak di setiap klik (techniques.md §8) |
-| Opener produk berbeda-beda keluar dengan kerangka sama: teks zoom lalu keluar ke kiri, tiga tile fitur, kotak input diketik, hook → fitur → fitur → janji → logo → CTA — kesannya template walau warnanya baru | Tiga kandidat konsep dari `opener-konsep.md`, satu dipilih dari sifat produk; sidik jari struktur berbeda dari opener sebelumnya; komponen kanonik maks dua dan hanya bila dituntut konsep |
+## Tabel Pelanggaran (`F-01..F-07`) → Perbaikan → Pemeriksaan `?debug=1`
 
-## Pola gagal yang umum pada explainer
+| Kode | Pola Gagal (Terasa PPT) | Kenapa Gagal | Perbaikan Wajib | Cara Cek di `?debug=1` |
+|---|---|---|---|---|
+| **F-01** | `<section class="scene">` dinyalakan-dimatikan bergantian dengan `autoAlpha`/`opacity` | Ganti section = ganti slide, apa pun efeknya | Dunia mengalir + `whip()` (**Continuous Action**), kertas disusuri kamera + `into/settle` (**Cartoon Collage**), atau panggung hidup penuh + `cut/slide` (**Cartoon Stage**) | Scrub melewati tiap transisi — pastikan tidak ada cross-fade section diam |
+| **F-01** | Eyebrow/kicker + judul 2 baris + paragraf + badge | 3+ tingkat teks = layout slide | Maksimum 2 tingkat teks (angka/kalimat utama + label dunia); untuk **Cartoon Stage**, **nol caption** | Hitung tingkat teks per layar |
+| **F-01** | 1 gambar diam + 1 kalimat per adegan, lalu ganti | Tetap slideshow walau kamera bergerak | **Cartoon Collage**: akresi 3–5 elemen per frasa; **Cartoon Stage**: ≥10 benda bergerak per panggung | Cek jumlah elemen aktif pada akhir tiap adegan |
+| **F-01** | Peta raksasa dengan kamera zoom `< 1,08` | Rumah/tokoh tampak miniatur, separuh layar kosong | Pecah jadi panggung seukuran frame, zoom selalu `1,08–1,95` (**Cartoon Stage**) | Lihat indikator `zoom` di panel `?debug=1` & klik **Audit** (merah bila `< 1,08`) |
+| **F-01** | Hanya Ken Burns (scale `1.0 → 1.05`) di semua adegan | Gerak repetitif = template editor | Parallax `D(t)`, instrumen berganti, koreografi `into/look/home`, atau aksi sendi + *anticipation* | Scrub beberapa detik acak; cek apakah aksi dunia nyata berlangsung |
+| **F-02** | `transformOrigin`/`rotation` GSAP langsung pada sendi SVG atau kaki melayang | Bbox berubah → bahu/kepala tampak lepas | Pakai proxy `J()` aditif (`r + rIdle`) + bayangan kaki `ch.sdJ` di **Cartoon Stage** | Scrub di tengah gerakan tangan/jalan — cek sambungan sendi & kontak tanah |
+| **F-03** | Mini-map inset, gauge mengambang, atau layar dibelah panel kiri-kanan | Terasa dashboard/template dan merusak aliran penuh | Setiap sudut pandang 100% full-frame via `whip()`; perbandingan lewat balapan peta (**Continuous Action**) | Pastikan nol kartu inset di atas `#side` dan tidak ada layout split-card |
+| **F-04** | Subjek terus dari samping, arah berbalik, atau latar beku total saat baca | Monoton atau membingungkan arah gerak | Ganti sudut pandang (tidak 3 berurutan sama); jaga arah kiri→kanan; perlambat ke ~40% saat baca | Periksa label `view` aktif & pastikan dunia tetap bergerak selama fase baca |
+| **F-05** | Drop-shadow hilang pasca-`fly()` atau teks `say()` muncul saat kamera masih zoom out | Kolase tampak datar & teks terpotong | Pisahkan `.cut` (blur) & `.cut-body` (drop-shadow); selesaikan `home()` dulu minimal `0,1 dtk`, baru `say()` (**Cartoon Collage**) | Klik **Audit** & scrub ke waktu mulai `say()` — pastikan `z = 1.0` |
+| **F-06** | Teks terlalu kecil (`< 30 px`), area kolase bocor, atau terpotong tepi 9:16 | Tidak terbaca di ponsel / visual tabrakan | Jaga semua teks ≥ 30 px; pakai `.safe` pada 9:16; `dx = 2600 px` + `sizeWorld()` di Collage | Klik **Audit** & aktifkan overlay **Safe 9:16** di `?debug=1` |
+| **F-07** | Proporsi tidak masuk akal (pintu lebih pendek dari tokoh, mobil seperti mainan, gedung diperkecil) atau panggung 2D datar tanpa sudut kamera/cakrawala | Dunia terasa tempelan mainan dan kehilangan kedalaman ruang serta wibawa skala | Terapkan jangkar skala semi-realistis **`1 H`** (`explainer-core.md` §4B), pilih 1 dari 4 *camera angle* & garis cakrawala, beri sisi 2.5D + *Architectural Cropping* + bingkai FG (`shared-scale-perspective.svg`) | Scrub ke shot lebar tiap panggung — cek tinggi pintu `≥ 1,2 H`, mobil `~0,85–0,95 H`, garis cakrawala & kedalaman BG/MG/FG |
 
-Contoh explainer sejarah 30 dtk, 6 adegan, yang terasa seperti PPT. Kodenya:
+## 5 Prinsip Inti yang Selalu Berlaku
 
-| Yang dibuat | Kenapa PPT | Yang seharusnya |
-|---|---|---|
-| 6 × `<section class="scene">` berisi foto full-bleed, dinyalakan `autoAlpha` bergantian | Ganti section = ganti slide, apa pun transisinya | Satu dunia yang mengalir; adegan berganti karena kamera/dunia bergerak atau whip ke sudut lain |
-| Tiap section: eyebrow (kicker) + judul 2 baris + kredit | Tiga tingkat teks = layout slide | Satu angka/kalimat besar + satu label yang hidup di dunia |
-| Gerak hanya Ken Burns foto 1.08 → 1.015 dan scale bump `#world` 1.12 → .96 di tiap cut | Gerak yang sama di semua cut = template | Parallax, objek melintas, whip, instrumen (peta/profil/speedometer), kamera bernapas beda per momen |
-| Light leak di setiap cut | Preset editor video | Simpan untuk satu momen istimewa |
-| Tidak ada subjek yang bertahan antar adegan | Tidak ada yang "dibawa" penonton | Hero hadir > 60 % durasi |
-
-Pelajaran: hukum naratif saja tidak cukup; perlu larangan struktural yang bisa diperiksa dari kode
-(SKILL.md → "Larangan struktural") dan starter yang memaksa rig yang benar
-(`assets/starter-explainer.html`).
-
-## Prinsip yang bisa dibawa ke proyek mana pun
-
-1. **Satu shot = satu pernyataan.** Kalimat ≤ 5 kata lebih kuat daripada
-   kalimat lengkap. "Dua kata. Satu pukulan." mengalahkan "Aplikasi ini
-   bisa melakukan X, Y, dan Z untuk kamu".
-2. **Hierarki atensi per adegan:** kalimat dulu, objek utama menyusul,
-   detail paling akhir — jangan pernah terbalik.
-3. **Teks panjang adalah bug.** Kalau sebuah klaim butuh > 6 kata,
-   pecah jadi dua adegan atau ubah jadi visual (ikon, angka, mockup).
-4. **Metadata bukan konten.** Nama package, URL panjang, versi, footnote —
-   buang. Penonton awam tidak membacanya, penonton teknis tidak membutuhkannya.
-5. **Mockup UI adalah pengecualian teks banyak** — layar aplikasi boleh penuh
-   teks kecil karena ia dibaca sebagai GAMBAR, bukan sebagai teks. Justru
-   itu: mockup harus setia pada aplikasi aslinya (font, warna, layout).
-6. **Gerakan adalah kalimatnya juga.** Zoom masuk = penekanan; pan menyusur =
-   pengungkapan bertahap; pull-back = reveal; bounce kecil = playful.
-   Pilih gerakan yang searti dengan kalimatnya, jangan acak.
-7. **Transisi ala motion designer, bukan preset editor.** Dua kegagalan
-   umum: whip translasi menyingkap tepi ("pindah halaman"); spin/yaw kejut
-   terbaca efek preset editor. Yang benar:
-   (a) kamera BERNAPAS — drift zoom pelan tanpa henti, tak pernah
-   menyentak; (b) perpindahan dikerjakan KOREOGRAFI ELEMEN yang keluar-
-   masuk beririsan waktu; (c) OBJECT WIPE — sebuah elemen/ornamen menyapu
-   dekat lensa menutup frame, adegan berganti di baliknya; (d) zoom cepat
-   hanya bila TERMOTIVASI (menyelam ke layar mockup). Efek kejut apa pun
-   (zoom/putar tiba-tiba + blur di tiap cut) adalah tanda bahaya.
-8. **Kamera adalah pemersatu.** Sekali kamu punya rig kamera yang menggerakkan
-   seluruh dunia, adegan-adegan terpisah terasa satu film. Tanpa itu,
-   berapapun polesan per adegan, hasilnya tetap deck yang di-autoplay.
-9. **Ritme keluar-masuk asimetris.** Masuk pelan-tegas (0.7–1.3 detik,
-   `power4.out`), keluar cepat (0.35–0.55 detik, `power2.in`). Simetris
-   terasa mekanis.
-10. **Pilih 1–2 momen istimewa.** Efek paling mahal (pan 3D per kata, logo
-   build-on) dipakai sekali-dua kali saja. Dipakai di semua tempat,
-   berhenti terasa istimewa.
-11. **Kalau ragu, gelapkan latarnya dan besarkan teksnya.** Kontras adalah
-    produksi termurah yang paling sering dilupakan.
-
-## Kalibrasi rasa (heuristik cepat)
-
-Screenshot sebuah frame lalu tanya:
-
-- Bisakah frame ini jadi slide korporat tanpa diubah? → gagal, rombak.
-- Apakah mataku tahu harus melihat ke mana dalam 0,2 detik? → kalau tidak,
-  kurangi elemen.
-- Kalau semua teks disembunyikan, apakah latarnya masih menarik tapi tidak
-  berisik? → keduanya harus ya.
-- Apakah ada sesuatu yang BERGERAK karena kamera, bukan karena elemen
-  menganimasikan dirinya sendiri? → harus ya di tiap transisi.
+1. **Satu dunia yang terhubung.** Baik lewat kamera menyusuri kertas kolase, pahlawan yang terus melaju melintasi dunia, maupun rangkaian panggung karakter — penonton selalu punya jangkar visual.
+2. **Hierarki atensi bertahap.** Jangan memunculkan semua elemen sekaligus; munculkan berurutan mengikuti ketukan frasa atau sebab-akibat aksi.
+3. **Kamera adalah pemersatu.** Saat kamera bergerak, seluruh dunia ikut bergerak — jangan hanya men-zoom teks sementara latar diam.
+4. **Ritme masuk-keluar asimetris + anticipation.** Masuk tegas terkontrol (`power4.out` / `back.out`), keluar cepat (`power2.in`); beri ancang-ancang kecil sebelum aksi besar.
+5. **Teks ringkas dan kontras.** Jika klaim butuh lebih dari satu kalimat pendek, ubah sebagiannya menjadi aksi visual, angka di dunia, atau peta/diagram.

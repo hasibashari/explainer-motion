@@ -1,0 +1,287 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Lembar Pose, Hierarki Sendi Aditif J(), dan Ekspresi Wajah Cartoon Stage">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .card { fill: #162033; stroke: #2b3a55; stroke-width: 1.5; }
+      .title { font: 700 22px/1.2 system-ui, -apple-system, sans-serif; fill: #f8fafc; }
+      .sub { font: 500 13px/1.3 system-ui, -apple-system, sans-serif; fill: #94a3b8; }
+      .h2 { font: 700 15px/1.2 system-ui, sans-serif; fill: #f1f5f9; }
+      .lbl { font: 700 12px/1.2 system-ui, sans-serif; fill: #e2e8f0; }
+      .note { font: 500 11px/1.3 system-ui, sans-serif; fill: #94a3b8; }
+      .mono { font: 600 11px/1.2 ui-monospace, SFMono-Regular, monospace; fill: #38bdf8; }
+      .joint { fill: #f59e0b; stroke: #0f172a; stroke-width: 1.5; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1280" height="720"/>
+
+  <!-- Header -->
+  <text x="36" y="40" class="title">CARTOON STAGE — HIERARKI RIG ADITIF J(), POSE, &amp; EKSPRESI</text>
+  <text x="36" y="60" class="sub">Mencegah sendi lepas (F-02), menjaga siluet pose terbaca dalam 0,5 detik, dan mengunci rentang rotasi anatomis wajar</text>
+  <rect x="1030" y="22" width="214" height="32" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2"/>
+  <text x="1137" y="42" text-anchor="middle" class="mono">ID: VIS-STAGE-POSE</text>
+
+  <!-- Left Panel: Rig Hierarchy & Additive J() -->
+  <g id="panel-rig" transform="translate(36, 80)">
+    <rect class="card" width="380" height="608" rx="12"/>
+    <text x="20" y="30" class="h2">1. Hierarki Sendi &amp; Rumus J() Aditif</text>
+    <text x="20" y="48" class="note">GSAP DILARANG menyentuh transformOrigin sendi SVG.</text>
+
+    <!-- Rig Skeleton Diagram -->
+    <g transform="translate(132, 82)">
+      <!-- Ground y=0 -->
+      <line x1="-90" y1="260" x2="110" y2="260" stroke="#22c55e" stroke-width="2" stroke-dasharray="6 4"/>
+      <text x="72" y="254" class="mono">y = 0</text>
+      <ellipse cx="0" cy="260" rx="46" ry="8" fill="#0f172a" opacity="0.5"/>
+      <!-- Legs -->
+      <line x1="-18" y1="146" x2="-20" y2="202" stroke="#64748b" stroke-width="12" stroke-linecap="round"/>
+      <line x1="-20" y1="202" x2="-20" y2="254" stroke="#475569" stroke-width="11" stroke-linecap="round"/>
+      <line x1="18" y1="146" x2="20" y2="202" stroke="#64748b" stroke-width="12" stroke-linecap="round"/>
+      <line x1="20" y1="202" x2="20" y2="254" stroke="#475569" stroke-width="11" stroke-linecap="round"/>
+      <!-- Torso -->
+      <rect x="-28" y="64" width="56" height="86" rx="14" fill="#2f6fd6"/>
+      <!-- Arms + Hand Slots -->
+      <line x1="28" y1="78" x2="68" y2="108" stroke="#38bdf8" stroke-width="11" stroke-linecap="round"/>
+      <line x1="68" y1="108" x2="102" y2="96" stroke="#38bdf8" stroke-width="10" stroke-linecap="round"/>
+      <rect x="98" y="84" width="24" height="22" rx="4" fill="#22c55e" opacity="0.3" stroke="#22c55e" stroke-dasharray="3 2"/>
+      <line x1="-28" y1="78" x2="-58" y2="122" stroke="#60a5fa" stroke-width="11" stroke-linecap="round"/>
+      <line x1="-58" y1="122" x2="-50" y2="164" stroke="#60a5fa" stroke-width="10" stroke-linecap="round"/>
+      <!-- Head -->
+      <circle cx="0" cy="28" r="28" fill="#f7c8a0"/>
+      <!-- Joint pivot dots -->
+      <circle cx="0" cy="146" r="5" class="joint"/>
+      <circle cx="0" cy="64" r="5" class="joint"/>
+      <circle cx="28" cy="78" r="5" class="joint"/>
+      <circle cx="68" cy="108" r="5" class="joint"/>
+      <circle cx="-28" cy="78" r="5" class="joint"/>
+      <circle cx="-20" cy="202" r="5" class="joint"/>
+      <circle cx="20" cy="202" r="5" class="joint"/>
+
+      <!-- Labels -->
+      <text x="38" y="30" class="mono">head (0, -160)</text>
+      <text x="38" y="66" class="mono">Rarm (50, -126)</text>
+      <text x="128" y="99" class="mono" fill="#86efac">RhandSlot</text>
+      <text x="-118" y="76" class="mono">Larm</text>
+      <text x="-118" y="152" class="mono">root (facing sx)</text>
+      <text x="-118" y="206" class="mono">shin / foot</text>
+    </g>
+
+    <!-- Formula Box -->
+    <rect x="18" y="372" width="344" height="86" rx="8" fill="#0f172a" stroke="#38bdf8"/>
+    <text x="30" y="394" class="lbl" fill="#38bdf8">RUMUS KANAL ADITIF (ANTI-BENTROK):</text>
+    <text x="30" y="416" class="mono">translate(tx + x + xIdle, ty + y + yIdle)</text>
+    <text x="30" y="434" class="mono">rotate(r + rIdle) scale(sx, sy)</text>
+    <text x="30" y="450" class="note">idle() pakai kanal *Idle · aksi pakai kanal x/y/r</text>
+
+    <!-- Safe angle bounds -->
+    <text x="20" y="484" class="lbl" fill="#f59e0b">BATAS SUDUT ANATOMIS WAJAR:</text>
+    <text x="20" y="506" class="note">• Kepala (head.r): -22° s.d. +22° (idle ±1.7°)</text>
+    <text x="20" y="526" class="note">• Badan (torso.r): -16° s.d. +18° (idle ±1.1°)</text>
+    <text x="20" y="546" class="note">• Bahu (arm.r): -155° (angkat) s.d. +45° (belakang)</text>
+    <text x="20" y="566" class="note">• Siku (fore.r): 0° s.d. -130° (satu arah tekuk)</text>
+    <text x="20" y="586" class="note">• Balik arah: ubah root.sx = 1 | -1 (facing)</text>
+  </g>
+
+  <!-- Top Right: 6 Clear Silhouette Poses -->
+  <g id="panel-poses" transform="translate(436, 80)">
+    <rect class="card" width="808" height="332" rx="12"/>
+    <text x="20" y="30" class="h2">2. Katalog 6 Pose Siluet Jelas (Gunakan Anticipation 0.14 dtk Sebelum Aksi Besar)</text>
+
+    <!-- Pose 1: IDLE -->
+    <g transform="translate(20, 50)">
+      <rect width="120" height="258" rx="8" fill="#0f172a" stroke="#334155"/>
+      <text x="60" y="22" text-anchor="middle" class="mono">IDLE</text>
+      <g transform="translate(60, 178)">
+        <ellipse cx="0" cy="0" rx="26" ry="5" fill="#334155"/>
+        <line x1="-8" y1="-54" x2="-10" y2="-4" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/>
+        <line x1="8" y1="-54" x2="10" y2="-4" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/>
+        <rect x="-15" y="-108" width="30" height="56" rx="8" fill="#38bdf8"/>
+        <line x1="-16" y1="-98" x2="-22" y2="-56" stroke="#60a5fa" stroke-width="7" stroke-linecap="round"/>
+        <line x1="16" y1="-98" x2="22" y2="-56" stroke="#60a5fa" stroke-width="7" stroke-linecap="round"/>
+        <circle cx="0" cy="-126" r="16" fill="#fde68a"/>
+      </g>
+      <text x="60" y="206" text-anchor="middle" class="lbl">Napas Halus</text>
+      <text x="60" y="224" text-anchor="middle" class="note">torso ±1.1°</text>
+      <text x="60" y="240" text-anchor="middle" class="note">kedip ~3.5s</text>
+    </g>
+
+    <!-- Pose 2: WALK -->
+    <g transform="translate(150, 50)">
+      <rect width="120" height="258" rx="8" fill="#0f172a" stroke="#334155"/>
+      <text x="60" y="22" text-anchor="middle" class="mono">WALK</text>
+      <g transform="translate(60, 178)">
+        <ellipse cx="0" cy="0" rx="30" ry="5" fill="#334155"/>
+        <line x1="-6" y1="-54" x2="-24" y2="-4" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/>
+        <line x1="6" y1="-54" x2="26" y2="-6" stroke="#cbd5e1" stroke-width="8" stroke-linecap="round"/>
+        <rect x="-13" y="-108" width="30" height="56" rx="8" fill="#38bdf8" transform="rotate(6 -13 -54)"/>
+        <line x1="14" y1="-96" x2="36" y2="-66" stroke="#60a5fa" stroke-width="7" stroke-linecap="round"/>
+        <line x1="-10" y1="-96" x2="-30" y2="-64" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
+        <circle cx="6" cy="-126" r="16" fill="#fde68a"/>
+      </g>
+      <text x="60" y="206" text-anchor="middle" class="lbl">Langkah Berlawanan</text>
+      <text x="60" y="224" text-anchor="middle" class="note">kaki &amp; tangan silang</text>
+      <text x="60" y="240" text-anchor="middle" class="note">ch.sdJ ikut geser</text>
+    </g>
+
+    <!-- Pose 3: POINT -->
+    <g transform="translate(280, 50)">
+      <rect width="120" height="258" rx="8" fill="#0f172a" stroke="#38bdf8"/>
+      <text x="60" y="22" text-anchor="middle" class="mono">POINT()</text>
+      <g transform="translate(52, 178)">
+        <ellipse cx="0" cy="0" rx="26" ry="5" fill="#334155"/>
+        <line x1="-8" y1="-54" x2="-12" y2="-4" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/>
+        <line x1="8" y1="-54" x2="12" y2="-4" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/>
+        <rect x="-15" y="-108" width="30" height="56" rx="8" fill="#38bdf8" transform="rotate(8 0 -54)"/>
+        <line x1="14" y1="-96" x2="54" y2="-112" stroke="#f59e0b" stroke-width="8" stroke-linecap="round"/>
+        <circle cx="4" cy="-126" r="16" fill="#fde68a"/>
+      </g>
+      <text x="60" y="206" text-anchor="middle" class="lbl">Tunjuk Jelas</text>
+      <text x="60" y="224" text-anchor="middle" class="note">lengan keluar siluet</text>
+      <text x="60" y="240" text-anchor="middle" class="note">kepala ikuti arah</text>
+    </g>
+
+    <!-- Pose 4: WAVE -->
+    <g transform="translate(410, 50)">
+      <rect width="120" height="258" rx="8" fill="#0f172a" stroke="#334155"/>
+      <text x="60" y="22" text-anchor="middle" class="mono">WAVE()</text>
+      <g transform="translate(60, 178)">
+        <ellipse cx="0" cy="0" rx="26" ry="5" fill="#334155"/>
+        <line x1="-8" y1="-54" x2="-10" y2="-4" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/>
+        <line x1="8" y1="-54" x2="10" y2="-4" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/>
+        <rect x="-15" y="-108" width="30" height="56" rx="8" fill="#38bdf8"/>
+        <path d="M16 -98 L34 -126 L28 -150" fill="none" stroke="#22c55e" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M18 -154 Q28 -164 38 -154" fill="none" stroke="#f59e0b" stroke-width="2"/>
+        <circle cx="0" cy="-126" r="16" fill="#fde68a"/>
+      </g>
+      <text x="60" y="206" text-anchor="middle" class="lbl">Sapaan</text>
+      <text x="60" y="224" text-anchor="middle" class="note">arm -135°</text>
+      <text x="60" y="240" text-anchor="middle" class="note">fore ayun ±18°</text>
+    </g>
+
+    <!-- Pose 5: JUMP -->
+    <g transform="translate(540, 50)">
+      <rect width="120" height="258" rx="8" fill="#0f172a" stroke="#f59e0b"/>
+      <text x="60" y="22" text-anchor="middle" class="mono">JUMP()</text>
+      <g transform="translate(60, 178)">
+        <!-- Shrunk shadow when airborne -->
+        <ellipse cx="0" cy="0" rx="15" ry="3.5" fill="#334155"/>
+        <g transform="translate(0, -34)">
+          <path d="M-8 -54 L-18 -24 L-8 -8" fill="none" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/>
+          <path d="M8 -54 L18 -24 L8 -8" fill="none" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/>
+          <rect x="-15" y="-106" width="30" height="54" rx="8" fill="#38bdf8"/>
+          <line x1="-16" y1="-96" x2="-34" y2="-130" stroke="#60a5fa" stroke-width="7" stroke-linecap="round"/>
+          <line x1="16" y1="-96" x2="34" y2="-130" stroke="#60a5fa" stroke-width="7" stroke-linecap="round"/>
+          <circle cx="0" cy="-122" r="15" fill="#fde68a"/>
+        </g>
+      </g>
+      <text x="60" y="206" text-anchor="middle" class="lbl">Lompat + Squash</text>
+      <text x="60" y="224" text-anchor="middle" class="note">tekuk lutut 0.14s dulu</text>
+      <text x="60" y="240" text-anchor="middle" class="note">bayangan mengecil</text>
+    </g>
+
+    <!-- Pose 6: THINK / CARRY -->
+    <g transform="translate(670, 50)">
+      <rect width="118" height="258" rx="8" fill="#0f172a" stroke="#334155"/>
+      <text x="59" y="22" text-anchor="middle" class="mono">THINK / PROP</text>
+      <g transform="translate(59, 178)">
+        <ellipse cx="0" cy="0" rx="26" ry="5" fill="#334155"/>
+        <line x1="-8" y1="-54" x2="-10" y2="-4" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/>
+        <line x1="8" y1="-54" x2="10" y2="-4" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/>
+        <rect x="-15" y="-108" width="30" height="56" rx="8" fill="#38bdf8"/>
+        <path d="M15 -94 L30 -84 L12 -112" fill="none" stroke="#60a5fa" stroke-width="7" stroke-linecap="round"/>
+        <rect x="-34" y="-100" width="16" height="22" rx="3" fill="#f59e0b"/>
+        <circle cx="0" cy="-126" r="16" fill="#fde68a"/>
+      </g>
+      <text x="59" y="206" text-anchor="middle" class="lbl">Berpikir / Pegang</text>
+      <text x="59" y="224" text-anchor="middle" class="note">prop di L/RhandSlot</text>
+      <text x="59" y="240" text-anchor="middle" class="note">kepala miring -10°</text>
+    </g>
+  </g>
+
+  <!-- Bottom Right: 6 Clear Expressions -->
+  <g id="panel-expressions" transform="translate(436, 430)">
+    <rect class="card" width="808" height="258" rx="12"/>
+    <text x="20" y="30" class="h2">3. Pustaka 6 Ekspresi Wajah Inti (Terbaca Instan pada Skala 35%–65% Frame)</text>
+    <text x="20" y="48" class="note">Kunci keterbacaan: kontras bentuk alis + bukaan mulut. Ubah ekspresi tepat pada puncak ketukan kalimat VO.</text>
+
+    <!-- 1. Netral -->
+    <g transform="translate(20, 70)">
+      <rect width="120" height="168" rx="8" fill="#0f172a" stroke="#334155"/>
+      <circle cx="60" cy="68" r="34" fill="#f7c8a0"/>
+      <line x1="42" y1="52" x2="54" y2="52" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+      <line x1="66" y1="52" x2="78" y2="52" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="48" cy="64" r="4" fill="#0f172a"/>
+      <circle cx="72" cy="64" r="4" fill="#0f172a"/>
+      <path d="M50 82 Q60 86 70 82" fill="none" stroke="#7c2d12" stroke-width="3" stroke-linecap="round"/>
+      <text x="60" y="128" text-anchor="middle" class="lbl">Netral / Jelaskan</text>
+      <text x="60" y="148" text-anchor="middle" class="note">alis datar, senyum tipis</text>
+    </g>
+
+    <!-- 2. Senang -->
+    <g transform="translate(150, 70)">
+      <rect width="120" height="168" rx="8" fill="#0f172a" stroke="#22c55e"/>
+      <circle cx="60" cy="68" r="34" fill="#f7c8a0"/>
+      <path d="M40 52 Q48 44 56 52" fill="none" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+      <path d="M64 52 Q72 44 80 52" fill="none" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+      <path d="M42 66 Q48 58 54 66" fill="none" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
+      <path d="M66 66 Q72 58 78 66" fill="none" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
+      <path d="M44 78 Q60 96 76 78 Z" fill="#9a3412"/>
+      <text x="60" y="128" text-anchor="middle" class="lbl">Senang / Berhasil</text>
+      <text x="60" y="148" text-anchor="middle" class="note">mata lengkung, mulut lebar</text>
+    </g>
+
+    <!-- 3. Kaget -->
+    <g transform="translate(280, 70)">
+      <rect width="120" height="168" rx="8" fill="#0f172a" stroke="#f59e0b"/>
+      <circle cx="60" cy="68" r="34" fill="#f7c8a0"/>
+      <path d="M40 48 Q48 40 56 48" fill="none" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+      <path d="M64 48 Q72 40 80 48" fill="none" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="48" cy="62" r="6" fill="#ffffff"/>
+      <circle cx="48" cy="62" r="2.5" fill="#0f172a"/>
+      <circle cx="72" cy="62" r="6" fill="#ffffff"/>
+      <circle cx="72" cy="62" r="2.5" fill="#0f172a"/>
+      <ellipse cx="60" cy="84" rx="7" ry="10" fill="#7c2d12"/>
+      <text x="60" y="128" text-anchor="middle" class="lbl">Kaget / Penemuan</text>
+      <text x="60" y="148" text-anchor="middle" class="note">alis tinggi, mulut "O"</text>
+    </g>
+
+    <!-- 4. Berpikir -->
+    <g transform="translate(410, 70)">
+      <rect width="120" height="168" rx="8" fill="#0f172a" stroke="#334155"/>
+      <circle cx="60" cy="68" r="34" fill="#f7c8a0"/>
+      <line x1="40" y1="54" x2="54" y2="54" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+      <path d="M64 52 Q72 44 80 48" fill="none" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="51" cy="62" r="4" fill="#0f172a"/>
+      <circle cx="75" cy="62" r="4" fill="#0f172a"/>
+      <line x1="52" y1="84" x2="68" y2="82" stroke="#7c2d12" stroke-width="3" stroke-linecap="round"/>
+      <text x="60" y="128" text-anchor="middle" class="lbl">Penasaran / Pikir</text>
+      <text x="60" y="148" text-anchor="middle" class="note">alis asimetris, lirik atas</text>
+    </g>
+
+    <!-- 5. Khawatir -->
+    <g transform="translate(540, 70)">
+      <rect width="120" height="168" rx="8" fill="#0f172a" stroke="#ef4444"/>
+      <circle cx="60" cy="68" r="34" fill="#f7c8a0"/>
+      <line x1="40" y1="56" x2="54" y2="48" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+      <line x1="80" y1="56" x2="66" y2="48" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="48" cy="64" r="4" fill="#0f172a"/>
+      <circle cx="72" cy="64" r="4" fill="#0f172a"/>
+      <path d="M48 86 Q60 76 72 86" fill="none" stroke="#7c2d12" stroke-width="3" stroke-linecap="round"/>
+      <text x="60" y="128" text-anchor="middle" class="lbl">Khawatir / Masalah</text>
+      <text x="60" y="148" text-anchor="middle" class="note">alis miring dalam, cemberut</text>
+    </g>
+
+    <!-- 6. Bangga / Yakin -->
+    <g transform="translate(670, 70)">
+      <rect width="118" height="168" rx="8" fill="#0f172a" stroke="#38bdf8"/>
+      <circle cx="59" cy="68" r="34" fill="#f7c8a0"/>
+      <line x1="40" y1="50" x2="54" y2="54" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+      <line x1="78" y1="50" x2="64" y2="54" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="48" cy="64" r="4" fill="#0f172a"/>
+      <circle cx="70" cy="64" r="4" fill="#0f172a"/>
+      <path d="M48 80 Q60 90 74 78" fill="none" stroke="#7c2d12" stroke-width="3.2" stroke-linecap="round"/>
+      <text x="59" y="128" text-anchor="middle" class="lbl">Yakin / Solusi</text>
+      <text x="59" y="148" text-anchor="middle" class="note">alis tegas, senyum miring</text>
+    </g>
+  </g>
+</svg>

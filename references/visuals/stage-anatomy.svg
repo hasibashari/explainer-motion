@@ -1,0 +1,202 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Anatomi Panggung Cartoon Stage Beranotasi">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .title { font: 700 22px/1.2 system-ui, -apple-system, sans-serif; fill: #f8fafc; }
+      .sub { font: 500 13px/1.3 system-ui, -apple-system, sans-serif; fill: #94a3b8; }
+      .tag { font: 700 11.5px/1.2 system-ui, sans-serif; fill: #0f172a; }
+      .lbl { font: 700 12px/1.2 system-ui, sans-serif; fill: #f8fafc; }
+      .note { font: 500 11px/1.3 system-ui, sans-serif; fill: #cbd5e1; }
+      .mono { font: 600 11px/1.2 ui-monospace, SFMono-Regular, monospace; fill: #38bdf8; }
+      .callout-line { stroke: #f8fafc; stroke-width: 1.5; stroke-dasharray: 4 3; }
+    </style>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#bfe3e8"/>
+      <stop offset="100%" stop-color="#f7f1df"/>
+    </linearGradient>
+  </defs>
+
+  <rect class="bg" width="1280" height="720"/>
+
+  <!-- Header -->
+  <text x="36" y="40" class="title">CARTOON STAGE — ANATOMI PANGGUNG HIDUP &amp; 3 LAPIS KEDALAMAN</text>
+  <text x="36" y="60" class="sub">Standar kanonik v2.1 · Palet flat cerah tanpa tekstur, ≥10 benda bergerak bermakna, nol caption, zoom 1.08×–1.95×</text>
+  <rect x="1030" y="22" width="214" height="32" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2"/>
+  <text x="1137" y="42" text-anchor="middle" class="mono">ID: VIS-STAGE-ANAT</text>
+
+  <!-- Main Stage Viewport (Canonical Visual + Annotations) -->
+  <g id="canonical-stage" transform="translate(36, 80)">
+    <rect width="920" height="518" rx="12" fill="url(#sky)" stroke="#38bdf8" stroke-width="2"/>
+
+    <!-- BG Plane: Sun, Clouds, Birds, Distant Hills -->
+    <g id="layer-bg">
+      <circle cx="812" cy="84" r="36" fill="#f4bc52"/>
+      <circle cx="812" cy="84" r="48" fill="#f4bc52" opacity="0.22"/>
+      <g fill="#ffffff" opacity="0.92">
+        <ellipse cx="146" cy="82" rx="48" ry="18"/>
+        <ellipse cx="176" cy="76" rx="34" ry="16"/>
+        <ellipse cx="520" cy="68" rx="54" ry="18"/>
+        <ellipse cx="556" cy="62" rx="32" ry="14"/>
+      </g>
+      <!-- Birds (moving #3) -->
+      <path d="M366 96 q8 -10 16 0 q8 -10 16 0" fill="none" stroke="#475569" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M408 118 q6 -8 12 0 q6 -8 12 0" fill="none" stroke="#475569" stroke-width="2.2" stroke-linecap="round"/>
+      <!-- Distant Hills -->
+      <path d="M0 326 Q180 232 390 304 T920 282 L920 518 L0 518 Z" fill="#b7dec0"/>
+      <path d="M0 364 Q260 294 560 348 T920 322 L920 518 L0 518 Z" fill="#90cb9f"/>
+    </g>
+
+    <!-- MG Plane: Ground, Eco House with Turbine + Solar + Smoke + Clothesline + Diegetic Sign + Character -->
+    <g id="layer-mg">
+      <!-- Ground plane -->
+      <rect x="0" y="388" width="920" height="130" fill="#72b583"/>
+      <line x1="0" y1="388" x2="920" y2="388" stroke="#166534" stroke-width="2" stroke-dasharray="8 6"/>
+
+      <!-- Left House with chimney smoke & solar panel -->
+      <rect x="58" y="218" width="196" height="170" fill="#f4e6cf"/>
+      <rect x="218" y="218" width="36" height="170" fill="#e2d1b5"/>
+      <polygon points="44,218 156,144 268,218" fill="#d96b4b"/>
+      <!-- Chimney & drift() smoke -->
+      <rect x="196" y="138" width="24" height="44" fill="#b45338"/>
+      <circle cx="208" cy="116" r="12" fill="#ffffff" opacity="0.72"/>
+      <circle cx="220" cy="94" r="15" fill="#ffffff" opacity="0.52"/>
+      <circle cx="236" cy="72" r="18" fill="#ffffff" opacity="0.32"/>
+      <!-- Solar panel on roof -->
+      <polygon points="94,196 154,158 190,180 130,218" fill="#254a5c"/>
+      <line x1="112" y1="184" x2="148" y2="206" stroke="#93c5fd" stroke-width="2"/>
+      <line x1="132" y1="172" x2="168" y2="194" stroke="#93c5fd" stroke-width="2"/>
+      <!-- Door & glowing window -->
+      <rect x="92" y="302" width="44" height="86" rx="4" fill="#8b5a3c"/>
+      <rect x="162" y="256" width="46" height="44" rx="4" fill="#fde047"/>
+      <line x1="185" y1="256" x2="185" y2="300" stroke="#92400e" stroke-width="2"/>
+      <line x1="162" y1="278" x2="208" y2="278" stroke="#92400e" stroke-width="2"/>
+
+      <!-- Pipe with flowAlong() energy dots -->
+      <path d="M254 344 L610 344 L610 318" fill="none" stroke="#334155" stroke-width="10" stroke-linecap="round"/>
+      <circle cx="304" cy="344" r="4.5" fill="#facc15"/>
+      <circle cx="384" cy="344" r="4.5" fill="#facc15"/>
+      <circle cx="464" cy="344" r="4.5" fill="#facc15"/>
+      <circle cx="544" cy="344" r="4.5" fill="#facc15"/>
+
+      <!-- Right Diegetic Station + Spinning Turbine + Hanging Flags -->
+      <rect x="610" y="218" width="234" height="170" rx="6" fill="#2d5b70"/>
+      <rect x="798" y="218" width="46" height="170" rx="4" fill="#23495a"/>
+      <!-- Diegetic Sign (ONLY text allowed) -->
+      <rect x="634" y="182" width="186" height="42" rx="6" fill="#1e293b"/>
+      <text x="727" y="209" text-anchor="middle" font-family="system-ui" font-size="18" font-weight="800" fill="#facc15">GARDU ENERGI</text>
+      <!-- Gauge + Spinning Fan -->
+      <circle cx="672" cy="284" r="28" fill="#f8fafc"/>
+      <line x1="672" y1="284" x2="690" y2="268" stroke="#dc2626" stroke-width="3.5" stroke-linecap="round"/>
+      <circle cx="754" cy="284" r="28" fill="#1e293b"/>
+      <g stroke="#38bdf8" stroke-width="5" stroke-linecap="round">
+        <line x1="754" y1="262" x2="754" y2="306"/>
+        <line x1="732" y1="284" x2="776" y2="284"/>
+      </g>
+      <!-- Status LEDs -->
+      <circle cx="654" cy="346" r="6" fill="#22c55e"/>
+      <circle cx="676" cy="346" r="6" fill="#22c55e"/>
+      <circle cx="698" cy="346" r="6" fill="#facc15"/>
+      <circle cx="720" cy="346" r="6" fill="#ef4444"/>
+
+      <!-- Swaying Tree -->
+      <rect x="868" y="302" width="14" height="86" fill="#7c4a2d"/>
+      <circle cx="875" cy="284" r="34" fill="#3fa34d"/>
+      <circle cx="854" cy="296" r="22" fill="#4eb85c"/>
+
+      <!-- Grounded Character (1/3 left, facing right -> Lead Room right) -->
+      <g id="hero-rig" transform="translate(366, 404)">
+        <!-- Ground contact shadow ch.sdJ -->
+        <ellipse cx="0" cy="0" rx="44" ry="10" fill="#0f172a" opacity="0.18"/>
+        <!-- Legs firmly on y=0 -->
+        <rect x="-20" y="-76" width="16" height="72" rx="7" fill="#1d3557"/>
+        <rect x="6" y="-76" width="16" height="72" rx="7" fill="#1d3557"/>
+        <ellipse cx="-10" cy="-4" rx="14" ry="6" fill="#1e293b"/>
+        <ellipse cx="18" cy="-4" rx="14" ry="6" fill="#1e293b"/>
+        <!-- Torso connected solidly -->
+        <rect x="-28" y="-160" width="56" height="90" rx="16" fill="#2f6fd6"/>
+        <!-- Back arm pointing to right (RhandSlot) -->
+        <path d="M22 -140 L74 -156" stroke="#255bb5" stroke-width="15" stroke-linecap="round"/>
+        <circle cx="78" cy="-157" r="9" fill="#f7c8a0"/>
+        <!-- Front arm -->
+        <path d="M-22 -136 L-36 -94" stroke="#3b82f6" stroke-width="15" stroke-linecap="round"/>
+        <circle cx="-38" cy="-90" r="9" fill="#f7c8a0"/>
+        <!-- Neck solidly bridging torso & head -->
+        <rect x="-10" y="-176" width="20" height="22" rx="6" fill="#e5b38a"/>
+        <!-- Head -->
+        <circle cx="0" cy="-204" r="34" fill="#f7c8a0"/>
+        <path d="M-34 -208 Q-20 -248 24 -236 Q38 -226 32 -204 Z" fill="#1e293b"/>
+        <circle cx="12" cy="-202" r="4" fill="#0f172a"/>
+        <circle cx="24" cy="-202" r="4" fill="#0f172a"/>
+        <path d="M10 -186 Q18 -178 26 -186" fill="none" stroke="#9a3412" stroke-width="3" stroke-linecap="round"/>
+      </g>
+    </g>
+
+    <!-- FG Plane: Soft foreground bushes at bottom corners -->
+    <g id="layer-fg" fill="#2d6a4f">
+      <circle cx="16" cy="516" r="42"/>
+      <circle cx="62" cy="524" r="30"/>
+      <circle cx="906" cy="518" r="44"/>
+    </g>
+
+    <!-- Technical Overlay Annotations -->
+    <g id="stage-annotations">
+      <!-- Zoom crop frame indicator -->
+      <rect x="40" y="28" width="840" height="462" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="10 6"/>
+      <rect x="52" y="38" width="228" height="24" rx="4" fill="#f59e0b"/>
+      <text x="166" y="54" text-anchor="middle" class="tag">ZOOM WAJIB 1.08×–1.95× (ANTI-WIDE)</text>
+
+      <!-- Callout: Ground plane -->
+      <rect x="276" y="422" width="194" height="24" rx="4" fill="#0f172a" stroke="#22c55e"/>
+      <text x="373" y="438" text-anchor="middle" class="mono">y = 0 + ch.sdJ (kontak tanah)</text>
+
+      <!-- Callout: Diegetic text -->
+      <rect x="614" y="138" width="224" height="24" rx="4" fill="#0f172a" stroke="#facc15"/>
+      <text x="726" y="154" text-anchor="middle" class="mono">TEKS DIEGETIK SAJA (≥ 34 px)</text>
+      <line x1="726" y1="162" x2="726" y2="180" class="callout-line"/>
+
+      <!-- Callout: Lead Room -->
+      <line x1="454" y1="246" x2="594" y2="246" stroke="#0f172a" stroke-width="2" stroke-dasharray="5 4"/>
+      <rect x="462" y="218" width="128" height="22" rx="4" fill="#0f172a"/>
+      <text x="526" y="233" text-anchor="middle" class="mono">LEAD ROOM →</text>
+    </g>
+  </g>
+
+  <!-- Right Spec Sidebar: 10+ Moving Elements Checklist -->
+  <g id="sidebar-specs" transform="translate(976, 80)">
+    <rect width="268" height="518" rx="12" fill="#162033" stroke="#2b3a55" stroke-width="1.5"/>
+    <text x="18" y="30" class="lbl" fill="#38bdf8">HUKUM ≥10 BENDA BERGERAK</text>
+    <text x="18" y="48" class="note">Contoh elemen hidup di 1 panggung:</text>
+
+    <g transform="translate(18, 68)" class="note">
+      <text y="0">1. Awan melintas (BG parallax)</text>
+      <text y="22">2. Sinar matahari berdenyut halus</text>
+      <text y="44">3. Burung terbang melintasi langit</text>
+      <text y="66">4. Asap cerobong naik via drift()</text>
+      <text y="88">5. Panel surya berkilau siklis</text>
+      <text y="110">6. Titik elektron via flowAlong()</text>
+      <text y="132">7. Jarum meter gardu naik-turun</text>
+      <text y="154">8. Kipas gardu berputar via spin()</text>
+      <text y="176">9. LED indikator berkedip deterministik</text>
+      <text y="198">10. Daun pohon bergoyang via sway()</text>
+      <text y="220">11. Tokoh idle() + point() + kedip</text>
+      <text y="242">12. Bayangan kaki ch.sdJ ikut gerak</text>
+    </g>
+
+    <line x1="18" y1="332" x2="250" y2="332" stroke="#334155"/>
+    <text x="18" y="356" class="lbl" fill="#f59e0b">3 BIDANG KEDALAMAN</text>
+    <text x="18" y="378" class="note">• BG: Langit &amp; bukit pucat (kontras rendah)</text>
+    <text x="18" y="398" class="note">• MG: Tokoh, bangunan, pipa, teks diegetik</text>
+    <text x="18" y="418" class="note">• FG: Semak/bingkai tepi kontras lembut</text>
+
+    <line x1="18" y1="436" x2="250" y2="436" stroke="#334155"/>
+    <text x="18" y="460" class="lbl" fill="#22c55e">CEK ATURAN KERAS</text>
+    <text x="18" y="480" class="note">• Nol tekstur kertas / grain / vignette</text>
+    <text x="18" y="498" class="note">• Nol caption overlay di seluruh durasi</text>
+  </g>
+
+  <!-- Footer bar -->
+  <rect x="36" y="616" width="1208" height="72" rx="10" fill="#162033" stroke="#2b3a55"/>
+  <text x="56" y="642" class="lbl" fill="#38bdf8">PRINSIP ANTI-COPY:</text>
+  <text x="200" y="642" class="note">Jangan menyalin rumah/gardu energi di atas. Ekstrak strukturnya: 3 lapis kedalaman + tokoh di 1/3 layar menghadap aksi + teks diegetik ≥34 px + ≥10 gerak.</text>
+  <text x="56" y="666" class="mono">Transisi antar panggung: cut() langsung (65–75%) atau slide('x', 96) / slide('y', 72) dengan blur ≤ 10 px (25–35%).</text>
+</svg>

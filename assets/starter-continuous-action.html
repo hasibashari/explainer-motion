@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="id">
+<!-- Dibuat dengan Bang Motion Skill v2.1.0 oleh Bang Tutorial (https://youtube.com/bangtutorial) · MIT -->
+<head>
+<meta charset="utf-8">
+<title>Bang Motion — Starter Continuous Action (Aksi Kontinu)</title>
+<!--
+  GAYA 2: CONTINUOUS ACTION / AKSI KONTINU (baca: references/continuous-action.md, visuals/continuous-viewpoints-continuity.svg, & visuals/shared-scale-perspective.svg).
+  CARA PAKAI OLEH AI AGENT (LANGKAH 4):
+    - Salin berkas ini sebagai fondasi index.html output user.
+    - PERTAHANKAN 100% blok [ENGINE] dan [RUNTIME & QC HUD].
+    - GANTI 100% blok [CONTOH PLACEHOLDER] (SUBJECT, VK, PAL, hero SVG, wobj, rute peta, timeline) dengan topik user.
+  ATURAN INTI:
+    - 100% murni vektor SVG yang mengalir deterministik dari profil kecepatan VK → jarak D(t).
+    - Setiap sudut pandang (#side, #cabin, #map) mengisi 100% layar penuh lewat whip() — NOL dashboard inset!
+    - Angka besar di #side berdiri di lapisan #deepObjs (di belakang subjek) agar tersapu keluar.
+    - Arah layar konsisten kiri → kanan di #side dan #map; dunia tetap mengalir (~35–45%) saat angka dibaca.
+    - Skala 1 H & parallax berbasis jarak: faktor strip() berjenjang (0.16 → 0.36 → 0.64 → 0.95 → 1.40) + perspektif 1-titik di #cabin.
+  Autoplay + loop TANPA player; ?debug=1 panel scrub + QC HUD; ?clean=1 tahan di frame 0; suara: isi src #vo.
+-->
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{--sky:#cfe2f7;--far:#9bb7de;--hill:#88b878;--hill2:#6da365;--field:#c8df96;--ink:#162542;--accent:#e63946;--accent2:#f59e0b}
+html,body{margin:0;height:100%;background:#0a0f1e;overflow:hidden}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;overflow:hidden;background:var(--sky);
+  font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink)}
+#stage svg{position:absolute;inset:0;width:1920px;height:1080px;overflow:visible}
+.view{position:absolute;inset:0;will-change:transform,opacity,filter}
+.big{font-family:'Unbounded',sans-serif;font-weight:900;font-variant-numeric:tabular-nums}
+#ui{position:absolute;inset:0;pointer-events:none}
+.top{position:absolute;left:0;right:0;top:72px;text-align:center;opacity:0}
+.kick{font-weight:800;font-size:44px;letter-spacing:.18em}
+#vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(92% 92% at 50% 50%,transparent 62%,rgba(10,15,30,.24))}
+#safeGuide{position:absolute;inset:0;pointer-events:none;display:none;z-index:45}
+#safeGuide::before{content:'SAFE AREA 9:16 (78%)';position:absolute;left:11%;right:11%;top:11%;bottom:11%;border:3px dashed rgba(255,212,0,.85);color:#ffd400;font:700 22px system-ui;padding:8px 12px;background:rgba(255,212,0,.04)}
+#dbg{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);display:none;gap:10px;align-items:center;padding:9px 14px;border-radius:12px;background:rgba(14,16,22,.92);border:1px solid rgba(255,255,255,.12);color:#d7deec;font:12.5px system-ui;z-index:50;white-space:nowrap}
+#dbg input{width:300px}#dbg span{font-variant-numeric:tabular-nums}
+#dbg button{background:#232b3d;color:#eef2fa;border:1px solid #39455f;border-radius:6px;padding:4px 9px;font:inherit;cursor:pointer}
+#dbg button:hover{border-color:#5ea0ff}
+.badge{padding:3px 7px;border-radius:6px;background:#1f283a;font-weight:600}
+.badge.ok{background:#153827;color:#6ee7b7}.badge.warn{background:#4c1d24;color:#fca5a5}
+</style>
+</head>
+<body>
+<div id="stage">
+  <!-- VIEW 1: Samping penuh — parallax 3 lapis + angka di #deepObjs belakang hero + tiang FG -->
+  <div id="side" class="view" data-view="side"><svg viewBox="0 0 1920 1080"><g id="sideCam">
+    <rect x="-300" y="-300" width="2520" height="1680" fill="var(--sky)"/>
+    <g id="far"></g><g id="hills"></g><g id="ground"></g><g id="deepObjs"></g>
+    <g id="viaduct"></g>
+    <g id="hero"></g><g id="speedLines"></g><g id="frontObjs"></g>
+  </g></svg></div>
+
+  <!-- VIEW 2: Kabin penuh — kaca depan panoramik + konsol speedometer hidup -->
+  <div id="cabin" class="view" data-view="cabin" style="opacity:0;visibility:hidden"><svg viewBox="0 0 1920 1080">
+    <rect width="1920" height="1080" fill="#0f182b"/>
+    <path d="M120 590 L210 92 Q960 44 1710 92 L1800 590 Z" fill="var(--sky)"/>
+    <g id="cabinTrack"></g>
+    <!-- Bingkai pilar kokpit -->
+    <path d="M0 0 H1920 V1080 H0 Z M120 590 L210 92 Q960 44 1710 92 L1800 590 Z" fill="#142038" fill-rule="evenodd"/>
+    <rect x="0" y="578" width="1920" height="502" fill="#182745"/>
+    <rect x="96" y="616" width="1728" height="424" rx="30" fill="#101a30" stroke="#2d436e" stroke-width="6"/>
+    <!-- Panel daya kiri -->
+    <g transform="translate(220 710)">
+      <text x="0" y="0" fill="#8ea4cf" font-size="32" font-weight="800" letter-spacing="4">TENAGA</text>
+      <rect x="0" y="34" width="320" height="32" rx="16" fill="#1f3054"/>
+      <rect id="pwrBar" x="0" y="34" width="180" height="32" rx="16" fill="#22c55e"/>
+      <text x="0" y="132" fill="#8ea4cf" font-size="32" font-weight="800" letter-spacing="4">JALUR</text>
+      <text x="0" y="186" fill="#f8fafc" font-size="44" font-weight="800">EKSPRES 01</text>
+    </g>
+    <!-- Speedometer tengah -->
+    <g id="gauge" transform="translate(960 896)">
+      <path d="M -250 0 A 250 250 0 0 1 250 0" fill="none" stroke="#24385e" stroke-width="28" stroke-linecap="round"/>
+      <path id="gaugeArc" d="M -250 0 A 250 250 0 0 1 250 0" fill="none" stroke="var(--accent)" stroke-width="28" stroke-linecap="round"/>
+      <g id="gaugeTicks"></g>
+      <g id="needle"><line x1="0" y1="0" x2="-206" y2="0" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/><circle r="22" fill="var(--accent)"/><circle r="9" fill="#ffffff"/></g>
+      <text id="spdVal" x="0" y="-44" text-anchor="middle" fill="#ffffff" font-size="116" class="big">0</text>
+      <text x="0" y="54" text-anchor="middle" fill="#9fb2d8" font-size="36" font-weight="800" letter-spacing="6">KM / JAM</text>
+    </g>
+    <!-- Panel status kanan -->
+    <g transform="translate(1380 710)">
+      <text x="0" y="0" fill="#8ea4cf" font-size="32" font-weight="800" letter-spacing="4">STABILITAS</text>
+      <text x="0" y="64" fill="#38bdf8" font-size="54" class="big">99.4%</text>
+      <text x="0" y="132" fill="#8ea4cf" font-size="32" font-weight="800" letter-spacing="4">ARAH</text>
+      <text x="0" y="186" fill="#f59e0b" font-size="44" font-weight="800">TIMUR →</text>
+    </g>
+  </svg></div>
+
+  <!-- VIEW 3: Peta simulasi rute penuh (kiri → kanan) -->
+  <div id="map" class="view" data-view="map" style="opacity:0;visibility:hidden"><svg viewBox="0 0 1920 1080"><g id="mapCam">
+    <rect x="-1500" y="-1500" width="5000" height="4000" fill="#b4d6ef"/>
+    <g id="mapArt"></g>
+  </g></svg></div>
+
+  <div id="vig"></div>
+  <div id="ui">
+    <div class="top" id="numA">
+      <div class="kick">JARAK TEMPUH</div>
+      <div class="big" style="font-size:196px;color:var(--accent);line-height:1.05"><span id="odoDist">0</span><span style="font-size:90px;color:var(--ink)"> km</span></div>
+    </div>
+  </div>
+  <div id="safeGuide"></div>
+  <div id="dbg">
+    <button id="dPlay" type="button">Jeda</button>
+    <input id="dScrub" type="range" min="0" max="1000" value="0">
+    <span id="dClock">0.00s</span>
+    <span class="badge ok" id="dInfo">side</span>
+    <button id="dSafe" type="button">Safe</button>
+    <button id="dAudit" type="button">Audit</button>
+    <span class="badge" id="dRes" style="display:none"></span>
+  </div>
+</div>
+<audio id="vo" src="" preload="auto"></audio>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+/* ============================================================================
+   [ENGINE — PERTAHANKAN 100%]
+   Helper SVG, integrator jarak D(t), strip parallax, wobj, whip(), odometer().
+   ============================================================================ */
+const W=1920,H=1080,$=s=>document.querySelector(s),NS='http://www.w3.org/2000/svg';
+function S(tag,attrs={},parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+const T=(txt,x,y,attrs,parent)=>{const e=S('text',{x,y,...attrs},parent);e.textContent=txt;return e;};
+const mod=(a,n)=>((a%n)+n)%n,smooth=x=>x<=0?0:x>=1?1:x*x*(3-2*x);
+function fit(){const s=Math.min(innerWidth/W,innerHeight/H);$('#stage').style.transform=`translate(-50%,-50%) scale(${s})`;}
+addEventListener('resize',fit);fit();
+
+const strips=[],objs=[],P=2400;
+function strip(parent,f,draw){const g=S('g',{},parent);for(let c=0;c<2;c++)draw(S('g',{transform:`translate(${c*P} 0)`},g));strips.push({el:g,f});}
+function wobj(parent,f,x0,t0,w,t1=1e9){const g=S('g',{visibility:'hidden'},parent);objs.push({el:g,f,x0,t0,w,t1,d0:D(t0)});return g;}
+
+/* ============================================================================
+   [CONTOH PLACEHOLDER — GANTI 100% DENGAN SUBJEK, VK, PETA, & KOREOGRAFI USER]
+   ============================================================================ */
+const DUR=22;
+const SUBJECT={body:'#f8fafc',shade:'#dce4f0',ink:'#162542',accent:'#e63946',glass:'#2563eb',wheel:'#d8dee9'};
+const VK=[[0,560],[1.6,960],[4.2,440],[6.4,440],[7.8,1140],[16.0,940],[19.5,420],[DUR+1,420]];
+const vAt=t=>{for(let i=1;i<VK.length;i++){if(t<=VK[i][0]){const [t0,v0]=VK[i-1],[t1,v1]=VK[i];return v0+(v1-v0)*(t-t0)/(t1-t0);}}return 0;};
+const DT=1/240,DA=[0];for(let i=1;i<=(DUR+1)/DT;i++)DA[i]=DA[i-1]+vAt(i*DT)*DT;
+const D=t=>{const i=Math.max(0,Math.min(DA.length-2,t/DT)),k=Math.floor(i);return DA[k]+(DA[k+1]-DA[k])*(i-k);};
+
+const PAL=[[0,[207,226,247]],[7.2,[207,226,247]],[10.2,[248,220,188]],[14.5,[207,226,247]],[DUR+1,[207,226,247]]];
+function paletteAt(t){
+  for(let i=1;i<PAL.length;i++){if(t<=PAL[i][0]){const [t0,a]=PAL[i-1],[t1,b]=PAL[i],u=smooth((t-t0)/(t1-t0));
+    const rgb=a.map((v,k)=>Math.round(v+(b[k]-v)*u));document.documentElement.style.setProperty('--sky',`rgb(${rgb[0]},${rgb[1]},${rgb[2]})`);return;}}
+}
+
+/* Strip dunia parallax berbasis jarak (shared-scale-perspective.svg):
+   Gunung jauh 0.16 → Bukit 0.36 → Padang 0.64 → Viaduk/jalur subjek 0.95 → Tiang FG 1.40.
+   Kalibrasi 1 H: bodi kereta ~148 px (≈2,2 H pada wide tracking shot) vs pilar viaduk & tiang listrik proporsional. */
+strip($('#far'),.16,g=>{
+  S('path',{d:'M0 640 L0 510 L220 390 L430 490 L680 350 L920 480 L1180 380 L1440 495 L1720 360 L1980 485 L2220 410 L2400 510 L2400 640 Z',fill:'var(--far)'},g);
+  // Puncak salju tipis
+  [220,680,1180,1720].forEach((x,i)=>{const y=[390,350,380,360][i];S('polygon',{points:`${x},${y} ${x-52},${y+42} ${x+48},${y+42}`,fill:'#ffffff',opacity:.55},g);});
+});
+strip($('#hills'),.36,g=>{
+  S('path',{d:'M0 700 L0 612 C280 555 520 658 820 598 C1120 540 1380 652 1680 594 C1960 542 2200 644 2400 612 L2400 700 Z',fill:'var(--hill2)'},g);
+  for(let i=0;i<8;i++){const x=140+i*300;S('polygon',{points:`${x},590 ${x-18},640 ${x+18},640`,fill:'#4d8350'},g);}
+});
+strip($('#ground'),.64,g=>{
+  S('rect',{x:0,y:736,width:2400,height:420,fill:'var(--field)'},g);
+  for(let i=0;i<12;i++)S('rect',{x:i*200,y:860+(i%3)*40,width:160,height:32,rx:10,fill:'var(--hill)',opacity:.55},g);
+});
+strip($('#viaduct'),.95,g=>{
+  S('rect',{x:0,y:696,width:2400,height:44,fill:'#cbd5e1'},g);
+  S('rect',{x:0,y:696,width:2400,height:10,fill:'#475569'},g);
+  for(let i=0;i<6;i++){const x=i*400;S('rect',{x:x+160,y:740,width:48,height:360,fill:'#94a3b8'},g);S('rect',{x:x+196,y:740,width:12,height:360,fill:'#7b8da6'},g);}
+});
+strip($('#frontObjs'),1.4,g=>{
+  for(let i=0;i<3;i++){const x=i*800+260;S('rect',{x,y:210,width:14,height:530,fill:'#1e293b',opacity:.22},g);S('rect',{x:x-36,y:230,width:86,height:8,fill:'#1e293b',opacity:.22},g);}
+});
+
+/* Garis kecepatan deterministik */
+const sLines=[];
+for(let i=0;i<10;i++){const y=200+(i*79)%460,w=140+(i*53)%180;sLines.push({el:S('rect',{x:0,y,width:w,height:4,rx:2,fill:'#ffffff',opacity:.45},$('#speedLines')),seed:i*270,spd:1.5+(i%3)*.25});}
+
+/* Hero Kereta Peluru Aerodinamis (moncong kanan di x=0, roda menyentuh y=0) */
+const hero=S('g',{},$('#hero'));
+// Pantograf atap
+S('path',{d:'M-640 -144 L-605 -176 L-555 -176 L-580 -144 M-625 -178 L-535 -178',fill:'none',stroke:SUBJECT.ink,'stroke-width':6,'stroke-linecap':'round'},hero);
+// Bodi utama aerodinamis + bayangan bawah
+S('path',{d:'M-920 -24 L-920 -132 Q-920 -148 -900 -148 L-156 -148 Q-36 -148 36 -74 Q52 -56 38 -36 Q28 -24 -12 -24 Z',fill:SUBJECT.body,stroke:SUBJECT.ink,'stroke-width':6},hero);
+S('path',{d:'M-916 -44 L36 -44 Q28 -26 -12 -26 L-916 -26 Z',fill:SUBJECT.shade},hero);
+// Garis pita aksen subjek (Subject Visual Anchor #1)
+S('path',{d:'M-916 -84 L12 -84 L28 -68 L-916 -68 Z',fill:SUBJECT.accent},hero);
+// Kaca kokpit + deret jendela penumpang
+S('path',{d:'M-148 -134 L-52 -134 Q-16 -134 2 -102 L-148 -102 Z',fill:SUBJECT.glass,stroke:SUBJECT.ink,'stroke-width':4},hero);
+S('line',{x1:-108,y1:-128,x2:-88,y2:-108,stroke:'#93c5fd','stroke-width':6,'stroke-linecap':'round'},hero);
+for(let i=0;i<8;i++){S('rect',{x:-868+i*88,y:-128,width:58,height:28,rx:7,fill:SUBJECT.ink},hero);S('rect',{x:-862+i*88,y:-124,width:20,height:8,rx:3,fill:'#60a5fa',opacity:.6},hero);}
+// Lampu depan menyala
+S('ellipse',{cx:12,cy:-54,rx:12,ry:6,fill:'#fde047'},hero);
+// Roda berputar deterministik
+const wheels=[];[-810,-650,-280,-120].forEach(x=>{const w=S('g',{transform:`translate(${x} -16)`},hero);
+  S('circle',{r:18,fill:SUBJECT.wheel,stroke:SUBJECT.ink,'stroke-width':5},w);
+  S('rect',{x:-2.5,y:-14,width:5,height:28,fill:SUBJECT.ink},w);S('rect',{x:-14,y:-2.5,width:28,height:5,fill:SUBJECT.ink},w);wheels.push(w);});
+const HX=1400,HY=700;
+
+/* Angka panggung di #deepObjs (parallax 0.80, DI BELAKANG hero) */
+{const g=wobj($('#deepObjs'),.8,W+80,2.0,1200,9);
+  T('350',0,490,{class:'big','font-size':400,fill:'var(--ink)','letter-spacing':'-.04em',opacity:.9},g);
+  T('km/jam',840,486,{'font-size':92,'font-weight':800,fill:'var(--accent)'},g);}
+
+/* VIEW 2: Kabin — lintasan perspektif & skala speedometer */
+const cabinTrack=$('#cabinTrack'),gaugeArc=$('#gaugeArc'),needle=$('#needle'),spdVal=$('#spdVal'),pwrBar=$('#pwrBar');
+const GL=gaugeArc.getTotalLength();gaugeArc.setAttribute('stroke-dasharray',GL);
+for(let i=0;i<=8;i++){const a=(-180+i*22.5)*Math.PI/180,x1=Math.cos(a)*206,y1=Math.sin(a)*206,x2=Math.cos(a)*230,y2=Math.sin(a)*230;
+  S('line',{x1,y1,x2,y2,stroke:'#64748b','stroke-width':5,'stroke-linecap':'round'},$('#gaugeTicks'));}
+S('path',{d:'M120 350 Q480 260 960 326 T1800 300 L1800 590 L120 590 Z',fill:'#9bb7de'},cabinTrack);
+S('polygon',{points:'960,318 1820,590 100,590',fill:'#7c93b3'},cabinTrack);
+S('polygon',{points:'960,318 1340,590 580,590',fill:'#2b3b5c'},cabinTrack);
+const ties=[];for(let i=0;i<8;i++)ties.push(S('line',{stroke:'#e2e8f0','stroke-width':8,'stroke-linecap':'round'},cabinTrack));
+function renderCabin(t,d){
+  const kmh=Math.round((vAt(t)/1140)*350),frac=Math.min(1,kmh/380);
+  gaugeArc.setAttribute('stroke-dashoffset',GL*(1-frac));
+  needle.setAttribute('transform',`rotate(${(frac*180).toFixed(1)})`);
+  spdVal.textContent=String(kmh);
+  pwrBar.setAttribute('width',String(Math.round(320*frac)));
+  ties.forEach((ln,i)=>{const q=mod((d*.00125)+i/ties.length,1),p=q*q,y=324+p*264,hw=16+p*356;
+    ln.setAttribute('x1',960-hw);ln.setAttribute('x2',960+hw);ln.setAttribute('y1',y);ln.setAttribute('y2',y);ln.setAttribute('opacity',(p*.88).toFixed(2));});
+}
+
+/* VIEW 3: Peta topografis kiri → kanan */
+const mapArt=$('#mapArt'),mapCam=$('#mapCam');
+for(let x=-1200;x<3200;x+=220)S('line',{x1:x,y1:-1200,x2:x,y2:2400,stroke:'#93c5e6','stroke-width':2},mapArt);
+for(let y=-1200;y<2400;y+=220)S('line',{x1:-1200,y1:y,x2:3200,y2:y,stroke:'#93c5e6','stroke-width':2},mapArt);
+S('path',{d:'M-1500 680 C-420 520 320 340 880 180 C1340 50 1840 -70 3500 -200 L3500 2500 L-1500 2500 Z',fill:'#eee7d3',stroke:'#d5cab0','stroke-width':12},mapArt);
+S('path',{d:'M-900 940 C-100 840 420 620 1120 480 C1580 380 2020 360 2800 280 L2800 2500 L-900 2500 Z',fill:'#e4dbc2'},mapArt);
+const ROUTE='M420 420 C720 430 1060 560 1280 680 C1390 740 1500 770 1620 778';
+S('path',{d:ROUTE,fill:'none',stroke:'rgba(22,37,66,.16)','stroke-width':20,'stroke-linecap':'round'},mapArt);
+const routeEl=S('path',{d:ROUTE,fill:'none',stroke:'var(--accent)','stroke-width':11,'stroke-linecap':'round'},mapArt);
+const RL=routeEl.getTotalLength();routeEl.setAttribute('stroke-dasharray',RL);
+const stops=[{f:0,lbl:'STASIUN A'},{f:.52,lbl:'HUB TENGAH'},{f:1,lbl:'TUJUAN B'}].map(st=>{
+  const pt=routeEl.getPointAtLength(RL*st.f),g=S('g',{transform:`translate(${pt.x} ${pt.y})`},mapArt);
+  const dot=S('g',{},g);S('circle',{r:26,fill:'var(--accent)',opacity:.18},dot);
+  S('circle',{r:15,fill:'#ffffff',stroke:'var(--ink)','stroke-width':6},dot);
+  T(st.lbl,0,-34,{'text-anchor':'middle','font-size':34,'font-weight':800,fill:'var(--ink)'},dot);
+  return {f:st.f,dot};
+});
+const marker=S('g',{},mapArt);S('polygon',{points:'26,0 -16,-15 -8,0 -16,15',fill:'var(--accent)',stroke:'#ffffff','stroke-width':4},marker);
+const MAP_T0=13.4;
+function renderMap(t){
+  const q=smooth((t-MAP_T0)/3.2),e=smooth((t-MAP_T0)/3.4);
+  routeEl.setAttribute('stroke-dashoffset',RL*(1-q));
+  const pt=routeEl.getPointAtLength(RL*q),pt2=routeEl.getPointAtLength(Math.min(RL,RL*q+4));
+  const ang=Math.atan2(pt2.y-pt.y,pt2.x-pt.x)*57.2958;
+  marker.setAttribute('transform',`translate(${pt.x.toFixed(1)} ${pt.y.toFixed(1)}) rotate(${ang.toFixed(1)})`);
+  stops.forEach(st=>{const sc=smooth((q-st.f+.04)/.08);st.dot.setAttribute('transform',`scale(${sc.toFixed(3)})`);});
+  const cx=pt.x+(1000-pt.x)*e,cy=pt.y+(560-pt.y)*e,z=2.25+(1-2.25)*e;
+  mapCam.setAttribute('transform',`translate(960 540) scale(${z.toFixed(4)}) translate(${-cx.toFixed(1)} ${-cy.toFixed(1)})`);
+}
+
+const CAMK=[[0,1,960,540],[2.2,1.07,900,480],[6.4,1,960,540],[DUR+1,1,960,540]];
+function camAt(t){for(let i=1;i<CAMK.length;i++){if(t<=CAMK[i][0]){const A=CAMK[i-1],B=CAMK[i],u=smooth((t-A[0])/(B[0]-A[0]));return [A[1]+(B[1]-A[1])*u,A[2]+(B[2]-A[2])*u,A[3]+(B[3]-A[3])*u];}}const L=CAMK.at(-1);return [L[1],L[2],L[3]];}
+
+/* Timeline & Transisi whip() */
+const tl=gsap.timeline({paused:true});
+const views=[$('#side'),$('#cabin'),$('#map')],view={side:$('#side'),cabin:$('#cabin'),map:$('#map')};
+tl.set(view.side,{autoAlpha:1,y:0,filter:'blur(0px)'},0);
+tl.set([view.cabin,view.map],{autoAlpha:0},0);
+function whip(t,from,to,dir=1){
+  tl.to(from,{y:-120*dir,filter:'blur(18px)',duration:.28,ease:'power2.in'},t);
+  tl.set(from,{autoAlpha:0,y:0,filter:'none'},t+.28);
+  tl.fromTo(to,{autoAlpha:1,y:120*dir,filter:'blur(18px)'},{autoAlpha:1,y:0,filter:'blur(0px)',duration:.36,ease:'power3.out',immediateRender:false},t+.28);
+}
+function odometer(sel,at,fromVal,toVal,dur=1.2){
+  const el=$(sel),o={v:fromVal};
+  tl.fromTo(o,{v:fromVal},{v:toVal,duration:dur,ease:'power2.out',immediateRender:false,onUpdate(){el.textContent=String(Math.round(o.v));}},at);
+}
+const fadeUp=(t,sel)=>tl.fromTo(sel,{opacity:0,y:30,filter:'blur(6px)'},{opacity:1,y:0,filter:'blur(0px)',duration:.5,ease:'power3.out',immediateRender:false},t);
+const fadeOut=(t,sel)=>tl.to(sel,{opacity:0,y:-30,filter:'blur(8px)',duration:.35,ease:'power2.in'},t);
+
+whip(7.4,view.side,view.cabin,1);
+whip(13.0,view.cabin,view.map,1);
+fadeUp(16.9,'#numA');odometer('#odoDist',16.9,0,142,1.1);fadeOut(19.2,'#numA');
+whip(19.5,view.map,view.side,-1);
+tl.to({},{duration:.01},DUR);
+
+/* ============================================================================
+   [RUNTIME & QC HUD — PERTAHANKAN 100%]
+   ============================================================================ */
+function render(){
+  const t=tl.time(),d=D(t);
+  paletteAt(t);
+  for(const s of strips)gsap.set(s.el,{x:-mod(d*s.f,P)});
+  for(const sl of sLines){const x=W-mod(d*sl.spd+sl.seed,W+400);sl.el.setAttribute('x',x.toFixed(1));}
+  for(const o of objs){
+    if(t<o.t0||t>o.t1){o.el.setAttribute('visibility','hidden');continue;}
+    const x=o.x0-(d-o.d0)*o.f;
+    if(x+o.w<-100||x>W+240){o.el.setAttribute('visibility','hidden');continue;}
+    o.el.removeAttribute('visibility');gsap.set(o.el,{x});
+  }
+  hero.setAttribute('transform',`translate(${HX} ${(HY+Math.sin(t*9)*2.4).toFixed(2)}) rotate(${(Math.sin(t*3.1)*.25).toFixed(2)})`);
+  const rot=(d/18)*57.3;
+  wheels.forEach(w=>{if(!w.__b)w.__b=w.getAttribute('transform');w.setAttribute('transform',`${w.__b} rotate(${(rot%360).toFixed(1)})`);});
+  const [z,cx,cy]=camAt(t);
+  $('#sideCam').setAttribute('transform',`translate(960 540) scale(${(z*(1+Math.sin(t*.9)*.006)).toFixed(4)}) translate(${-cx.toFixed(1)} ${-cy.toFixed(1)})`);
+  renderCabin(t,d);
+  renderMap(t);
+}
+gsap.ticker.add(render);
+
+const q=new URLSearchParams(location.search),vo=$('#vo'),hasVO=!!vo.getAttribute('src');let audioOn=false;
+function activeViewName(){const v=views.find(el=>parseFloat(getComputedStyle(el).opacity)>.2&&getComputedStyle(el).visibility!=='hidden');return v?v.dataset.view:'-';}
+function start(){tl.play(0);if(hasVO){vo.currentTime=0;vo.play().then(()=>audioOn=true).catch(()=>{});}}
+tl.eventCallback('onComplete',()=>start());
+gsap.ticker.add(()=>{if(!audioOn||tl.paused())return;if(Math.abs(vo.currentTime-tl.time())>.12)vo.currentTime=tl.time();});
+
+function runAudit(){
+  const issues=[];
+  $('#stage').querySelectorAll('text, .kick').forEach(el=>{const sz=parseFloat(el.getAttribute('font-size')||getComputedStyle(el).fontSize);
+    if(sz<30)issues.push(`Teks "${el.textContent.trim()}" berukuran ${sz}px (< 30px)`);});
+  const visCount=views.filter(el=>parseFloat(getComputedStyle(el).opacity)>.2&&getComputedStyle(el).visibility!=='hidden').length;
+  if(visCount>1)issues.push(`${visCount} view terlihat bersamaan pada t=${tl.time().toFixed(2)}s`);
+  console.group('[Bang Motion Audit — Continuous Action v2.1]');
+  if(!issues.length)console.log('LOLOS: satu view aktif, semua teks ≥ 30px, aliran D(t) deterministik.');
+  else issues.forEach(m=>console.warn(m));
+  console.groupEnd();
+  return issues;
+}
+window.OPENER={W,H,DURATION:DUR,tl,ready:false,seek(t){tl.pause(t,false);render();},play:start,audit:runAudit};
+
+addEventListener('keydown',e=>{if(/^[rR]$/.test(e.key))start();if(e.code==='Space'){e.preventDefault();tl.paused()?tl.play():tl.pause();}});
+if(q.has('debug')){
+  const dbg=$('#dbg'),sc=$('#dScrub'),ck=$('#dClock'),info=$('#dInfo'),res=$('#dRes'),safe=$('#safeGuide');
+  dbg.style.display='flex';let drag=false;
+  gsap.ticker.add(()=>{
+    if(!drag)sc.value=String(tl.time()/DUR*1000);
+    ck.textContent=tl.time().toFixed(2)+'s';
+    $('#dPlay').textContent=tl.paused()?'Putar':'Jeda';
+    info.textContent=`view: ${activeViewName()} · ${Math.round(vAt(tl.time()))} px/s`;
+  });
+  sc.addEventListener('pointerdown',()=>{drag=true;tl.pause();});
+  addEventListener('pointerup',()=>drag=false);
+  sc.addEventListener('input',()=>{window.OPENER.seek(sc.value/1000*DUR);});
+  $('#dPlay').onclick=()=>tl.paused()?tl.play():tl.pause();
+  $('#dSafe').onclick=()=>{safe.style.display=safe.style.display==='block'?'none':'block';};
+  $('#dAudit').onclick=()=>{const iss=runAudit();res.style.display='inline-block';res.textContent=iss.length?`${iss.length} Peringatan`:'QC Lolos';res.className='badge '+(iss.length?'warn':'ok');};
+}
+document.fonts.ready.then(()=>{
+  window.OPENER.seek(0);window.OPENER.ready=true;
+  if(q.has('clean'))return;
+  if(!hasVO){start();return;}
+  vo.play().then(()=>{audioOn=true;vo.currentTime=0;tl.play(0);}).catch(()=>{
+    const go=()=>{removeEventListener('pointerdown',go);removeEventListener('keydown',go);start();};
+    addEventListener('pointerdown',go);addEventListener('keydown',go);
+  });
+});
+</script>
+</body>
+</html>

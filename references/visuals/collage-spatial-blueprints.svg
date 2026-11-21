@@ -1,0 +1,198 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Cartoon Collage: Spatial World Map, Urutan Akresi 3-5 Elemen, dan Pemisahan .cut vs .cut-body">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .card { fill: #162033; stroke: #2b3a55; stroke-width: 1.5; }
+      .title { font: 700 22px/1.2 system-ui, -apple-system, sans-serif; fill: #f8fafc; }
+      .sub { font: 500 13px/1.3 system-ui, -apple-system, sans-serif; fill: #94a3b8; }
+      .h2 { font: 700 15px/1.2 system-ui, sans-serif; fill: #f1f5f9; }
+      .lbl { font: 700 12px/1.2 system-ui, sans-serif; fill: #f8fafc; }
+      .note { font: 500 11px/1.3 system-ui, sans-serif; fill: #cbd5e1; }
+      .mono { font: 600 11px/1.2 ui-monospace, SFMono-Regular, monospace; fill: #38bdf8; }
+    </style>
+    <filter id="cutShadow" x="-15%" y="-15%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#221e1b" flood-opacity="0.32"/>
+    </filter>
+    <marker id="arr-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 1 L9 5 L0 9 Z" fill="#14b8a6"/>
+    </marker>
+    <marker id="arr-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 1 L9 5 L0 9 Z" fill="#f97316"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1280" height="720"/>
+
+  <!-- Header -->
+  <text x="36" y="40" class="title">CARTOON COLLAGE — SPATIAL WORLD MAP, AKRESI 3–5, &amp; DROP-SHADOW</text>
+  <text x="36" y="60" class="sub">Standar kanonik v2.1 · Dunia kertas krem utuh via sizeWorld(), buffer anti-bocor, urutan home() → +0.1s say(), wrapper .cut / .cut-body</text>
+  <rect x="1030" y="22" width="214" height="32" rx="6" fill="#1e293b" stroke="#22c55e" stroke-width="1.2"/>
+  <text x="1137" y="42" text-anchor="middle" class="mono">ID: VIS-COLL-MAP</text>
+
+  <!-- Panel 1: 2D Spatial World Map Blueprint -->
+  <g id="panel-world-map" transform="translate(36, 80)">
+    <rect class="card" width="664" height="352" rx="12"/>
+    <text x="20" y="28" class="h2">1. Peta Spasial 2D Zig-Zag (dx = 2600 px, dy = 1700 px)</text>
+    <text x="20" y="46" class="note">Panggil sizeWorld(minX, minY, maxX, maxY) → otomatis tambah margin kertas ±1600 px agar nol tepi hitam.</text>
+
+    <!-- Paper canvas representation -->
+    <g transform="translate(20, 62)">
+      <rect width="624" height="270" rx="10" fill="#f6efe2" stroke="#d6c8b0" stroke-width="2"/>
+      <!-- Margin dashed border -->
+      <rect x="26" y="22" width="572" height="226" rx="6" fill="none" stroke="#92400e" stroke-width="1.2" stroke-dasharray="6 4"/>
+      <text x="36" y="15" font-family="ui-monospace, monospace" font-size="10" font-weight="700" fill="#78350f">MARGIN KERTAS OTOMATIS ±1600 px (.paper + .grain + .stain)</text>
+
+      <!-- 6 Areas in Zig-Zag -->
+      <!-- Row 1 -->
+      <rect x="48" y="38" width="136" height="76" rx="6" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+      <text x="116" y="64" text-anchor="middle" font-family="system-ui" font-size="12" font-weight="800" fill="#9a3412">AREA 1 (Hook)</text>
+      <text x="116" y="84" text-anchor="middle" font-family="ui-monospace, monospace" font-size="10" fill="#78350f">(960, 540)</text>
+
+      <rect x="244" y="38" width="136" height="76" rx="6" fill="#f0fdfa" stroke="#0d9488" stroke-width="2"/>
+      <text x="312" y="64" text-anchor="middle" font-family="system-ui" font-size="12" font-weight="800" fill="#115e59">AREA 2 (Tanya)</text>
+      <text x="312" y="84" text-anchor="middle" font-family="ui-monospace, monospace" font-size="10" fill="#134e4a">(3560, 540)</text>
+
+      <rect x="440" y="38" width="136" height="76" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+      <text x="508" y="64" text-anchor="middle" font-family="system-ui" font-size="12" font-weight="800" fill="#991b1b">AREA 3 (Bukti)</text>
+      <text x="508" y="84" text-anchor="middle" font-family="ui-monospace, monospace" font-size="10" fill="#7f1d1d">(6160, 540)</text>
+
+      <!-- Row 2 -->
+      <rect x="440" y="156" width="136" height="76" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+      <text x="508" y="182" text-anchor="middle" font-family="system-ui" font-size="12" font-weight="800" fill="#1e40af">AREA 4 (Skala)</text>
+      <text x="508" y="202" text-anchor="middle" font-family="ui-monospace, monospace" font-size="10" fill="#1e3a8a">(6160, 2240)</text>
+
+      <rect x="244" y="156" width="136" height="76" rx="6" fill="#fefce8" stroke="#ca8a04" stroke-width="2"/>
+      <text x="312" y="182" text-anchor="middle" font-family="system-ui" font-size="12" font-weight="800" fill="#854d0e">AREA 5 (Alur)</text>
+      <text x="312" y="202" text-anchor="middle" font-family="ui-monospace, monospace" font-size="10" fill="#713f12">(3560, 2240)</text>
+
+      <rect x="48" y="156" width="136" height="76" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+      <text x="116" y="182" text-anchor="middle" font-family="system-ui" font-size="12" font-weight="800" fill="#166534">AREA 6 (Tutup)</text>
+      <text x="116" y="202" text-anchor="middle" font-family="ui-monospace, monospace" font-size="10" fill="#14532d">(960, 2240)</text>
+
+      <!-- Push-through arrows -->
+      <path d="M188 76 L238 76" stroke="#f97316" stroke-width="3" marker-end="url(#arr-orange)"/>
+      <path d="M384 76 L434 76" stroke="#f97316" stroke-width="3" marker-end="url(#arr-orange)"/>
+      <path d="M508 118 L508 150" stroke="#f97316" stroke-width="3" marker-end="url(#arr-orange)"/>
+      <path d="M436 194 L386 194" stroke="#f97316" stroke-width="3" marker-end="url(#arr-orange)"/>
+      <path d="M240 194 L190 194" stroke="#f97316" stroke-width="3" marker-end="url(#arr-orange)"/>
+
+      <!-- Buffer spacing labels -->
+      <text x="213" y="66" text-anchor="middle" font-family="ui-monospace, monospace" font-size="9.5" font-weight="700" fill="#9a3412">dx=2600</text>
+      <text x="546" y="140" font-family="ui-monospace, monospace" font-size="9.5" font-weight="700" fill="#9a3412">dy=1700</text>
+      <text x="312" y="139" text-anchor="middle" font-family="system-ui" font-size="10.5" font-weight="700" fill="#78350f">Buffer kosong mencegah area tetangga bocor saat CU / home</text>
+    </g>
+  </g>
+
+  <!-- Panel 2: Canonical 1-Area Accretion (3–5 Elements) -->
+  <g id="panel-accretion" transform="translate(720, 80)">
+    <rect class="card" width="524" height="352" rx="12"/>
+    <text x="20" y="28" class="h2">2. Anatomi Akresi 1 Area (Wajib 3–5 Elemen Bertahap)</text>
+    <text x="20" y="46" class="note">Miringkan kartu ±2° s.d. ±8° agar organik · Teks hantu (.ghost) opacity 0.18–0.25</text>
+
+    <g transform="translate(20, 62)">
+      <rect width="484" height="270" rx="10" fill="#f6efe2" stroke="#d6c8b0" stroke-width="2"/>
+      <!-- Soft stains -->
+      <circle cx="96" cy="78" r="64" fill="#f59e0b" opacity="0.16"/>
+      <circle cx="388" cy="186" r="68" fill="#14b8a6" opacity="0.15"/>
+      <!-- Ghost text -->
+      <text x="242" y="248" text-anchor="middle" font-family="system-ui" font-size="48" font-weight="900" fill="#221e1b" opacity="0.18">SPEKTRUM</text>
+
+      <!-- (1) Main Cutout -->
+      <g filter="url(#cutShadow)" transform="translate(88, 128) rotate(-4)">
+        <circle cx="0" cy="0" r="46" fill="#ea580c"/>
+        <circle cx="-12" cy="-12" r="12" fill="#fed7aa"/>
+        <circle cx="0" cy="0" r="54" fill="none" stroke="#ea580c" stroke-width="2" stroke-dasharray="4 3"/>
+      </g>
+      <circle cx="42" cy="78" r="13" fill="#0f172a"/>
+      <text x="42" y="82" text-anchor="middle" class="lbl" fill="#f59e0b">1</text>
+
+      <!-- (2) Polaroid / Context -->
+      <g filter="url(#cutShadow)" transform="translate(230, 126) rotate(4)">
+        <rect x="-46" y="-42" width="92" height="86" rx="4" fill="#ffffff"/>
+        <rect x="-38" y="-34" width="76" height="54" rx="2" fill="#0d9488"/>
+        <polygon points="-18,10 0,-22 18,10" fill="#fde047"/>
+        <text x="0" y="34" text-anchor="middle" font-family="system-ui" font-size="9" font-weight="700" fill="#475569">POLAROID</text>
+      </g>
+      <circle cx="192" cy="78" r="13" fill="#0f172a"/>
+      <text x="192" y="82" text-anchor="middle" class="lbl" fill="#38bdf8">2</text>
+
+      <!-- (3) Stamp / Note -->
+      <g transform="translate(382, 166) rotate(-7)">
+        <rect x="-56" y="-22" width="112" height="44" rx="4" fill="#fffbeb" stroke="#dc2626" stroke-width="2.2"/>
+        <text x="0" y="5" text-anchor="middle" font-family="system-ui" font-size="13" font-weight="800" fill="#dc2626">BUKTI #3</text>
+      </g>
+      <circle cx="446" cy="144" r="13" fill="#0f172a"/>
+      <text x="446" y="148" text-anchor="middle" class="lbl" fill="#ef4444">3</text>
+
+      <!-- (4) say() Headline + Pill -->
+      <g transform="translate(204, 24)">
+        <text x="0" y="24" font-family="system-ui" font-size="20" font-weight="800" fill="#1c1917">Cahaya</text>
+        <rect x="78" y="4" width="76" height="28" rx="6" fill="#ea580c"/>
+        <text x="116" y="24" text-anchor="middle" font-family="system-ui" font-size="18" font-weight="800" fill="#ffffff">putih</text>
+        <text x="162" y="24" font-family="system-ui" font-size="20" font-weight="800" fill="#1c1917">ini...</text>
+      </g>
+      <circle cx="186" cy="28" r="13" fill="#0f172a"/>
+      <text x="186" y="32" text-anchor="middle" class="lbl" fill="#22c55e">4</text>
+
+      <!-- (5) Hand drawn arrow -->
+      <path d="M138 128 Q166 106 184 122" fill="none" stroke="#1d4ed8" stroke-width="2.5" stroke-dasharray="5 3"/>
+      <circle cx="162" cy="106" r="11" fill="#0f172a"/>
+      <text x="162" y="110" text-anchor="middle" font-size="10" font-weight="700" fill="#93c5fd">5</text>
+    </g>
+  </g>
+
+  <!-- Panel 3: Camera Timing Rule & Wrapper Protection -->
+  <g id="panel-tech-rules" transform="translate(36, 450)">
+    <!-- Left: Timeline Rule -->
+    <rect class="card" width="664" height="238" rx="12"/>
+    <text x="20" y="28" class="h2">3. Koreografi Kamera &amp; Aturan Kunci Waktu say()</text>
+
+    <g transform="translate(20, 52)">
+      <!-- Timeline bar -->
+      <rect x="0" y="20" width="114" height="36" rx="6" fill="#0d9488"/>
+      <text x="57" y="43" text-anchor="middle" class="lbl">1. CU (z 1.7)</text>
+      <path d="M118 38 L138 38" stroke="#14b8a6" stroke-width="2.5" marker-end="url(#arr-teal)"/>
+
+      <rect x="142" y="20" width="118" height="36" rx="6" fill="#0284c7"/>
+      <text x="201" y="43" text-anchor="middle" class="lbl">2. look() cutB</text>
+      <path d="M264 38 L284 38" stroke="#14b8a6" stroke-width="2.5" marker-end="url(#arr-teal)"/>
+
+      <rect x="288" y="20" width="116" height="36" rx="6" fill="#ca8a04"/>
+      <text x="346" y="43" text-anchor="middle" class="lbl">3. home (z 1.0)</text>
+
+      <!-- +0.1s buffer barrier -->
+      <line x1="418" y1="6" x2="418" y2="74" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="4 3"/>
+      <text x="418" y="88" text-anchor="middle" font-family="ui-monospace, monospace" font-size="10" font-weight="700" fill="#fca5a5">JEDA ≥ +0.1s</text>
+
+      <rect x="432" y="20" width="96" height="36" rx="6" fill="#16a34a"/>
+      <text x="480" y="43" text-anchor="middle" class="lbl">4. say/draw</text>
+      <path d="M532 38 L548 38" stroke="#f97316" stroke-width="2.5" marker-end="url(#arr-orange)"/>
+
+      <rect x="552" y="20" width="72" height="36" rx="6" fill="#ea580c"/>
+      <text x="588" y="43" text-anchor="middle" class="lbl">5. into()</text>
+    </g>
+
+    <text x="20" y="168" class="note">• <tspan fill="#f8fafc" font-weight="700">Larangan keras:</tspan> Jangan jalankan say() saat home() masih bergerak — teks akan terasa terpotong.</text>
+    <text x="20" y="190" class="note">• <tspan fill="#f8fafc" font-weight="700">Cutout hidup:</tspan> Setelah mendarat lewat fly(), beri ayunan organik ±22–28 px dengan fase berbeda tiap aset.</text>
+    <text x="20" y="212" class="note">• <tspan fill="#f8fafc" font-weight="700">Anotasi SVG:</tspan> Set opacity: 0 sampai detik mulai; pakai clip-path: inset() agar aman untuk garis putus-putus.</text>
+
+    <!-- Right: DOM Wrapper Separation -->
+    <g transform="translate(684, 0)">
+      <rect class="card" width="524" height="238" rx="12"/>
+      <text x="20" y="28" class="h2">4. Pemisahan Wrapper Blur vs Drop-Shadow (Wajib!)</text>
+      <text x="20" y="48" class="note">blurTween() menyetel filter: none di akhir gerak — jangan campur dengan drop-shadow.</text>
+
+      <!-- Outer .cut -->
+      <rect x="20" y="66" width="484" height="148" rx="8" fill="#0f172a" stroke="#f59e0b" stroke-width="2"/>
+      <text x="34" y="88" class="mono" fill="#f59e0b">&lt;div class="cut"&gt;  → posisi (x, y), transform, motion blur (blurTween)</text>
+
+      <!-- Middle .cut-body -->
+      <rect x="38" y="102" width="448" height="96" rx="6" fill="#142925" stroke="#22c55e" stroke-width="2"/>
+      <text x="52" y="124" class="mono" fill="#86efac">&lt;div class="cut-body"&gt; → filter: drop-shadow(0 28px 36px rgba(34,30,27,.26))</text>
+
+      <!-- Inner img/svg -->
+      <rect x="56" y="138" width="412" height="44" rx="5" fill="#1e293b" stroke="#38bdf8"/>
+      <text x="70" y="164" class="mono">&lt;svg / img&gt; → konten cutout + filter warna opsional (grayscale, dll.)</text>
+    </g>
+  </g>
+</svg>
