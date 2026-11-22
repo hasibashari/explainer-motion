@@ -21,8 +21,8 @@
   <rect class="bg" width="1280" height="720"/>
 
   <!-- Header -->
-  <text x="36" y="40" class="title">PERBANDINGAN BAIK vs BURUK — POLA KEGAGALAN F-01 s.d. F-06</text>
-  <text x="36" y="60" class="sub">Gunakan sebagai tolok ukur diskriminatif pada Langkah 2 (Beat Sheet) &amp; Langkah 5 (QC Self-Audit) · Detail di examples/good-vs-bad.md</text>
+  <text x="36" y="40" class="title">PERBANDINGAN BAIK vs BURUK — POLA KEGAGALAN F-01 s.d. F-07</text>
+  <text x="36" y="60" class="sub">Gunakan sebagai tolok ukur diskriminatif pada Langkah 2 (Beat Sheet) &amp; Langkah 5 (QC) · Kalibrasi skala F-07 di shared-scale-perspective.svg</text>
   <rect x="1030" y="22" width="214" height="32" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.2"/>
   <text x="1137" y="42" text-anchor="middle" class="mono">ID: VIS-SHARED-GVB</text>
 

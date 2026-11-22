@@ -18,11 +18,11 @@ Draf awal memiliki gejala:
 1. **Hapus 100% caption & judul overlay → ubah menjadi teks diegetik:** Pindahkan kata `"KOMPOS"` ke plat logam di badan tong komposter (`font-size: 38px`).
 2. **Pecah menjadi 2 panggung padat (bukan 3 section fade):** Panggung 1 (Dapur & Halaman Belakang) pindah lewat `slide('x', 96)` ke Panggung 2 (Penampang Dalam Tong Kompos & Kebun).
 3. **Naikkan aktivitas panggung ke 11 benda bergerak bermakna:** Tambahkan uap hangat naik (`drift()`), kipas ventilasi berputar (`spin()`), cacing/mikroba bergerak di sepanjang jalur tanah (`flowAlong()`), daun pohon & jemuran bergoyang (`sway()`), awan melintas, jarum termometer tong naik ke `60°C`, serta kecambah tumbuh bertahap.
-4. **Kunci blocking & rig `J()`:** Pindahkan tokoh ke sepertiga kiri (`x = 680`, `facing = 1`), pasang potongan kulit buah di `ch.RhandSlot`, tambahkan bayangan kontak `ch.sdJ`, dan tambahkan *anticipation* 0,14 dtk sebelum melempar ke tong.
+4. **Kunci blocking, rig `J()`, & *Visual Craft* (`Color Script 70–20–10`):** Pindahkan tokoh ke sepertiga kiri (`x = 680`, `facing: 1`, `pose: '3/4'`, `handR: 'grip'`), pasang potongan kulit buah di `ch.RhandSlot`, tambahkan bayangan kontak `ch.sdJ`, *anticipation* 0,14 dtk sebelum melempar ke tong, serta kunci 70% latar ke palet analogus lembut + *Light Direction Anchor* searah (*2-tone split shading* pada tong, pohon, & irisan tanah berfaset).
 5. **Terapkan zoom logaritmik bermakna:** Mulai `MCU (1.58)` pada tokoh & tong, lalu tarik halus ke `MS (1.16)` ketika penampang tanah terbuka memperlihatkan akar tanaman menyerap nutrisi.
 
 ### Hasil (*After*)
-- `0` teks overlay, `11` benda bergerak yang seluruhnya menjelaskan proses biologis, `zoom` minimum `1.16` (lolos Audit `?debug=1`), dan narasi langsung terbaca bahkan saat suara dimatikan.
+- `0` teks overlay, `11` benda bergerak yang seluruhnya menjelaskan proses biologis, `zoom` minimum `1.16` (lolos Audit `?debug=1`), fokus mata langsung terkunci ke subjek lewat *Color Script 70–20–10* & pose *Silhouette-First*, dan narasi terbaca bahkan saat suara dimatikan.
 
 ---
 
@@ -43,10 +43,10 @@ Draf awal memiliki gejala:
    - `19–30 dtk` **`#map`**: Full-frame simulasi peta kiri→kanan, path tergambar via `stroke-dasharray`, penanda oranye melaju mengikuti tangen, zoom `2.3× → 1.0×` lalu `"45 MENIT"` muncul setelah zoom selesai.
 3. **Jaga dunia tetap mengalir saat baca:** Ubah profil `VK` dari `0` menjadi melambat terkontrol `950 → 420 px/dtk` (~44%) ketika angka `350` melintas di `#deepObjs`.
 4. **Ringkas teks ke maksimum 2 tingkat:** Hapus eyebrow dan paragraf; cukup angka besar + 1 satuan/label singkat.
-5. **Kunci palet tempo via `paletteAt(t)`:** Geser rona langit dari pagi cerah (`#side`) ke kontras biru-oranye berenergi tinggi (`#cabin`) lalu ke hijau-krem bersih (`#map`).
+5. **Kunci *Color Script* & *4-Plane Atmospheric Attenuation* via `paletteAt(t)`:** Geser rona langit dari pagi cerah (`#side`) ke kontras biru-oranye berenergi tinggi (`#cabin`) lalu ke hijau-krem bersih (`#map`), sambil menjaga pegunungan jauh *2-tone* tanpa detail dan arah pantulan kaca diagonal tetap seragam antara `#side` dan kaca depan `#cabin`.
 
 ### Hasil (*After*)
-- Nol dashboard inset, 3 instrumen full-frame berganti dinamis lewat `whip()`, scrub maju-mundur bersih tanpa view bertumpuk, dan dunia terus hidup dari detik `0.0` hingga `30.0`.
+- Nol dashboard inset, 3 instrumen full-frame berganti dinamis lewat `whip()`, kedalaman parallax 4 lapis & pantulan kaca konsisten lintas-view, scrub maju-mundur bersih tanpa view bertumpuk, dan dunia terus hidup dari detik `0.0` hingga `30.0`.
 
 ---
 

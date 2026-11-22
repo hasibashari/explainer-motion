@@ -1,10 +1,11 @@
 <!doctype html>
 <html lang="id">
 <!-- Dibuat dengan Bang Motion Skill v2.1.0 oleh Bang Tutorial (https://youtube.com/bangtutorial) · MIT -->
+
 <head>
-<meta charset="utf-8">
-<title>Bang Motion — Starter Cartoon Stage (Kartun Panggung)</title>
-<!--
+  <meta charset="utf-8">
+  <title>Bang Motion — Starter Cartoon Stage (Kartun Panggung)</title>
+  <!--
   GAYA 1: CARTOON STAGE / KARTUN PANGGUNG (baca: references/cartoon-stage.md, visuals/stage-*.svg, & visuals/shared-scale-perspective.svg).
   CARA PAKAI OLEH AI AGENT (LANGKAH 4):
     - Salin berkas ini sebagai fondasi index.html output user.
@@ -16,49 +17,167 @@
     - Kontinu di dalam panggung (≥10 benda bergerak bermakna), cut() atau slide() 96/72 px + blur ≤ 10 px.
     - Rig sendi J() aditif: kanal aksi (x,y,r) terpisah dari idle (xIdle,yIdle,rIdle) → nol konflik tween.
     - Nol caption overlay; teks hanya diegetik (≥ 34 px). Palet flat cerah tanpa tekstur kertas/grain.
-  Autoplay + loop TANPA player; ?debug=1 panel scrub + QC HUD; ?clean=1 tahan di frame 0; suara: isi src #vo.
+  Autoplay + loop TANPA player; ?debug=1 panel scrub + QC HUD; ?clean=1 tahan di frame 0.
 -->
-<style>
-html,body{margin:0;height:100%;background:#152530;overflow:hidden}
-#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;overflow:hidden;background:#F4EFE0}
-#world{position:absolute;inset:0;will-change:filter}
-#safeGuide{position:absolute;inset:0;pointer-events:none;display:none;z-index:45}
-#safeGuide::before{content:'SAFE AREA 9:16 (78%)';position:absolute;left:11%;right:11%;top:11%;bottom:11%;border:3px dashed rgba(255,212,0,.85);color:#ffd400;font:700 22px system-ui;padding:8px 12px;background:rgba(255,212,0,.04)}
-#dbg{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);display:none;gap:10px;align-items:center;padding:9px 14px;border-radius:12px;background:rgba(14,16,22,.92);border:1px solid rgba(255,255,255,.12);color:#d7deec;font:12.5px system-ui;z-index:50;white-space:nowrap}
-#dbg input{width:300px}#dbg span{font-variant-numeric:tabular-nums}
-#dbg button{background:#232b3d;color:#eef2fa;border:1px solid #39455f;border-radius:6px;padding:4px 9px;font:inherit;cursor:pointer}
-#dbg button:hover{border-color:#5ea0ff}
-.badge{padding:3px 7px;border-radius:6px;background:#1f283a;font-weight:600}
-.badge.ok{background:#153827;color:#6ee7b7}.badge.warn{background:#4c1d24;color:#fca5a5}
-</style>
+  <style>
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      background: #152530;
+      overflow: hidden
+    }
+
+    #stage {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #F4EFE0
+    }
+
+    #world {
+      position: absolute;
+      inset: 0;
+      will-change: filter
+    }
+
+    #safeGuide {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      display: none;
+      z-index: 45
+    }
+
+    .safe {
+      transform: scale(.78);
+      transform-origin: 50% 45%;
+      transform-box: view-box
+    }
+
+    #safeGuide::before {
+      content: 'SAFE AREA 9:16 (HINDARI ATAS/BAWAH & STRIP UI KANAN)';
+      position: absolute;
+      left: 6%;
+      right: 16%;
+      top: 9.9%;
+      bottom: 12.1%;
+      border: 3px dashed rgba(255, 212, 0, .85);
+      color: #ffd400;
+      font: 700 20px system-ui;
+      padding: 8px 12px;
+      background: rgba(255, 212, 0, .04)
+    }
+
+    #safeGuide::after {
+      content: 'UI KANAN';
+      position: absolute;
+      right: 1.5%;
+      top: 44%;
+      width: 13%;
+      height: 37%;
+      border: 3px dashed rgba(239, 68, 68, .85);
+      color: #fca5a5;
+      font: 700 18px system-ui;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: rgba(239, 68, 68, .08)
+    }
+
+    #dbg {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      display: none;
+      gap: 10px;
+      align-items: center;
+      padding: 9px 14px;
+      border-radius: 12px;
+      background: rgba(14, 16, 22, .92);
+      border: 1px solid rgba(255, 255, 255, .12);
+      color: #d7deec;
+      font: 12.5px system-ui;
+      z-index: 50;
+      white-space: nowrap
+    }
+
+    #dbg input {
+      width: 300px
+    }
+
+    #dbg span {
+      font-variant-numeric: tabular-nums
+    }
+
+    #dbg button {
+      background: #232b3d;
+      color: #eef2fa;
+      border: 1px solid #39455f;
+      border-radius: 6px;
+      padding: 4px 9px;
+      font: inherit;
+      cursor: pointer
+    }
+
+    #dbg button:hover {
+      border-color: #5ea0ff
+    }
+
+    .badge {
+      padding: 3px 7px;
+      border-radius: 6px;
+      background: #1f283a;
+      font-weight: 600
+    }
+
+    .badge.ok {
+      background: #153827;
+      color: #6ee7b7
+    }
+
+    .badge.warn {
+      background: #4c1d24;
+      color: #fca5a5
+    }
+  </style>
 </head>
+
 <body>
-<div id="stage">
-  <div id="world"><svg id="scene" width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;inset:0" font-family="system-ui,-apple-system,sans-serif"></svg></div>
-  <div id="safeGuide"></div>
-  <div id="dbg">
-    <button id="dPlay" type="button">Jeda</button>
-    <input id="dScrub" type="range" min="0" max="1000" value="0">
-    <span id="dClock">0.00s</span>
-    <span class="badge" id="dInfo">-</span>
-    <button id="dSafe" type="button">Safe</button>
-    <button id="dAudit" type="button">Audit</button>
-    <span class="badge" id="dRes" style="display:none"></span>
+  <div id="stage">
+    <div id="world"><svg id="scene" width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;inset:0"
+        font-family="system-ui,-apple-system,sans-serif"></svg></div>
+    <div id="safeGuide"></div>
+    <div id="dbg">
+      <button id="dPlay" type="button">Jeda</button>
+      <input id="dScrub" type="range" min="0" max="1000" value="0">
+      <span id="dClock">0.00s</span>
+      <span class="badge" id="dInfo">-</span>
+      <button id="dSafe" type="button">Safe</button>
+      <button id="dAudit" type="button">Audit</button>
+      <span class="badge" id="dRes" style="display:none"></span>
+    </div>
   </div>
-</div>
-<audio id="vo" src="" preload="auto"></audio>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    /* [KANVAS — 16:9 (1920×1080) | 9:16 (1080×1920)] */
+const W=1920,H=1080;
+
 /* ============================================================================
    [ENGINE — PERTAHANKAN 100%]
    Helper SVG, rig sendi aditif J(), panggung kamera logaritmik, & karakter.
    ============================================================================ */
 const $=(s,r=document)=>r.querySelector(s);
-const W=1920,H=1080,NS='http://www.w3.org/2000/svg',XL='http://www.w3.org/1999/xlink';
-function fit(){const s=Math.min(innerWidth/W,innerHeight/H);$('#stage').style.transform=`translate(-50%,-50%) scale(${s})`;}
+const CX=W/2,CY=H/2,NS='http://www.w3.org/2000/svg',XL='http://www.w3.org/1999/xlink';
+function fit(){const st=$('#stage');st.style.width=W+'px';st.style.height=H+'px';const s=Math.min(innerWidth/W,innerHeight/H);st.style.transform=`translate(-50%,-50%) scale(${s})`;}
 addEventListener('resize',fit);fit();
 
-const S=$('#scene');
+const S=$('#scene');S.setAttribute('width',W);S.setAttribute('height',H);S.setAttribute('viewBox',`0 0 ${W} ${H}`);
 function N(tag,a={},p=S){const n=document.createElementNS(NS,tag);for(const k in a)n.setAttribute(k,a[k]);p.appendChild(n);return n;}
 const G=(a={},p=S)=>N('g',a,p),R=(x,y,w,h,f,rx=0,p=S,a={})=>N('rect',{x,y,width:w,height:h,rx,fill:f,...a},p),
   CI=(cx,cy,r,f,p=S,a={})=>N('circle',{cx,cy,r,fill:f,...a},p),EL=(cx,cy,rx,ry,f,p=S,a={})=>N('ellipse',{cx,cy,rx,ry,fill:f,...a},p),
@@ -66,7 +185,7 @@ const G=(a={},p=S)=>N('g',a,p),R=(x,y,w,h,f,rx=0,p=S,a={})=>N('rect',{x,y,width:
   LN=(d,st,w,p=S,a={})=>N('path',{d,fill:'none',stroke:st,'stroke-width':w,'stroke-linecap':'round','stroke-linejoin':'round',...a},p),
   TX=(x,y,t,size,f,p=S,a={})=>{const n=N('text',{x,y,'font-size':size,fill:f,'font-weight':800,'text-anchor':'middle',...a},p);n.textContent=t;return n;},
   IMG=(href,x,y,w,h,p=S,a={})=>{const n=N('image',{x,y,width:w,height:h,...a},p);n.setAttributeNS(XL,'href',href);n.setAttribute('href',href);return n;},
-  sh=(hex,f)=>{const n=parseInt(hex.slice(1),16);const r=Math.round(((n>>16)&255)*f),g=Math.round(((n>>8)&255)*f),b=Math.round((n&255)*f);return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);};
+  sh=(hex,f)=>{const n=parseInt(hex.slice(1),16),cl=v=>Math.min(255,Math.max(0,Math.round(v)));const r=cl(((n>>16)&255)*f),g=cl(((n>>8)&255)*f),b=cl((n&255)*f);return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);};
 
 /* Sendi aditif: kanal aksi (x,y,r) terpisah dari kanal idle (xIdle,yIdle,rIdle) */
 const joints=[];
@@ -81,60 +200,321 @@ const defsS=N('defs',{},S);
 const scenes=[];
 function scene(name){
   const g=G({'data-name':name},S);g.style.display='none';
-  const sc={name,g,cam:{x:960,y:540,lz:Math.log(1.1),ox:0,oy:0},
+  const sc={name,g,cam:{x:CX,y:CY,lz:Math.log(1.1),ox:0,oy:0},
     z(){return Math.exp(sc.cam.lz);},
-    apply(){const c=sc.cam,z=Math.exp(c.lz);g.setAttribute('transform',`translate(${(960-(c.x+c.ox)*z).toFixed(2)},${(540-(c.y+c.oy)*z).toFixed(2)}) scale(${z.toFixed(4)})`);}};
+    apply(){const c=sc.cam,z=Math.exp(c.lz);g.setAttribute('transform',`translate(${(CX-(c.x+c.ox)*z).toFixed(2)},${(CY-(c.y+c.oy)*z).toFixed(2)}) scale(${z.toFixed(4)})`);}};
   sc.apply();scenes.push(sc);return sc;
 }
 
-/* Rig karakter: telapak kaki di y=0, facing (1|-1), slot prop RhandSlot/LhandSlot */
-const HEADS={}; // isi bila memakai kepala raster: {tokoh:{bbox:[x0,y0,x1,y1]}}
-function character(p,x,ground,scale,{who='tokoh',facing=1,shirt='#2B6CB0',pants='#20374F',shoes='#1E293B',hair='#1E293B',skin='#DF9E72'}={}){
-  const sdJ=shadow(x,ground+4,72*scale,p),place=G({transform:`translate(${x},${ground}) scale(${scale})`},p);
-  const rootEl=G({},place),root=J(rootEl,0,0,facing,1),ref={root,place,who,scale,facing,sdJ};
+/* Rig karakter modern (~5 tinggi kepala; telapak sepatu tepat di y=0, tinggi unscaled ~570 px → scale 0.60 ≈ 1 H / 342 px).
+   facing (1|-1), pose ('3/4'|'front'|'side'|'back'), outfit ('jacket'|'shirt'|'tee'),
+   hairStyle ('short'|'bob'|'bun'|'curly'|'hijab'|'cap'), expr ('netral'|'senang'|'kaget'|'berpikir'|'khawatir'|'yakin'),
+   tangan 3 lapis (handBack → handSlot → handFront) dengan 9 gestur Bezier: relaxed|open|point|grip|carry|pinch|fist|thumbs|present */
+const HEADS={},chars=[]; // isi HEADS bila memakai kepala raster Data URI (wajib single-file): {tokoh:{bbox:[x0,y0,x1,y1],src:{netral:'data:image/png;base64,...','netral-kedip':'...'}}}
+function character(p,x,ground,scale,{who='tokoh',facing=1,pose='3/4',outfit='jacket',hairStyle='short',expr='netral',handR='relaxed',handL='relaxed',shirt='#2563EB',inner='#FFFDF7',pants='#1E3A5F',shoes='#1E293B',hair='#182436',skin='#E5A77B',accent='#F59E0B'}={}){
+  const isSide=pose==='side',is34=pose==='3/4',isBack=pose==='back',sdJ=shadow(x,ground+4,68*scale,p);
+  const place=G({transform:`translate(${x},${ground}) scale(${scale})`},p);
+  const rootEl=G({},place),root=J(rootEl,0,0,facing,1),ref={root,place,who,scale,facing,pose,outfit,hairStyle,sdJ,hands:{}};
+  /* Tangan 3 lapis: handBack (telapak belakang) → handSlot (prop) → handFront (jari & ibu jari menjepit di depan prop).
+     Semua gestur memakai 1 siluet <path> Bezier organik menyatu + garis lipatan tipis (tanpa susunan <rect> kaku).
+     Sumbu lokal +Y = ujung jari (searah lengan bawah), +X = sisi ibu jari. */
+  const makeHand=(hBackEl,hFrontEl,col,defMode,side)=>{
+    const modes={},cr=sh(col,.76),dk=sh(col,.90);
+    const addMode=(name,buildBack,buildFront)=>{
+      const on=defMode===name?1:0;
+      const b=G({opacity:on},hBackEl),f=G({opacity:on},hFrontEl);
+      if(buildBack)buildBack(b);
+      if(buildFront)buildFront(f);
+      modes[name]={back:b,front:f};
+    };
+    // 1. relaxed (default): tangan santai menggantung di sisi badan — 1 siluet organik + lipatan halus
+    addMode('relaxed',g=>{
+      PA('M -7.5 -6 C -9.5 1 -10.8 7 -10.5 14 C -10.2 19.5 -9.5 24.5 -8.5 27.5 C -7.6 30.2 -5.0 30.2 -4.5 27.2 C -4.0 29.8 -1.2 31.8 0.5 31.8 C 2.4 31.8 3.6 29.6 4.0 27.5 C 4.8 29.6 7.4 29.4 8.2 26.6 C 9.4 22.0 9.8 16.5 9.8 13.0 C 12.2 15.2 14.5 15.8 15.8 14.2 C 17.0 12.6 15.8 8.6 13.2 5.4 C 10.8 2.4 9.0 -1.5 7.5 -6 Z',col,g);
+      LN('M -4.5 17.5 L -4.5 27.0 M 0.0 18.0 L 0.2 29.5 M 4.2 17.5 L 4.0 27.2',cr,.9,g,{opacity:.62});
+    });
+    // 2. open: 5 jari mekar luwes dalam 1 kontur Bezier tunggal + bayangan telapak tipis
+    addMode('open',g=>{
+      PA('M -7.5 -6 C -10.5 0 -13.0 5.5 -13.8 11.5 L -17.0 22.8 C -17.8 25.4 -14.2 26.8 -13.0 24.0 L -9.6 15.4 L -10.6 28.4 C -10.9 31.4 -6.8 31.8 -6.2 28.8 L -4.4 16.4 L -2.6 31.2 C -2.4 34.4 1.8 34.4 2.0 31.2 L 2.2 16.2 L 6.4 29.2 C 7.2 32.0 11.2 30.8 10.4 27.8 L 7.6 14.5 C 10.6 13.6 14.5 16.2 18.6 16.0 C 21.8 15.8 22.4 11.6 19.6 9.8 C 16.0 7.4 12.6 4.8 10.0 0.8 C 8.8 -1.6 8.2 -4.0 7.5 -6 Z',col,g);
+      PA('M -7.5 11.5 C -2.5 15.5 3.5 15.5 7.5 11.0 C 4.5 17.5 -4.5 17.5 -7.5 11.5 Z',dk,g,{opacity:.48});
+    });
+    // 3. point: telunjuk meruncing lurus ke +Y, ibu jari menekuk halus (+X), 3 jari lipat menyatu di -X
+    addMode('point',g=>{
+      PA('M -7.5 -6 C -10.5 0 -11.8 6.5 -11.4 13.5 C -11.0 18.8 -8.2 21.0 -5.6 20.6 C -4.8 22.0 -2.0 22.4 -0.4 21.4 C 1.0 22.4 3.4 22.0 4.2 19.6 L 4.4 33.8 C 4.4 36.8 8.8 36.8 9.0 33.8 L 9.8 14.2 C 12.6 15.6 16.2 14.8 17.0 11.8 C 17.8 8.4 15.0 4.2 10.6 1.4 C 8.8 0.2 8.2 -2.6 7.5 -6 Z',col,g);
+      PA('M -11.0 12.2 L 4.2 12.2 L 4.2 19.6 C 3.4 22.0 1.0 22.4 -0.4 21.4 C -2.0 22.4 -4.8 22.0 -5.6 20.6 C -8.2 21.0 -11.0 18.8 -11.0 12.2 Z',dk,g,{opacity:.32});
+      LN('M 4.2 12.2 L 4.2 19.2 M -0.6 12.4 L -0.6 21.0 M -5.6 12.6 L -5.6 20.2 M 8.8 10.2 C 11.5 11.2 13.6 12.6 15.0 14.0',cr,.95,g);
+    });
+    // 4. grip: telapak di belakang tengah prop + 4 jari melingkari sisi kiri (-X) & ibu jari menjepit sisi kanan (+X) di DEPAN prop
+    addMode('grip',
+      g=>{PA('M -7.5 -6 C -11.2 1 -13.2 8 -13.0 21 C -12.6 27.5 12.6 27.5 13.0 21 C 13.2 8 11.2 1 7.5 -6 Z',dk,g);},
+      g=>{
+        // Bayangan kontak tipis di bawah 4 ujung jari agar jari terbaca tajam di atas layar terang
+        PA('M -12.6 9.2 L -6.0 9.6 C -4.6 10.6 -4.6 29.2 -6.4 30.8 L -12.4 30.8 Z','#0F172A',g,{opacity:.18});
+        // 4 ruas jari organik memeluk sisi tengah-kiri HP/prop
+        PA('M -13.0 8.2 C -17.4 8.4 -17.6 13.4 -13.2 13.8 C -18.0 14.0 -18.2 19.2 -13.4 19.6 C -17.6 19.8 -17.6 24.8 -13.0 25.2 C -16.4 25.6 -16.2 30.0 -11.8 30.0 L -6.8 29.6 C -5.0 29.2 -4.8 25.6 -7.0 25.0 C -4.4 24.4 -4.4 20.0 -7.0 19.4 C -4.2 18.8 -4.2 14.2 -7.0 13.6 C -4.6 13.0 -4.8 8.6 -7.4 8.4 Z',col,g);
+        LN('M -15.2 13.8 L -7.0 13.6 M -15.6 19.6 L -7.0 19.4 M -14.8 25.2 L -7.0 25.0',cr,.95,g);
+        // Bayangan kontak ibu jari + ibu jari melengkung mantap di sisi kanan HP/prop
+        PA('M 12.0 10.2 C 17.6 12.6 18.2 19.6 12.8 23.0 C 9.4 25.0 4.8 24.0 3.8 21.4 C 3.2 19.6 5.2 17.4 8.6 16.6 Z','#0F172A',g,{opacity:.16});
+        PA('M 11.8 7.8 C 18.0 10.2 19.0 17.4 13.6 21.4 C 10.4 23.6 5.4 22.8 4.2 19.8 C 3.0 17.2 5.6 14.8 9.2 14.2 C 11.4 13.8 12.4 12.2 11.4 9.2 Z',col,g);
+        LN('M 5.8 20.8 C 8.6 22.4 12.6 21.8 15.0 19.4',cr,.95,g);
+      }
+    );
+    // 5. carry: punggung tangan di DEPAN prop (handFront) — 4 jari menggenggam melingkari tepi bawah & ibu jari menjepit tepi atas HP miring-horizontal (+14°)
+    addMode('carry',
+      g=>{
+        // Ibu jari menjepit tepi atas-depan HP di balik bodi (+X)
+        PA('M 6.0 1.8 C 11.4 3.2 15.8 6.0 15.4 9.8 C 15.0 12.2 11.4 12.2 7.8 10.4 Z',dk,g);
+      },
+      g=>{
+        // Bayangan kontak punggung tangan di atas bodi belakang HP (klip rapi di dalam bodi HP miring +14°)
+        PA('M -8.2 3.8 L 10.2 8.3 C 11.8 14.4 12.2 21.8 11.2 29.6 L -8.6 25.2 Z','#020617',g,{opacity:.24});
+        // Punggung tangan organik menyambung dari pergelangan + 4 jari melingkar mencengkeram melewati tepi bawah HP miring (+14°)
+        PA('M -7.5 -6 C -9.6 1 -10.6 7.5 -10.4 15.0 C -10.2 21.2 -9.6 25.8 -7.6 26.8 C -6.2 27.4 -5.4 26.4 -5.2 25.2 C -4.8 27.4 -3.6 28.4 -2.2 28.4 C -0.8 28.4 -0.4 27.4 -0.2 26.4 C 0.2 28.6 1.6 29.8 3.0 29.8 C 4.4 29.8 4.8 28.8 5.0 27.8 C 5.6 29.8 7.2 30.8 8.8 30.2 C 10.6 29.6 11.2 24.8 10.8 17.8 C 10.5 12.6 10.0 7.6 9.2 3.2 C 8.6 -0.2 8.2 -3.2 7.5 -6 Z',col,g);
+        // Lengkungan buku jari menekuk mengikuti sudut tepi HP + 3 garis lipatan ruas jari
+        PA('M -9.8 16.0 C -3.4 18.8 3.8 20.6 10.2 21.2 C 9.8 24.4 3.0 23.4 -3.6 21.8 C -8.6 20.6 -9.8 18.8 -9.8 16.0 Z',dk,g,{opacity:.34});
+        LN('M -5.4 18.4 L -5.2 25.4 M -0.2 19.6 L -0.2 26.6 M 5.0 20.8 L 5.0 27.8',cr,.95,g);
+      }
+    );
+    // 5. pinch: 3 jari mekar rileks (-X) + ujung telunjuk & ibu jari bertemu rapi di depan
+    addMode('pinch',g=>{
+      PA('M -7.5 -6 C -10.5 0 -12.0 6.5 -12.2 12.5 L -16.6 22.8 C -17.6 25.2 -14.2 26.8 -13.0 24.4 L -9.2 16.0 L -11.0 27.6 C -11.4 30.2 -7.8 30.8 -7.2 28.2 L -4.4 17.4 L -3.6 29.6 C -3.4 32.2 0.2 32.2 0.4 29.6 L 1.4 17.8 C 5.5 18.2 10.5 15.5 11.0 9.5 C 11.4 4.0 9.6 -1.5 7.5 -6 Z',sh(col,.95),g);
+    },g=>{
+      PA('M 2.0 12.0 C 3.4 18.8 5.6 23.8 8.2 27.0 C 9.8 28.8 12.4 27.4 11.6 24.8 C 10.2 21.2 8.4 16.8 7.8 11.4 Z',col,g);
+      PA('M 8.4 2.2 C 15.8 5.2 19.6 13.8 17.2 22.0 C 16.0 26.0 12.4 28.2 10.4 26.8 C 8.8 25.6 10.0 23.4 12.0 21.6 C 14.0 19.6 14.0 12.8 10.0 9.4 Z',col,g);
+    });
+    // 6. fist: kepalan 1 siluet scalloped + 3 garis lipatan + ibu jari menyilang di depan
+    addMode('fist',g=>{
+      PA('M -7.5 -6 C -10.5 0 -12.0 5.5 -11.8 13.0 C -11.6 18.6 -8.8 20.6 -6.2 20.0 C -5.2 21.8 -2.2 22.2 -0.2 21.2 C 1.4 22.4 4.4 22.0 5.6 20.6 C 8.4 21.2 11.6 19.0 11.8 13.0 C 12.0 5.5 10.5 0 7.5 -6 Z',col,g);
+      LN('M -6.2 12.4 L -6.2 19.6 M -0.2 12.6 L -0.2 21.0 M 5.6 12.4 L 5.6 20.2',cr,.95,g);
+    },g=>{
+      PA('M 10.8 3.2 C 14.8 6.4 14.2 13.4 8.8 14.8 L -1.2 15.2 C -4.6 15.2 -4.8 10.4 -1.2 9.8 L 8.0 9.0 C 10.0 8.6 10.4 7.0 9.4 4.6 Z',col,g);
+      LN('M -2.2 15.4 L 9.4 14.8',cr,.95,g);
+    });
+    // 7. thumbs: ibu jari melengkung alami (+X) + 4 ruas lipat menyatu dengan 3 garis lipatan
+    addMode('thumbs',g=>{
+      PA('M -7.5 -6 C -10.4 0 -11.4 6.5 -11.0 13.5 C -10.6 18.8 -7.8 20.6 -5.4 20.2 C -4.2 22.0 -1.2 22.2 0.4 21.2 C 2.2 22.2 5.0 21.8 6.2 20.4 C 8.8 20.6 10.8 18.2 10.8 13.6 L 10.8 10.2 C 16.4 10.8 22.2 11.4 25.4 9.6 C 28.6 7.8 28.4 3.0 24.8 2.2 C 20.8 1.4 16.2 2.8 12.0 1.8 C 10.2 0.4 8.8 -2.2 7.5 -6 Z',col,g);
+      PA('M -10.4 11.5 L 10.4 11.5 L 10.4 16.5 C 9.2 19.8 6.8 21.4 0.4 21.2 C -6.0 21.4 -10.0 19.4 -10.4 14.2 Z',dk,g,{opacity:.26});
+      LN('M 5.6 11.2 L 5.6 19.8 M 0.4 11.6 L 0.4 20.8 M -5.2 11.4 L -5.2 19.8',cr,.95,g);
+    });
+    // 8. present: telapak menengadah luwes untuk menjelaskan / menawarkan konsep
+    addMode('present',g=>{
+      PA('M -7.5 -6 C -10.2 2 -11.2 10 -9.4 18.5 C -7.8 25.8 -2.2 31.4 4.8 33.4 C 7.6 34.2 9.4 31.2 7.4 29.2 C 4.4 26.2 2.6 22.2 3.2 18.2 C 6.0 19.8 10.2 21.4 13.8 21.2 C 16.6 21.0 17.0 17.4 14.4 16.0 C 11.4 14.4 8.8 11.6 8.4 7.8 C 8.0 3.2 8.2 -1.8 7.5 -6 Z',col,g);
+      LN('M -5.5 14.0 C -3.8 21.0 0.0 26.0 4.5 28.5',cr,.95,g,{opacity:.58});
+    });
+    ref.hands[side]=modes;
+  };
+  // KAKI (proporsi ramping ~5 kepala, ujung sendi membulat, lipatan cuff, kaos kaki tipis, sneakers bertali)
   for(const side of ['R','L']){
-    const sx=side==='L'?-26:26,dk=side==='R'?.86:1;
-    const tEl=G({},rootEl),thigh=J(tEl,sx,-214);R(-24,-10,48,118,sh(pants,dk),21,tEl);
-    const sEl=G({},tEl),shin=J(sEl,0,102);R(-21,-8,42,108,sh(pants,dk),18,sEl);
-    const fEl=G({},sEl),foot=J(fEl,0,96);PA('M -24 -10 L 16 -10 C 24 4 46 4 52 16 L 52 26 L -26 26 Z',sh(shoes,dk),fEl);
-    R(-26,19,78,7,'#FFFDF5',3,fEl,{opacity:.7});
+    const sx=isSide?(side==='L'?-6:8):(side==='L'?-20:20),dk=(side==='R'&&!isBack)?.85:1;
+    const tEl=G({},rootEl),thigh=J(tEl,sx,-274);
+    PA('M -19 -10 C -19 -20 19 -20 19 -10 L 16 126 C 15 136 -15 136 -16 126 Z',sh(pants,dk),tEl);
+    if(!isBack)PA('M 5 -12 L 18 -10 L 16 126 L 6 126 Z',sh(pants,dk*.90),tEl,{opacity:.52});
+    const sEl=G({},tEl),shin=J(sEl,0,124);
+    PA('M -15 -8 C -15 -16 15 -16 15 -8 L 13 118 L -13 118 Z',sh(pants,dk),sEl);
+    R(-15,108,30,12,sh(pants,dk*1.16),4,sEl); // lipatan cuff celana
+    R(-10,118,20,10,'#E2E8F0',3,sEl); // kaos kaki tipis
+    const fEl=G({},sEl),foot=J(fEl,0,126);
+    if(isBack){
+      R(-16,-6,32,24,sh(shoes,dk),7,fEl);
+      R(-17,18,34,6,'#FFFDF7',3,fEl,{opacity:.92});
+    } else {
+      PA('M -17 -8 L 12 -8 C 22 2 38 4 46 13 C 49 17 47 24 40 24 L -19 24 Z',sh(shoes,dk),fEl);
+      R(-19,18,66,6,'#FFFDF7',3,fEl,{opacity:.92});
+      LN('M 11 0 L 21 3 M 15 5 L 25 8 M 19 10 L 28 12','#FFFDF7',2.2,fEl,{opacity:.85}); // 3 tali sneakers
+    }
     ref[side+'thigh']=thigh;ref[side+'shin']=shin;ref[side+'foot']=foot;
   }
-  const tEl=G({},rootEl),torso=J(tEl,0,-214);ref.torso=torso;
+  // Pelvis jembatan membulat (menghilangkan celah paha saat walk/jump)
+  R(isSide?-24:-38,-288,isSide?48:76,30,sh(pants,.92),14,rootEl);
+
+  const tEl=G({},rootEl),torso=J(tEl,0,-270);ref.torso=torso;
   const arm=(side,front)=>{
-    const s=side==='L'?-1:1,aEl=G({},tEl),a=J(aEl,50*s,-126);R(-17,-16,34,98,front?shirt:sh(shirt,.86),16,aEl);
-    const fEl=G({},aEl),f=J(fEl,0,78);R(-15,-12,30,90,front?skin:sh(skin,.9),14,fEl);
-    const hEl=G({},fEl),h=J(hEl,0,74);EL(0,4,17,21,front?skin:sh(skin,.9),hEl);
-    ref[side+'handSlot']=G({transform:'translate(0,12)'},hEl);
+    const s=side==='L'?-1:1,ax=isSide?(front?-5:7):(44*s);
+    const aEl=G({},tEl),a=J(aEl,ax,-140);
+    const slCol=front?shirt:sh(shirt,.83);
+    // Ujung bahu & siku membulat (rounded pivot caps) + lengan meruncing
+    PA('M -14 -8 C -14 -22 14 -22 14 -8 L 12 92 C 12 102 -12 102 -12 92 Z',slCol,aEl);
+    if(front&&!isBack)PA('M 3 -14 C 12 -8 13 38 11 90 L 4 90 C 6 42 6 -6 0 -14 Z',sh(shirt,.88),aEl,{opacity:.65});
+    if(outfit==='shirt')R(-14,76,28,12,front?sh(shirt,1.14):sh(shirt,.95),4,aEl);
+    const fEl=G({},aEl),f=J(fEl,0,92);
+    const isLong=outfit==='jacket';
+    PA('M -11 -4 C -11 -14 11 -14 11 -4 L 8 86 L -8 86 Z',isLong?slCol:(front?skin:sh(skin,.88)),fEl);
+    if(isLong)R(-10,74,20,10,front?sh(shirt,1.12):sh(shirt,.94),3,fEl); // manset jaket
+    const hEl=G({},fEl),h=J(hEl,0,86);
+    const hBack=G({},hEl);
+    ref[side+'handSlot']=G({transform:'translate(0,10)'},hEl);
+    const hFront=G({},hEl);
+    makeHand(hBack,hFront,front?skin:sh(skin,.88),side==='R'?handR:handL,side);
     ref[side+'arm']=a;ref[side+'fore']=f;ref[side+'hand']=h;
   };
   arm('R',false);
-  PA('M -48 -152 C -64 -144 -70 -112 -66 -76 L -58 8 C -28 22 32 22 60 8 L 67 -76 C 71 -112 60 -144 45 -152 Z',shirt,tEl);
-  PA('M 46 -146 C 64 -130 68 -100 64 -62 L 57 8 L 36 12 L 40 -140 Z',sh(shirt,.88),tEl);
-  PA('M -20 -152 Q 0 -132 20 -152',sh(shirt,.74),tEl);
-  R(-16,-178,32,42,skin,12,tEl);R(-58,-2,117,22,sh(shirt,.82),9,tEl);
+
+  // TORSO MODERN (proporsi ramping, bahu melengkung, opsi layering jacket/shirt/tee + garis lipatan kain)
+  if(isSide){
+    PA('M -28 -160 C -36 -150 -38 -96 -34 -56 L -30 4 C -10 12 16 12 30 4 L 34 -56 C 36 -96 32 -150 22 -160 Z',shirt,tEl);
+    PA('M 10 -156 C 28 -144 34 -96 32 -56 L 28 4 L 12 8 L 16 -148 Z',sh(shirt,.86),tEl);
+    if(outfit==='jacket')PA('M 20 -154 L 30 -150 L 30 2 L 22 4 Z',inner,tEl);
+    R(-32,-8,64,14,sh(pants,.85),4,tEl);
+  } else if(isBack){
+    PA('M -44 -160 C -54 -150 -54 -96 -48 -56 L -44 4 C -18 12 18 12 44 4 L 48 -56 C 54 -96 54 -150 44 -160 Z',sh(shirt,.94),tEl);
+    LN('M 0 -154 L 0 4',sh(shirt,.78),2.6,tEl,{opacity:.55});
+    PA('M -22 -160 Q 0 -148 22 -160 L 18 -168 Q 0 -158 -18 -168 Z',sh(shirt,.82),tEl); // kerah belakang
+    R(-45,-8,90,14,sh(pants,.84),4,tEl);
+  } else {
+    PA('M -44 -160 C -54 -150 -54 -96 -48 -56 L -44 4 C -18 12 18 12 44 4 L 48 -56 C 54 -96 54 -150 44 -160 Z',shirt,tEl);
+    PA('M 24 -156 C 46 -144 52 -96 48 -56 L 44 4 L 22 8 C 30 -44 30 -104 24 -156 Z',sh(shirt,.86),tEl);
+    if(outfit==='jacket'){
+      const cx=is34?8:0;
+      PA(`M ${cx-16} -158 L ${cx+16} -158 L ${cx+14} 6 L ${cx-14} 6 Z`,inner,tEl); // kaos dalam
+      PA(`M ${cx-16} -158 Q ${cx} -144 ${cx+16} -158 L ${cx+16} -162 L ${cx-16} -162 Z`,sh(inner,.88),tEl);
+      R(is34?-38:-40,-104,20,22,'none',4,tEl,{stroke:sh(shirt,.76),'stroke-width':2.4}); // saku dada kiri
+      if(!is34)R(20,-104,20,22,'none',4,tEl,{stroke:sh(shirt,.76),'stroke-width':2.4});
+      PA(`M ${cx-20} -162 L ${cx-14} -144 L ${cx-14} -160 Z M ${cx+20} -162 L ${cx+14} -144 L ${cx+14} -160 Z`,sh(shirt,1.16),tEl);
+    } else if(outfit==='shirt'){
+      PA('M -20 -160 L 0 -134 L 20 -160 L 15 -168 L 0 -148 L -15 -168 Z',sh(shirt,1.16),tEl);
+      LN(is34?'M 8 -134 L 10 2':'M 0 -134 L 0 2',sh(shirt,.78),2.6,tEl,{opacity:.6});
+    } else {
+      PA('M -18 -160 Q 0 -136 18 -160 L 14 -166 Q 0 -148 -14 -166 Z',inner,tEl); // kerah V tee
+    }
+    LN('M -32 -26 Q -8 -20 18 -26',sh(shirt,.78),2.2,tEl,{opacity:.45}); // garis lipatan kain pinggang
+    R(-46,-8,92,14,sh(pants,.84),4,tEl); // ikat pinggang
+    R(is34?6:-9,-9,18,16,accent,4,tEl); // gesper
+  }
+  // Leher ramping + bayangan dagu melengkung
+  R(-12,-188,24,40,isBack?sh(skin,.92):skin,10,tEl);
+  if(!isBack)PA('M -12 -176 Q 0 -162 12 -176 L 12 -186 L -12 -186 Z',sh(skin,.82),tEl);
   arm('L',true);
-  const hEl=G({},tEl),head=J(hEl,0,-160);ref.head=head;ref.faces={};
-  if(HEADS[who]){
-    const hb=HEADS[who].bbox,hw=hb[2]-hb[0],cx=(hb[0]+hb[2])/2,cy=hb[3],hs=150/hw;
-    const hg=G({transform:`translate(${-cx*hs},${-cy*hs+14}) scale(${hs})`},hEl);
-    for(const e of ['senang','cemas','kaget']){
-      const g=G({opacity:e==='senang'?1:0},hg);IMG(`karakter/${who}-${e}.png`,0,0,1024,1024,g);
-      const b=IMG(`karakter/${who}-${e}-kedip.png`,0,0,1024,1024,g,{opacity:0});ref.faces[e]={g,blink:b};
+
+  // KEPALA MODERN (proporsi ~118 px, rahang tirus lembut, lipatan dalam telinga, kilau pupil, rambut tuft berlapis)
+  const hEl=G({},tEl),head=J(hEl,0,-172);ref.head=head;ref.faces={};
+  if(HEADS[who]&&!isBack){
+    const hDef=HEADS[who],hb=hDef.bbox,hw=hb[2]-hb[0],cx=(hb[0]+hb[2])/2,cy=hb[3],hs=124/hw;
+    const hg=G({transform:`translate(${-cx*hs},${-cy*hs+10}) scale(${hs})`},hEl);
+    const srcMap=hDef.src||{},keys=Object.keys(srcMap).filter(k=>!k.endsWith('-kedip'));
+    const exprList=keys.length?keys:['netral','senang','kaget','berpikir','khawatir','yakin'];
+    const initExpr=exprList.includes(expr)?expr:(exprList.includes('senang')?'senang':exprList[0]);
+    for(const e of exprList){
+      const mainHref=srcMap[e]||(hDef.basePath?`${hDef.basePath}/${who}-${e}.png`:'');
+      if(!mainHref)continue;
+      const blinkHref=srcMap[`${e}-kedip`]||(hDef.basePath?`${hDef.basePath}/${who}-${e}-kedip.png`:'');
+      const g=G({opacity:e===initExpr?1:0},hg);IMG(mainHref,0,0,1024,1024,g);
+      const b=blinkHref?IMG(blinkHref,0,0,1024,1024,g,{opacity:0}):null;
+      ref.faces[e]={g,blink:b};
+    }
+  } else if(isBack){
+    const hBackCol=sh(hair,.86),hHiCol=sh(hair,1.42);
+    if(hairStyle!=='hijab'){EL(-48,-58,9,14,sh(skin,.9),hEl);EL(48,-58,9,14,sh(skin,.9),hEl);}
+    if(hairStyle==='bob'){
+      PA('M -56 -96 C -60 -158 60 -158 56 -96 L 62 12 C 34 22 -34 22 -62 12 Z',hair,hEl);
+    } else if(hairStyle==='hijab'){
+      PA('M -60 -94 C -64 -162 64 -162 60 -94 L 66 26 C 36 38 -36 38 -66 26 Z',hair,hEl);
+    } else if(hairStyle==='bun'){
+      PA('M -50 -98 C -54 -156 54 -156 50 -98 L 46 -46 C 24 -34 -24 -34 -46 -46 Z',hair,hEl);
+      CI(0,-128,28,hBackCol,hEl);R(-16,-106,32,7,accent,3.5,hEl);
+    } else if(hairStyle==='curly'){
+      CI(-34,-104,30,hair,hEl);CI(34,-104,30,hair,hEl);CI(0,-126,38,hair,hEl);CI(0,-78,34,hBackCol,hEl);
+    } else if(hairStyle==='cap'){
+      PA('M -48 -98 C -50 -156 50 -156 48 -98 L 44 -48 C 24 -36 -24 -36 -44 -48 Z',hBackCol,hEl);
+      PA('M -52 -96 C -54 -160 54 -160 52 -96 Z',hair,hEl);R(-16,-106,32,9,sh(hair,.75),4,hEl);
+    } else {
+      PA('M -50 -98 C -52 -158 52 -158 50 -98 L 46 -46 C 26 -34 -26 -34 -46 -46 Z',hair,hEl);
+      PA('M -28 -124 C -8 -138 12 -138 30 -122 C 10 -130 -10 -130 -28 -124 Z',hHiCol,hEl,{opacity:.32});
     }
   } else {
-    EL(-72,-72,14,20,sh(skin,.93),hEl);EL(72,-72,14,20,skin,hEl);
-    PA('M -74 -120 C -74 -180 74 -180 74 -120 L 74 -58 C 74 -4 -74 -4 -74 -58 Z',skin,hEl);
-    EL(-36,-58,14,7,'#E8836B',hEl,{opacity:.28});EL(36,-58,14,7,'#E8836B',hEl,{opacity:.28});
-    PA('M -78 -108 C -82 -184 82 -184 78 -108 L 62 -106 C 36 -138 -8 -124 -52 -106 Z',hair,hEl);
-    PA('M -32 -162 C -12 -184 26 -178 44 -156 C 18 -164 -6 -160 -32 -162 Z',sh(hair,1.35),hEl,{opacity:.35});
-    const eyes=G({},hEl),ej=J(eyes,0,-86);ref.eyes=ej;
-    CI(-26,0,7.5,'#1E293B',eyes);CI(28,0,7.5,'#1E293B',eyes);
-    CI(-24,-2.5,2.4,'#FFFDF5',eyes);CI(30,-2.5,2.4,'#FFFDF5',eyes);
-    LN('M -40 -104 C -32 -111 -20 -111 -14 -106','#1E293B',4.5,hEl);
-    LN('M 14 -106 C 22 -111 34 -111 42 -104','#1E293B',4.5,hEl);
-    ref.mouth=LN('M -16 -46 C -6 -34 8 -34 18 -46','#7C2D12',5.5,hEl);
+    const ox=isSide?20:is34?8:0,initE=expr==='cemas'?'khawatir':expr;
+    const hBackCol=sh(hair,.78),hHiCol=sh(hair,1.45),earIn=sh(skin,.74);
+    // 1. LAPIS RAMBUT BELAKANG (backHair di belakang telinga & kepala)
+    if(hairStyle==='bob'){
+      PA('M -58 -96 C -62 -162 56 -164 56 -92 L 62 6 C 36 16 -40 16 -62 6 Z',hBackCol,hEl);
+    } else if(hairStyle==='bun'){
+      CI(-42,-136,26,hair,hEl);R(-34,-128,14,7,accent,3.5,hEl,{transform:'rotate(-40 -34 -128)'});
+      PA('M -52 -98 C -56 -156 50 -158 50 -96 L 46 -46 C 28 -34 -34 -34 -50 -48 Z',hBackCol,hEl);
+    } else if(hairStyle==='curly'){
+      CI(-44,-102,28,hBackCol,hEl);CI(38,-104,26,hBackCol,hEl);CI(0,-132,34,hBackCol,hEl);
+    } else if(hairStyle==='hijab'){
+      PA('M -60 -92 C -64 -164 58 -166 56 -92 L 62 20 C 36 32 -38 32 -64 18 Z',hair,hEl);
+      PA('M 28 -144 C 52 -130 58 -92 58 18 L 34 26 C 40 -42 38 -110 28 -144 Z',sh(hair,.82),hEl);
+    } else if(hairStyle!=='cap'){
+      PA(isSide
+        ?'M -48 -98 C -52 -156 46 -158 48 -98 L 42 -48 C 24 -36 -32 -36 -46 -50 Z'
+        :'M -52 -98 C -56 -156 50 -158 50 -96 L 46 -48 C 28 -34 -34 -34 -50 -48 Z',hBackCol,hEl);
+    }
+    // 2. KEPALA, RAHANG TIRUS LEMBUT, & TELINGA DENGAN LIPATAN DALAM
+    const drawEar=(ex,ey,col)=>{EL(ex,ey,9,13.5,col,hEl);LN(`M ${ex-2.5} ${ey-5} Q ${ex+2} ${ey} ${ex-2} ${ey+5}`,earIn,1.8,hEl,{opacity:.75});};
+    if(!isSide&&hairStyle!=='hijab')drawEar(-48,-58,sh(skin,.92));
+    if(!is34&&!isSide&&hairStyle!=='hijab')drawEar(48,-58,skin);
+    const facePath=hairStyle==='hijab'
+      ?'M -42 -96 C -42 -138 36 -140 38 -94 L 36 -52 C 32 -14 14 -4 -2 -4 C -20 -4 -38 -14 -42 -52 Z'
+      :isSide
+      ?'M -42 -104 C -42 -152 40 -154 44 -98 L 46 -76 L 56 -60 L 44 -54 L 42 -30 C 40 -10 20 -2 -10 -4 C -36 -6 -46 -32 -42 -104 Z'
+      :is34
+      ?'M -48 -102 C -50 -152 42 -154 46 -98 L 44 -54 C 40 -14 18 -2 -3 -2 C -24 -2 -44 -14 -48 -54 Z'
+      :'M -48 -102 C -48 -152 48 -152 48 -102 L 46 -54 C 42 -12 18 -2 0 -2 C -18 -2 -42 -12 -46 -54 Z';
+    PA(facePath,skin,hEl);
+    if(isSide&&hairStyle!=='hijab')drawEar(-16,-58,sh(skin,.95));
+    // Bayangan pipi sisi kanan mengikuti kontur rahang tirus
+    PA(is34
+      ?'M 28 -104 C 42 -92 44 -60 40 -34 C 34 -14 18 -3 4 -2 C 20 -12 32 -36 32 -68 Z'
+      :'M 32 -106 C 44 -94 46 -60 42 -34 C 36 -14 20 -3 6 -2 C 24 -12 34 -36 34 -68 Z',sh(skin,.91),hEl,{opacity:.48});
+    EL(-22+ox,-48,8.5,4.2,'#E8836B',hEl,{opacity:.22});if(!isSide)EL(20+ox,-48,8.5,4.2,'#E8836B',hEl,{opacity:.22});
+    // 3. LAPIS RAMBUT DEPAN (frontHair ber-tuft organik + highlight aman DI DALAM mahkota)
+    if(hairStyle==='bob'){
+      PA('M -56 -82 C -60 -162 56 -164 52 -92 C 36 -114 12 -122 -14 -108 C -34 -96 -46 -72 -48 -28 L -58 -26 Z',hair,hEl);
+      PA('M -28 -128 C -8 -142 14 -142 32 -126 C 12 -134 -8 -134 -28 -128 Z',hHiCol,hEl,{opacity:.3});
+    } else if(hairStyle==='bun'){
+      PA('M -52 -84 C -56 -160 52 -162 48 -94 C 30 -116 4 -124 -24 -110 C -38 -102 -46 -86 -48 -64 L -52 -68 Z',hair,hEl);
+      PA('M -26 -128 C -8 -142 12 -142 30 -126 C 10 -134 -10 -134 -26 -128 Z',hHiCol,hEl,{opacity:.3});
+    } else if(hairStyle==='curly'){
+      CI(-36,-118,22,hair,hEl);CI(-2,-130,26,hair,hEl);CI(30,-116,21,hair,hEl);CI(-46,-86,14,hair,hEl);
+      PA('M -20 -130 C -6 -142 10 -142 22 -128 C 8 -134 -8 -134 -20 -130 Z',hHiCol,hEl,{opacity:.25});
+    } else if(hairStyle==='hijab'){
+      PA('M -48 -10 C -14 10 26 8 52 -6 L 56 18 C 24 32 -28 32 -56 18 Z',sh(hair,1.12),hEl);
+    } else if(hairStyle==='cap'){
+      PA('M -54 -98 C -56 -164 50 -164 50 -98 Z',hair,hEl);
+      PA('M -56 -100 L 72 -96 C 76 -88 66 -82 46 -84 L -52 -88 Z',sh(hair,.80),hEl);
+      CI(-2,-150,6,accent,hEl);
+    } else {
+      PA(isSide
+        ?'M -48 -82 C -56 -160 44 -166 50 -106 C 32 -116 10 -122 -10 -106 C -18 -96 -24 -76 -34 -60 L -44 -64 C -48 -68 -48 -74 -48 -82 Z'
+        :'M -52 -84 C -58 -164 52 -168 50 -94 C 36 -114 14 -122 -8 -112 L -16 -98 L -22 -110 C -36 -102 -44 -86 -46 -60 L -52 -66 Z',hair,hEl);
+      PA('M -28 -128 C -8 -142 14 -142 32 -126 C 12 -134 -10 -134 -28 -128 Z',hHiCol,hEl,{opacity:.3});
+    }
+    // 4. MATA HIDUP (kilau putih pupil + kelopak atas tipis + 3 mode) & ALIS EKSPRESIF
+    const eyes=G({},hEl),ej=J(eyes,ox,-74);ref.eyes=ej;ref.eyeModes={};
+    const eNorm=G({opacity:initE==='senang'||initE==='kaget'?0:1},eyes);
+    const eHappy=G({opacity:initE==='senang'?1:0},eyes);
+    const eWide=G({opacity:initE==='kaget'?1:0},eyes);
+    if(isSide){
+      CI(14,0,5.6,'#182436',eNorm);CI(15.6,-1.8,1.9,'#FFFDF7',eNorm);
+      LN('M 8 2 Q 14 -8 20 2','#182436',3.8,eHappy);
+      CI(14,0,8.6,'#FFFDF7',eWide);CI(15,0,3.8,'#182436',eWide);CI(16,-1.2,1.3,'#FFFDF7',eWide);
+      const bREl=G({},hEl);LN('M -9 0 Q 0 -4 9 0','#182436',3.6,bREl);ref.browR=J(bREl,32,-90);
+    } else {
+      CI(-17,0,5.6,'#182436',eNorm);CI(17,0,5.6,'#182436',eNorm);
+      CI(-15.4,-1.8,1.9,'#FFFDF7',eNorm);CI(18.6,-1.8,1.9,'#FFFDF7',eNorm);
+      LN('M -24 2 Q -17 -8 -10 2','#182436',3.8,eHappy);LN('M 10 2 Q 17 -8 24 2','#182436',3.8,eHappy);
+      CI(-17,0,8.6,'#FFFDF7',eWide);CI(-17,0,3.8,'#182436',eWide);CI(-16,-1.2,1.3,'#FFFDF7',eWide);
+      CI(17,0,8.6,'#FFFDF7',eWide);CI(17,0,3.8,'#182436',eWide);CI(18,-1.2,1.3,'#FFFDF7',eWide);
+      const bLEl=G({},hEl);LN('M -10 0 Q 0 -3.5 10 0','#182436',3.6,bLEl);ref.browL=J(bLEl,-17+ox,-91);
+      const bREl=G({},hEl);LN('M -10 0 Q 0 -3.5 10 0','#182436',3.6,bREl);ref.browR=J(bREl,17+ox,-91);
+      PA(`M ${3+ox} -70 L ${9+ox} -56 L ${1+ox} -53`,null,hEl,{stroke:sh(skin,.76),'stroke-width':3.2,'stroke-linecap':'round','stroke-linejoin':'round'});
+    }
+    ref.eyeModes={norm:eNorm,happy:eHappy,wide:eWide};
+    // 5. PUSTAKA 6 MULUT KANONIK (senang memakai gigi putih + lidah lembut seperti referensi)
+    const mWrap=G({transform:`translate(${ox},-34)`},hEl);
+    const happyM=G({opacity:initE==='senang'?1:0},mWrap);
+    PA('M -14 -4 Q 0 15 14 -4 Z','#881337',happyM);
+    PA('M -11 -4 L 11 -4 Q 9 1 -9 1 Z','#FFFDF7',happyM); // gigi atas putih
+    EL(0,6,6.5,3.2,'#FB7185',happyM,{opacity:.88}); // lidah lembut
+    ref.mouths={
+      netral:LN('M -11 -1 Q 0 5 11 -1','#7C2D12',3.8,mWrap,{opacity:initE==='netral'?1:0}),
+      senang:happyM,
+      kaget:EL(0,2,7.2,10.5,'#7C2D12',mWrap,{opacity:initE==='kaget'?1:0}),
+      berpikir:LN('M -10 2 L 10 -2','#7C2D12',3.6,mWrap,{opacity:initE==='berpikir'?1:0}),
+      khawatir:LN('M -12 6 Q 0 -6 12 6','#7C2D12',3.8,mWrap,{opacity:initE==='khawatir'?1:0}),
+      yakin:LN('M -12 -1 Q 2 8 13 -5','#7C2D12',4.0,mWrap,{opacity:initE==='yakin'?1:0})
+    };
   }
+  chars.push(ref);
   return ref;
 }
 
@@ -159,6 +539,7 @@ function slide(at,from,to,axis='x',dist=96){
   const o=axis==='x'?'ox':'oy';
   tl.to(from.cam,{[o]:-dist,duration:.28,ease:'power2.in',onUpdate:from.apply},at);
   tl.set(to.cam,{[o]:dist,onUpdate:to.apply},at+.28);cut(at+.28,from,to);
+  tl.set(from.cam,{[o]:0,onUpdate:from.apply},at+.28);
   tl.to(to.cam,{[o]:0,duration:.42,ease:'power3.out',onUpdate:to.apply},at+.28);
   const b={v:0};
   tl.to(b,{v:10,duration:.28,ease:'power2.in',onUpdate(){world.style.filter=`blur(${b.v.toFixed(2)}px)`}},at);
@@ -168,134 +549,275 @@ function idle(ch,from){
   sway(ch.torso,from,1.1,1.7,true);sway(ch.head,from+.3,-1.7,2.3,true);sway(ch.Rarm,from+.5,-1.5,1.9,true);sway(ch.Larm,from+.7,1.2,2.1,true);
   const kf=[{duration:3.2+(ch.who.length%5)*.17},{duration:.01},{duration:.13},{duration:.01}];
   if(ch.eyes)tl.to(ch.eyes,{keyframes:kf.map((k,i)=>({sy:i===1||i===2?.06:1,...k})),repeat:-1,ease:'none',onUpdate:ch.eyes.apply},from);
-  for(const e in ch.faces)tl.to(ch.faces[e].blink,{keyframes:kf.map((k,i)=>({opacity:i===1||i===2?1:0,...k})),repeat:-1,ease:'none'},from);
+  for(const e in ch.faces){if(ch.faces[e].blink)tl.to(ch.faces[e].blink,{keyframes:kf.map((k,i)=>({opacity:i===1||i===2?1:0,...k})),repeat:-1,ease:'none'},from);}
 }
+const setHand=(ch,side,mode,at)=>{
+  const m=ch.hands&&ch.hands[side];if(!m)return;
+  for(const k in m){const on=k===mode?1:0;tl.set(m[k].back,{opacity:on},at);tl.set(m[k].front,{opacity:on},at);}
+};
+/* 6 ekspresi kanonik (netral, senang, kaget, berpikir, khawatir/cemas, yakin) sinkron alis + mata + mulut */
+const EXPR_CFG={
+  netral:{bL:[0,0],bR:[0,0],eye:'norm',gx:0,gy:0},
+  senang:{bL:[-5,-6],bR:[-5,6],eye:'happy',gx:0,gy:0},
+  kaget:{bL:[-11,-10],bR:[-11,10],eye:'wide',gx:0,gy:0},
+  berpikir:{bL:[2,0],bR:[-8,-10],eye:'norm',gx:4,gy:-3},
+  khawatir:{bL:[-2,-18],bR:[-2,18],eye:'norm',gx:0,gy:1},
+  yakin:{bL:[-1,12],bR:[-1,-12],eye:'norm',gx:0,gy:0}
+};
 const face=(ch,e,at)=>{
-  for(const k in ch.faces)tl.to(ch.faces[k].g,{opacity:k===e?1:0,duration:.08},at);
-  if(ch.mouth)tl.to(ch.mouth,{attr:{d:e==='cemas'?'M -16 -36 C -6 -48 8 -48 18 -36':e==='kaget'?'M -9 -48 C -9 -28 9 -28 9 -48 Z':'M -16 -46 C -6 -34 8 -34 18 -46'},duration:.1},at);
+  const key=e==='cemas'?'khawatir':(EXPR_CFG[e]?e:'netral');
+  if(Object.keys(ch.faces).length){
+    const rKey=ch.faces[e]?e:(ch.faces[key]?key:Object.keys(ch.faces)[0]);
+    for(const k in ch.faces)tl.to(ch.faces[k].g,{opacity:k===rKey?1:0,duration:.08},at);
+  }
+  const cfg=EXPR_CFG[key];
+  if(ch.browL)tl.to(ch.browL,{y:cfg.bL[0],r:cfg.bL[1],duration:.14,ease:'power2.out',onUpdate:ch.browL.apply},at);
+  if(ch.browR)tl.to(ch.browR,{y:cfg.bR[0],r:cfg.bR[1],duration:.14,ease:'power2.out',onUpdate:ch.browR.apply},at);
+  if(ch.eyes)tl.to(ch.eyes,{x:cfg.gx,y:cfg.gy,duration:.14,ease:'power2.out',onUpdate:ch.eyes.apply},at);
+  if(ch.eyeModes)for(const k in ch.eyeModes)tl.to(ch.eyeModes[k],{opacity:k===cfg.eye?1:0,duration:.08},at);
+  if(ch.mouths)for(const k in ch.mouths)tl.to(ch.mouths[k],{opacity:k===key?1:0,duration:.08},at);
 };
 function point(ch,at,dur=.75){
+  setHand(ch,'R','point',at);
   rot(ch.Rarm,at,10,.14,'power2.in');rot(ch.Rarm,at+.14,-74,dur-.14,'back.out(1.4)');
   rot(ch.Rfore,at+.18,-18,dur-.12,'power2.out');rot(ch.head,at+.12,7,.6,'power2.out');
 }
 function wave(ch,at,dur=1.4){
+  setHand(ch,'L','open',at);
   rot(ch.Larm,at,-125,.32,'back.out(1.3)');
   tl.fromTo(ch.Lfore,{r:-22},{r:20,duration:.22,yoyo:true,repeat:Math.max(1,Math.round((dur-.5)/.22)),ease:'sine.inOut',onUpdate:ch.Lfore.apply,immediateRender:false},at+.28);
   rot(ch.Larm,at+dur,0,.35,'power2.inOut');rot(ch.Lfore,at+dur,0,.3);
 }
+/* Lompat dengan anticipation tekuk lutut + squash di y=0 (tanpa kaki tembus tanah) + angkat lengan + bayangan */
 function jump(ch,at,h=68,dur=.76){
-  tl.to(ch.root,{y:14,duration:.14,ease:'power2.in',onUpdate:ch.root.apply},at);
-  tl.to(ch.root,{y:-h,duration:dur*.42,ease:'power2.out',onUpdate:ch.root.apply},at+.14);
-  tl.to(ch.root,{y:0,duration:dur*.44,ease:'bounce.out',onUpdate:ch.root.apply},at+.14+dur*.42);
-  tl.to(ch.sdJ,{sx:.65,sy:.65,duration:dur*.42,ease:'power2.out',onUpdate:ch.sdJ.apply},at+.14);
-  tl.to(ch.sdJ,{sx:1,sy:1,duration:dur*.44,ease:'bounce.out',onUpdate:ch.sdJ.apply},at+.14+dur*.42);
+  const f=ch.facing,tAir=at+.14,dUp=dur*.40,dDn=dur*.34,tLand=tAir+dUp+dDn;
+  // 1. Anticipation (0.14s): squash di tanah y=0 + tekuk lutut + ayun lengan ke belakang
+  tl.to(ch.root,{sy:.90,sx:f*1.06,duration:.14,ease:'power2.in',onUpdate:ch.root.apply},at);
+  rot(ch.torso,at,7,.14,'power2.in');
+  rot(ch.Lthigh,at,-22,.14,'power2.in');rot(ch.Rthigh,at,-22,.14,'power2.in');
+  rot(ch.Lshin,at,38,.14,'power2.in');rot(ch.Rshin,at,38,.14,'power2.in');
+  rot(ch.Larm,at,22,.14,'power2.in');rot(ch.Rarm,at,22,.14,'power2.in');
+  tl.to(ch.sdJ,{sx:1.08,sy:1.08,duration:.14,ease:'power2.in',onUpdate:ch.sdJ.apply},at);
+  // 2. Melayang + stretch + lutut terlipat + lengan terangkat
+  tl.to(ch.root,{y:-h,sy:1.06,sx:f*.95,duration:dUp,ease:'power2.out',onUpdate:ch.root.apply},tAir);
+  rot(ch.torso,tAir,-4,dUp,'power2.out');
+  rot(ch.Lthigh,tAir,-18,dUp,'power2.out');rot(ch.Rthigh,tAir,12,dUp,'power2.out');
+  rot(ch.Lshin,tAir,34,dUp,'power2.out');rot(ch.Rshin,tAir,24,dUp,'power2.out');
+  rot(ch.Larm,tAir,-118,dUp,'power2.out');rot(ch.Rarm,tAir,-118,dUp,'power2.out');
+  tl.to(ch.sdJ,{sx:.62,sy:.62,duration:dUp,ease:'power2.out',onUpdate:ch.sdJ.apply},tAir);
+  // 3. Mendarat + squash halus lalu pulih ke pose netral
+  tl.to(ch.root,{y:0,sy:.92,sx:f*1.05,duration:dDn,ease:'power2.in',onUpdate:ch.root.apply},tAir+dUp);
+  tl.to(ch.sdJ,{sx:1.06,sy:1.06,duration:dDn,ease:'power2.in',onUpdate:ch.sdJ.apply},tAir+dUp);
+  tl.to(ch.root,{sy:1,sx:f,duration:.18,ease:'back.out(1.6)',onUpdate:ch.root.apply},tLand);
+  tl.to(ch.sdJ,{sx:1,sy:1,duration:.18,ease:'power2.out',onUpdate:ch.sdJ.apply},tLand);
+  [ch.torso,ch.Lthigh,ch.Rthigh,ch.Lshin,ch.Rshin,ch.Larm,ch.Rarm].forEach(j=>rot(j,tLand,0,.2,'power2.out'));
 }
+/* Jalan deterministik: langkah & amplitudo terkalibrasi terhadap jarak dx + ayunan dua lengan berlawanan */
 function walk(ch,at,dur,dx){
-  const n=Math.max(1,Math.round(dur/.39)),x0=ch.root.x,s0=ch.sdJ.x;
-  tl.to(ch.root,{x:x0+dx,duration:dur,ease:'none',onUpdate:ch.root.apply},at);
-  tl.to(ch.sdJ,{x:s0+dx*ch.scale,duration:dur,ease:'none',onUpdate:ch.sdJ.apply},at);
-  const leg=(j,a,b)=>tl.fromTo(j,{r:a},{r:b,duration:.39,ease:'sine.inOut',yoyo:true,repeat:n-1,onUpdate:j.apply,immediateRender:false},at);
-  leg(ch.Lthigh,-15,15);leg(ch.Rthigh,15,-15);leg(ch.Lshin,0,18);leg(ch.Rshin,18,0);leg(ch.Larm,12,-12);
-  tl.fromTo(ch.root,{y:0},{y:-4,duration:.195,ease:'sine.inOut',yoyo:true,repeat:n*2-1,onUpdate:ch.root.apply,immediateRender:false},at);
-  [ch.Lthigh,ch.Rthigh,ch.Lshin,ch.Rshin,ch.Larm].forEach(j=>rot(j,at+dur,0,.3));
+  const est=Math.max(2,Math.round(Math.abs(dx)/68));
+  const stepDur=Math.max(.22,Math.min(.44,dur/est));
+  const n=Math.max(2,Math.round(dur/stepDur)),evenN=n%2?n+1:n,effDur=dur/evenN;
+  const ratio=Math.min(1.25,Math.max(.55,(Math.abs(dx)/evenN)/68));
+  const hip=Math.round(17*ratio),knee=Math.round(22*ratio),armSw=Math.round(14*ratio);
+  const x0=ch._wx??ch.root.x,s0=ch._ws??ch.sdJ.x;
+  ch._wx=x0+dx;ch._ws=s0+dx*ch.scale;
+  tl.fromTo(ch.root,{x:x0},{x:ch._wx,duration:dur,ease:'none',onUpdate:ch.root.apply,immediateRender:false},at);
+  tl.fromTo(ch.sdJ,{x:s0},{x:ch._ws,duration:dur,ease:'none',onUpdate:ch.sdJ.apply,immediateRender:false},at);
+  rot(ch.torso,at,4,.15,'power2.out');
+  const cyc=(j,a,b)=>tl.fromTo(j,{r:a},{r:b,duration:effDur,ease:'sine.inOut',yoyo:true,repeat:evenN-1,onUpdate:j.apply,immediateRender:false},at);
+  cyc(ch.Lthigh,-hip,hip);cyc(ch.Rthigh,hip,-hip);
+  cyc(ch.Lshin,0,knee);cyc(ch.Rshin,knee,0);
+  cyc(ch.Larm,armSw,-armSw);cyc(ch.Rarm,-armSw,armSw);
+  tl.fromTo(ch.root,{y:0},{y:-5,duration:effDur/2,ease:'sine.inOut',yoyo:true,repeat:evenN*2-1,onUpdate:ch.root.apply,immediateRender:false},at);
+  [ch.torso,ch.Lthigh,ch.Rthigh,ch.Lshin,ch.Rshin,ch.Larm,ch.Rarm].forEach(j=>rot(j,at+dur,0,.24,'power2.out'));
+}
+/* Membungkuk / mengambil objek dengan kompensasi keseimbangan lutut & kepala (kaki tetap di y=0) */
+function bend(ch,at,deg=22,dur=.55){
+  const k=Math.min(1.4,Math.abs(deg)/22);
+  rot(ch.torso,at,deg,dur,'power2.inOut');
+  rot(ch.head,at+.06,-deg*.45,dur,'power2.out');
+  rot(ch.Lthigh,at,-12*k,dur,'power2.inOut');rot(ch.Rthigh,at,-12*k,dur,'power2.inOut');
+  rot(ch.Lshin,at,20*k,dur,'power2.inOut');rot(ch.Rshin,at,20*k,dur,'power2.inOut');
+  tl.to(ch.root,{sy:1-.03*k,duration:dur,ease:'power2.inOut',onUpdate:ch.root.apply},at);
+}
+/* Berbalik arah hadap (1 kanan | -1 kiri) dengan squash halus & follow-through kepala */
+function turn(ch,at,dir,dur=.34){
+  const f=dir<0?-1:1;ch.facing=f;
+  tl.to(ch.root,{sx:0.08*(f>0?-1:1),sy:1.03,duration:dur*.45,ease:'power2.in',onUpdate:ch.root.apply},at);
+  tl.to(ch.root,{sx:f,sy:1,duration:dur*.55,ease:'back.out(1.4)',onUpdate:ch.root.apply},at+dur*.45);
+  rot(ch.head,at+dur*.45,6,.16,'power2.out');rot(ch.head,at+dur+.16,0,.22,'power2.out');
 }
 
 /* ============================================================================
    [CONTOH PLACEHOLDER — GANTI 100% DENGAN PALET, PANGGUNG, & KOREOGRAFI USER]
+   Color Script 70–20–10 + Light Direction Anchor (kiri-atas → kanan-bawah):
+     - 70% Latar analogus biru-sage tenang (skyA/B, hillA/B, grass, road) agar fokus ke aksi.
+     - 20% Arsitektur krem-netral + sisi gelap 2.5D konsisten di kanan + micro-geometry kaca/paving.
+     - 10% Subjek & titik aksi kontras tinggi (jaket kobalt Raka, sedan teal, aliran energi emas).
    Kalibrasi Skala 1 H (dewasa scale 0.60 ≈ 336 px):
      - P1 (Eye-Level, horizon y≈680): Rumah 1,95 H + sisi 2.5D, pintu 1,24 H (416 px),
-       sedan listrik 0,87 H × 2,52 H (292 × 846 px), jalan trapesium perspektif, bingkai FG.
+       sedan listrik 0,87 H × 2,52 H (292 × 846 px), jalan trapesium + S-curve, pohon 2-tone, light beam.
      - P2 (Low-Angle, horizon y≈840): Gardu industri menjulang (Architectural Cropping)
-       + sisi 2.5D + teknisi referensi skala + Vertical Tilt kamera ke atas.
+       + sisi 2.5D + light shaft diagonal + teknisi referensi skala + Vertical Tilt kamera.
    ============================================================================ */
 const DUR=12;
-const C={cream:'#FFF7E6',white:'#FFFDF7',navy:'#274C5E',deep:'#162F3D',teal:'#1F8A8C',mint:'#84D2C5',blue:'#5FA8D3',gold:'#F5BE4F',
-  coral:'#E06D4B',ink:'#1E2F3D',grass:'#8BC48A',grass2:'#6FAE76',sand:'#E6D6B3',road:'#CBD5D8',road2:'#AEBFC6',
-  wall:'#F4ECDC',wall2:'#E0D3BC',wallSide:'#D5C6AC',metal:'#9BB0B8',steam:'#F9F6EE',
-  skyA:'#B7E1EA',skyB:'#FBF3DF',hillA:'#CFE3D4',hillB:'#A7D3B3',leaf:'#3E8E5A',leaf2:'#245943'};
+const C={cream:'#FFF9EE',white:'#FFFDF9',navy:'#223B4E',deep:'#132634',teal:'#0F9D9A',mint:'#7AD7C6',blue:'#5FA8D3',gold:'#F59E0B',
+  coral:'#D96B4B',ink:'#182838',grass:'#9AC2AD',grass2:'#7DA894',sand:'#DCE2DC',road:'#C6D3D8',road2:'#A5B7BF',
+  wall:'#F5F0E6',wall2:'#E2D9C9',wallSide:'#D4C9B6',metal:'#93A8B2',steam:'#F9F7F2',
+  skyA:'#C4E2EB',skyB:'#EFF6F1',hillA:'#CFE3DF',hillB:'#A9CBC6',leaf:'#3F8C65',leafHi:'#59AC7D',leaf2:'#1D4B43'};
 const grad=N('linearGradient',{id:'skyG',x1:0,y1:0,x2:0,y2:1},defsS);
 N('stop',{offset:0,'stop-color':C.skyA},grad);N('stop',{offset:1,'stop-color':C.skyB},grad);
 const skyOf=(p,y0=-1400,y1=1080)=>R(-600,y0,3200,y1-y0,'url(#skyG)',0,p);
 const hillsOf=(p,b)=>{
+  // Siluet jauh tanpa detail (atmospheric attenuation) → bukit menengah 2-tone
   PA(`M-600 ${b} Q-80 ${b-150} 440 ${b-55} T1420 ${b-115} T2500 ${b-60} L2500 1400 L-600 1400 Z`,C.hillA,p);
   PA(`M-600 ${b+48} Q200 ${b-36} 840 ${b+22} T1860 ${b-28} T2500 ${b+18} L2500 1400 L-600 1400 Z`,C.hillB,p);
+  // Siluet pepohonan jauh kontras rendah untuk kedalaman skala
+  [920,1040,1260,1520,1640].forEach((tx,i)=>{const s=.7+(i%3)*.18;
+    PA(`M ${tx} ${b+28} C ${tx-36*s} ${b+28} ${tx-40*s} ${b-54*s} ${tx} ${b-96*s} C ${tx+40*s} ${b-54*s} ${tx+36*s} ${b+28} ${tx} ${b+28} Z`,'#96BEB8',p,{opacity:.65});});
 };
 const groundOf=(p,hy,gy)=>{
   R(-600,hy,3200,gy-hy+360,C.grass,0,p);
   R(-600,gy-52,3200,56,C.grass2,0,p);
   R(-600,gy,3200,360,C.sand,0,p);
 };
+// Helper pohon asimetris 2-tone (anti-primitif 3 lingkaran polos; cahaya dari kiri-atas)
+const drawTree=(p,x,y,sc=1)=>{
+  const tr=G({transform:`translate(${x},${y}) scale(${sc})`},p);
+  shadow(12,4,108,tr);
+  PA('M -22 0 L -18 -410 L 18 -410 L 26 0 Z','#76533D',tr);
+  PA('M 4 -405 L 18 -405 L 26 0 L 8 0 Z','#5E402E',tr); // sisi kanan batang teredup
+  LN('M 0 -290 L -54 -355 M 2 -325 L 58 -382','#76533D',16,tr);
+  const crown=G({},tr),j=J(crown,0,-395);
+  // Lapis bayangan kanan-bawah
+  PA('M -148 -24 C -164 -118 -84 -234 20 -244 C 122 -252 192 -156 172 -58 C 156 18 68 38 -36 30 C -104 26 -140 12 -148 -24 Z',sh(C.leaf,.84),crown);
+  // Lapis utama tengah
+  PA('M -154 -44 C -166 -136 -82 -246 14 -252 C 98 -258 156 -184 140 -98 C 122 -26 42 4 -48 2 C -112 0 -148 -14 -154 -44 Z',C.leaf,crown);
+  // Lapis terang sisi kiri-atas (Light Direction Anchor)
+  PA('M -138 -74 C -144 -154 -70 -238 14 -244 C 66 -246 98 -206 84 -154 C 68 -100 -18 -54 -94 -52 C -122 -52 -136 -60 -138 -74 Z',C.leafHi,crown);
+  // Aksen ranting dalam tipis
+  LN('M -12 8 L -10 -72 M -10 -46 L -48 -84 M -10 -56 L 34 -94','#5E402E',8,crown,{opacity:.55});
+  return j;
+};
 
 /* PANGGUNG 1 — Halaman Rumah Panel Surya (Eye-Level horizon y=680, skala 1 H = 336 px, ≥13 gerak) */
 const P1=scene('halaman');{
   const p=P1.g,hy=680,gy=960;skyOf(p);
-  // BG atmosferik pudar: matahari berdenyut + awan 3 lapis + burung
-  const sunG=G({},p);P1.sun=J(sunG,1580,190);CI(0,0,104,C.gold,sunG,{opacity:.22});CI(0,0,68,C.gold,sunG);
-  P1.clouds=[[260,170,1],[1120,135,.82],[1680,235,.7]].map(([x,y,s])=>{
-    const g=G({},p);EL(0,0,96*s,34*s,C.white,g,{opacity:.88});EL(58*s,6,66*s,26*s,C.white,g,{opacity:.88});EL(-46*s,10,54*s,22*s,C.white,g,{opacity:.88});return J(g,x,y);
+  // BG atmosferik: matahari berdenyut di kiri-atas (Light Direction Anchor) + awan rim-lit + burung
+  const sunG=G({},p);P1.sun=J(sunG,250,150);CI(0,0,118,C.gold,sunG,{opacity:.18});CI(0,0,72,C.gold,sunG,{opacity:.92});
+  P1.clouds=[[520,165,1],[1160,130,.82],[1680,225,.72]].map(([x,y,s])=>{
+    const g=G({},p);
+    PA(`M ${-98*s} ${18*s} C ${-108*s} ${-16*s} ${-52*s} ${-44*s} ${-10*s} ${-30*s} C ${14*s} ${-58*s} ${78*s} ${-42*s} ${84*s} ${-6*s} C ${114*s} ${-2*s} ${116*s} ${24*s} ${88*s} ${26*s} L ${-86*s} ${26*s} Z`,'#E4F1F4',g,{opacity:.92});
+    PA(`M ${-92*s} ${14*s} C ${-96*s} ${-14*s} ${-48*s} ${-38*s} ${-10*s} ${-26*s} C ${14*s} ${-52*s} ${70*s} ${-38*s} ${78*s} ${-6*s} C ${34*s} ${-2*s} ${-38*s} ${6*s} ${-92*s} ${14*s} Z`,C.white,g,{opacity:.95});
+    return J(g,x,y);
   });
-  P1.birds=[[760,195,1],[845,232,.75]].map(([x,y,s])=>{
-    const g=G({},p);LN(`M${-18*s} 0 Q${-9*s} ${-14*s} 0 0 Q${9*s} ${-14*s} ${18*s} 0`,C.navy,4*s,g,{opacity:.7});return J(g,x,y);
+  P1.birds=[[780,195,1],[865,232,.75]].map(([x,y,s])=>{
+    const g=G({},p);LN(`M${-18*s} 0 Q${-9*s} ${-14*s} 0 0 Q${9*s} ${-14*s} ${18*s} 0`,C.navy,4*s,g,{opacity:.55});return J(g,x,y);
   });
   hillsOf(p,hy);groundOf(p,hy,gy);
 
-  // Bidang jalan & trotoar trapesium perspektif mengarah ke cakrawala (y=680)
-  PA(`M 640 ${gy} L 980 ${hy+90} L 2360 ${hy+90} L 2360 ${gy+240} L 420 ${gy+240} Z`,C.road,p);
-  PA(`M 540 ${gy} L 940 ${hy+90} L 995 ${hy+90} L 650 ${gy} Z`,C.road2,p);
-  PA(`M -120 ${gy} L 860 ${gy} L 900 ${gy+38} L -120 ${gy+38} Z`,'#DDD3BF',p);
+  // Jalan & trotoar perspektif S-curve + garis sambung paving (micro-geometry)
+  PA(`M 620 ${gy} C 760 ${gy-70} 880 ${hy+135} 990 ${hy+88} L 2360 ${hy+88} L 2360 ${gy+240} L 420 ${gy+240} Z`,C.road,p);
+  PA(`M 540 ${gy} C 690 ${gy-72} 845 ${hy+136} 950 ${hy+88} L 1002 ${hy+88} C 895 ${hy+142} 775 ${gy-68} 640 ${gy} Z`,C.road2,p);
+  PA(`M -120 ${gy} L 860 ${gy} L 900 ${gy+42} L -120 ${gy+42} Z`,'#D3DBD6',p);
+  [80,260,440,620,780].forEach(px=>LN(`M ${px} ${gy} L ${px+14} ${gy+42}`,'#B4C1BC',3,p,{opacity:.7}));
   LN(`M 1020 ${gy+20} L 1220 ${hy+110} M 1500 ${gy+20} L 1540 ${hy+110}`,C.white,5,p,{opacity:.45,'stroke-dasharray':'28 24'});
 
-  // Pohon MG tinggi (~2,4 H, melampaui tepi atas secara alami)
-  const tr=G({transform:`translate(1860,${gy-44})`},p);
-  shadow(0,4,105,tr);R(-24,-420,48,420,'#7C563C',10,tr);
-  const crown=G({},tr);P1.tree=J(crown,0,-400);
-  CI(0,-130,150,C.leaf,crown);CI(-112,-48,108,C.leaf,crown);CI(114,-42,102,sh(C.leaf,.88),crown);
+  // Pohon MG asimetris 2-tone (~2,4 H, melampaui tepi atas secara alami)
+  P1.tree=drawTree(p,1860,gy-44,1);
 
-  // Rumah modern 2.5D: dinding 1,95 H (655 px), sisi miring 2.5D, pintu 1,24 H (416 px) > tinggi Raka!
-  const h=G({transform:`translate(-40,${gy})`},p);
-  shadow(420,8,480,h);
-  // Fasad depan + sisi kanan 2.5D (lebih gelap untuk kesan volume)
-  R(20,-655,690,655,C.wall,0,h);
-  PA('M 710 -655 L 850 -590 L 850 -45 L 710 0 Z',C.wallSide,h);
-  R(20,-24,690,24,C.wall2,0,h);
-  // Cerobong + 6 kepulan asap
-  R(530,-905,64,170,sh(C.coral,.84),6,h);
-  P1.smokes=[];for(let i=0;i<6;i++){const sg=G({opacity:0},h);CI(0,0,22+i*4,C.white,sg);P1.smokes.push(J(sg,562,-915));}
-  // Atap 2.5D & Panel Surya
-  PA('M -22 -655 L 365 -880 L 748 -655 Z',C.coral,h);
-  PA('M 365 -880 L 748 -655 L 882 -592 L 500 -812 Z',sh(C.coral,.84),h);
-  PA('M 118 -702 L 348 -832 L 458 -768 L 228 -638 Z',C.navy,h);
-  LN('M 173 -670 L 403 -800 M 234 -767 L 344 -703 M 176 -735 L 286 -671',C.mint,4,h,{opacity:.82});
-  P1.glint=PA('M 164 -714 L 210 -740 L 236 -698 L 190 -672 Z',C.white,h,{opacity:0});
-  // Jendela proporsional (sill 0,55 H = 185 px, tinggi 0,58 H = 195 px)
-  R(96,-415,216,200,C.navy,12,h);R(110,-401,188,172,'#FDE68A',6,h);
-  LN('M 204 -401 L 204 -229 M 110 -315 L 298 -315',C.navy,8,h);
-  // Pintu masuk 1,24 H (416 px × 184 px) + kanopi → Raka (336 px) muat wajar!
-  R(418,-416,184,416,C.navy,10,h);R(440,-392,140,174,C.blue,6,h);CI(574,-204,10,C.gold,h);
-  R(392,-444,236,30,C.coral,8,h);
-  // Papan diegetik pada fasad rumah (SATU-SATUNYA TEKS P1 — 36 px)
-  R(372,-574,276,72,C.navy,12,h);TX(510,-526,'RUMAH SURYA',34,C.gold,h,{'letter-spacing':1.5});
+  // Rumah modern 2.5D: dinding 1,58 H (540 px) + atap miring (puncak 2,12 H / 720 px utuh dalam frame), pintu 1,16 H (396 px) > tinggi Raka!
+  const h=G({transform:`translate(-20,${gy})`},p);
+  shadow(430,10,480,h);
+  // Semak taman 2-tone di sudut belakang-kanan rumah agar menyatu alami ke halaman
+  CI(834,-66,34,C.leaf,h);CI(856,-54,24,sh(C.leaf,.85),h);CI(824,-74,20,C.leafHi,h);
+  // Fasad depan (krem) + sisi kanan 2.5D dengan puncak gable yang presisi perspektif (horizon y = -280)
+  R(20,-540,680,540,C.wall,0,h);
+  PA('M 700 -540 L 772 -680 L 842 -496 L 842 -46 L 700 0 Z',C.wallSide,h);
+  // Plint fondasi menerus mulus dari fasad depan ke sisi kanan 2.5D
+  R(20,-28,680,28,C.wall2,0,h);
+  PA('M 700 -28 L 842 -72 L 842 -46 L 700 0 Z',sh(C.wallSide,.86),h);
+  // Micro-geometry aksen bata/panel dinding parsial (bersih tanpa noise)
+  [[46,-468,62],[122,-468,42],[64,-446,52],[46,-132,68],[128,-132,44],[618,-168,54]].forEach(([bx,by,bw])=>R(bx,by,bw,12,C.wall2,3,h,{opacity:.65}));
+  // Bayangan jatuh atap pada dinding depan & bawah lisplang miring dinding samping 2.5D
+  PA('M 20 -532 L 700 -532 L 700 -506 L 20 -516 Z',C.wall2,h,{opacity:.82});
+  PA('M 700 -540 L 772 -680 L 842 -496 L 842 -480 L 772 -658 L 700 -520 Z',sh(C.wallSide,.80),h,{opacity:.75});
+  // Detail arsitektur sisi samping 2.5D: ventilasi loteng bundar & jendela samping perspektif
+  EL(772,-568,16,20,C.navy,h);EL(772,-568,10,14,'#2C4B63',h);
+  LN('M 762 -574 L 782 -574 M 761 -568 L 783 -568 M 762 -562 L 782 -562',C.navy,2.6,h);
+  PA('M 744 -362 L 806 -344 L 806 -222 L 744 -232 Z',C.navy,h);
+  PA('M 751 -353 L 799 -339 L 799 -232 L 751 -240 Z','#AED9EB',h);
+  PA('M 760 -350 L 778 -345 L 760 -239 L 751 -240 Z',C.white,h,{opacity:.42});
+  LN('M 775 -346 L 775 -236 M 751 -296 L 799 -286',C.navy,5,h);
+  PA('M 738 -234 L 812 -220 L 812 -208 L 738 -222 Z',sh(C.wallSide,.82),h); // ambang jendela samping
+  // Cerobong 2.5D di belakang bubungan (utuh dengan ruang langit di atasnya) + 6 kepulan asap
+  R(664,-738,42,68,sh(C.coral,.88),4,h);R(706,-738,14,68,sh(C.coral,.74),2,h);R(658,-744,68,11,sh(C.coral,.72),3,h);
+  P1.smokes=[];for(let i=0;i<6;i++){const sg=G({opacity:0},h);CI(0,0,20+i*4,C.white,sg);P1.smokes.push(J(sg,692,-748));}
+  // Atap miring 2.5D sejati: bidang atap depan trapesium lebar + lisplang miring gable kanan + list putih rapi
+  PA('M -14 -540 L 42 -696 L 778 -696 L 716 -540 Z',C.coral,h);
+  // Aksen jalur genteng horizontal halus (micro-geometry atap)
+  [[-652,26,760],[-608,10,742],[-566,-6,725]].forEach(([ry,rx0,rx1])=>LN(`M ${rx0} ${ry} L ${rx1} ${ry}`,sh(C.coral,.88),4,h,{opacity:.45}));
+  // Lisplang atap sisi kanan 2.5D (tebal solid mengapit puncak gable, tanpa ujung runcing aneh)
+  PA('M 778 -696 L 856 -494 L 840 -488 L 770 -676 L 716 -540 L 700 -540 L 770 -696 Z',sh(C.coral,.78),h);
+  // Bubungan atas & lisplang depan putih bersih
+  R(36,-704,746,12,sh(C.coral,.84),4,h);
+  R(-16,-546,734,14,C.white,3,h);
+  // 2 Panel Surya duduk rata & presisi di atas bidang miring atap (100% di dalam atap, tidak keluar ke dinding)
+  PA('M 276 -568 L 314 -668 L 466 -668 L 428 -568 Z','#0F172A',h,{opacity:.26}); // bayangan rangka panel 1
+  PA('M 282 -572 L 320 -672 L 470 -672 L 432 -572 Z','#1A344B',h,{stroke:'#CBD5E1','stroke-width':4,'stroke-linejoin':'round'});
+  LN('M 332 -572 L 370 -672 M 382 -572 L 420 -672 M 295 -605 L 445 -605 M 307 -638 L 457 -638',C.mint,2.6,h,{opacity:.72});
+  PA('M 452 -568 L 490 -668 L 642 -668 L 604 -568 Z','#0F172A',h,{opacity:.26}); // bayangan rangka panel 2
+  PA('M 458 -572 L 496 -672 L 646 -672 L 608 -572 Z','#1A344B',h,{stroke:'#CBD5E1','stroke-width':4,'stroke-linejoin':'round'});
+  LN('M 508 -572 L 546 -672 M 558 -572 L 596 -672 M 471 -605 L 621 -605 M 483 -638 L 633 -638',C.mint,2.6,h,{opacity:.72});
+  P1.glint=PA('M 340 -668 L 392 -668 L 356 -576 L 304 -576 Z',C.white,h,{opacity:0});
+  // Jendela depan proporsional (100% utuh di dalam frame kamera) + bingkai putih + bak bunga
+  R(178,-382,176,184,C.white,10,h);R(186,-374,160,168,C.navy,8,h);R(198,-362,136,144,'#D9EFF7',5,h);
+  PA('M 218 -362 L 254 -362 L 204 -218 L 198 -218 L 198 -296 Z',C.white,h,{opacity:.52});
+  PA('M 274 -362 L 294 -362 L 244 -218 L 224 -218 Z',C.white,h,{opacity:.34});
+  LN('M 266 -362 L 266 -218 M 198 -290 L 334 -290',C.navy,7,h);
+  R(170,-200,192,16,C.wall2,4,h); // ambang jendela
+  // Bak bunga terakota mungil di bawah jendela
+  CI(218,-192,16,C.leaf,h);CI(248,-196,19,C.leafHi,h);CI(282,-195,18,C.leaf,h);CI(312,-191,15,C.leafHi,h);
+  CI(242,-200,4.5,C.gold,h);CI(288,-201,4.5,C.coral,h);
+  PA('M 192 -184 L 340 -184 L 332 -156 L 200 -156 Z',C.coral,h);
+  R(188,-188,156,9,sh(C.coral,.84),3,h);
+  // Lampu teras diegetik di antara jendela & pintu
+  R(366,-348,16,24,C.navy,4,h);CI(374,-334,5.5,'#FDE68A',h);CI(374,-334,16,'#FDE68A',h,{opacity:.20});
+  // Pintu masuk 1,16 H (396 px × 176 px) + kusen putih + undakan teras + kanopi 2.5D berpenyangga
+  R(398,-404,196,404,C.white,10,h);
+  R(408,-396,176,396,C.navy,8,h);
+  R(428,-374,136,164,'#BFE4F2',5,h); // kaca atas pintu
+  PA('M 448 -374 L 486 -374 L 438 -210 L 428 -210 L 428 -302 Z',C.white,h,{opacity:.48});
+  R(428,-178,136,140,sh(C.navy,.84),5,h); // panel bawah pintu
+  CI(562,-194,9.5,C.gold,h);
+  R(394,-16,204,16,'#C9D2CE',3,h);R(394,-16,204,5,'#E4EAE7',2,h); // undakan teras rapi
+  PA('M 398 -404 L 594 -404 L 594 -384 L 398 -394 Z',C.deep,h,{opacity:.25}); // bayangan kanopi
+  LN('M 404 -398 L 418 -372 M 588 -398 L 574 -372',C.navy,6,h); // penyangga baja kanopi
+  PA('M 380 -408 L 402 -430 L 590 -430 L 612 -408 Z',C.coral,h); // atap miring kanopi 2.5D
+  R(380,-408,232,12,sh(C.coral,.82),3,h);
+  // Papan diegetik pada fasad rumah (padding lega kanan-kiri, SATU-SATUNYA TEKS P1 — 32 px)
+  R(338,-500,316,58,C.navy,12,h);R(344,-494,304,46,'none',8,h,{stroke:'#33536B','stroke-width':2});
+  TX(496,-460,'RUMAH SURYA',32,C.gold,h,{'letter-spacing':1.5});
 
-  // Tiang Charger EV (0,78 H = 262 px) + kabel daya animasi ke sedan listrik
+  // Tiang Charger EV (0,78 H = 262 px) + sisi gelap 2.5D + kabel daya animasi ke sedan listrik
   const ev=G({transform:`translate(920,${gy-12})`},p);
-  shadow(0,14,48,ev);R(-28,-262,56,262,C.navy,12,ev);R(-16,-242,32,76,C.deep,6,ev);
+  shadow(4,14,50,ev);R(-28,-262,56,262,C.navy,12,ev);R(12,-262,16,262,C.deep,8,ev);R(-16,-242,32,76,C.deep,6,ev);
   P1.evGlow=R(-10,-232,20,56,C.mint,4,ev,{opacity:.9});
   P1.chargePath=`M 928 ${gy-160} C 995 ${gy-160} 1015 ${gy-56} 1120 ${gy-116}`;
   LN(P1.chargePath,C.navy,10,p);
   P1.chargeDots=[];for(let i=0;i<6;i++)P1.chargeDots.push(CI(0,0,7,C.gold,p,{opacity:0}));
 
-  // Sedan Listrik Proporsional (0,87 H = 292 px tinggi × 2,52 H = 846 px panjang — atap sejajar bahu Raka!)
+  // Sedan Listrik Proporsional (0,87 H = 292 px × 2,52 H = 846 px — atap sejajar bahu Raka!)
   const car=G({transform:`translate(1040,${gy+14})`},p);
-  shadow(420,4,430,car);
-  // Bodi utama aerodinamis + panel bawah 2.5D
+  shadow(428,4,435,car);
   PA('M 18 -64 L 22 -142 Q 26 -172 78 -178 L 210 -188 L 328 -282 Q 360 -294 430 -294 L 622 -294 Q 686 -294 746 -202 L 820 -184 Q 848 -176 848 -142 L 848 -64 Q 848 -46 822 -46 L 44 -46 Q 18 -46 18 -64 Z',C.teal,car);
   PA('M 22 -96 L 846 -96 L 844 -64 Q 844 -48 820 -48 L 44 -48 Q 22 -48 22 -64 Z',sh(C.teal,.82),car);
-  // Kaca depan & jendela samping
+  // Kaca depan & jendela samping + pantulan kaca diagonal seragam dengan jendela rumah
   PA('M 244 -188 L 344 -268 Q 364 -276 418 -276 L 486 -276 L 486 -188 Z','#CFEAF5',car);
+  PA('M 332 -266 L 372 -266 L 320 -188 L 284 -188 Z',C.white,car,{opacity:.52});
   PA('M 504 -276 L 614 -276 Q 662 -276 706 -188 L 504 -188 Z','#B4DFEE',car);
-  // Lampu depan, lampu belakang, handel pintu
+  PA('M 548 -276 L 578 -276 L 528 -188 L 504 -188 Z',C.white,car,{opacity:.4});
   R(18,-154,36,24,C.coral,6,car);R(796,-156,48,26,'#FDE68A',8,car);R(532,-162,42,10,C.navy,5,car);
-  // Roda proporsional (diameter 112 px ≈ 0,33 H)
   [184,682].forEach(wx=>{CI(wx,-56,56,C.deep,car);CI(wx,-56,34,C.metal,car);CI(wx,-56,14,C.navy,car);});
 
   // Anak ayam berjalan (skala alami ~0,16 H = 54 px)
@@ -303,31 +825,48 @@ const P1=scene('halaman');{
   EL(0,-24,24,16,C.cream,cb);CI(19,-39,11,C.cream,cb);PA('M29 -39 L40 -36 L29 -33 Z',C.gold,cb);CI(22,-42,2.4,C.ink,cb);
   const legs=G({},cb);P1.legs=J(legs,0,-10);LN('M-5 0 L-5 12',C.gold,3,legs);LN('M7 0 L7 12',C.gold,3,legs);
 
-  // Karakter utama Raka: scale 0.60 → 1 H ≈ 336 px (mata sejajar horizon y=680, pintu 416 px di belakangnya!)
-  P1.w=character(p,630,gy+6,0.60,{who:'raka',facing:1,shirt:'#2B6CB0'});
-  R(-16,-6,34,44,C.gold,5,P1.w.LhandSlot,{stroke:C.navy,'stroke-width':3});
+  // Karakter utama Raka (10% aksen kontras kobalt + proporsi ~5 kepala + jaket berlapis + tangan kiri membawa HP secara natural)
+  P1.w=character(p,630,gy+6,0.60,{who:'raka',facing:1,pose:'3/4',outfit:'jacket',hairStyle:'short',handL:'carry',shirt:'#2563EB',inner:'#FFFDF7',accent:'#F59E0B'});
+  // Sisi belakang smartphone digenggam miring-horizontal (+14°) di LhandSlot (punggung tangan melingkari bagian tengah, modul kamera mencuat di sisi depan)
+  const ph=G({transform:'translate(2,7) rotate(14)'},P1.w.LhandSlot);
+  R(-15.5,-12.1,5.5,1.2,'#64748B',.6,ph); // tombol samping tipis
+  R(-23,-11,46,22,'#1E293B',4.4,ph,{stroke:'#475569','stroke-width':.9}); // bodi belakang matte smartphone horizontal
+  PA('M -18 -10.3 L -6 -10.3 L -15 10.3 L -22 10.3 Z','#334155',ph,{opacity:.40}); // kilau bodi halus
+  CI(-14.2,.5,1.8,'#475569',ph,{opacity:.55}); // emblem minimal sisi belakang
+  R(10.2,-8.4,10.2,12.2,'#0F172A',2.4,ph,{stroke:'#334155','stroke-width':.6}); // modul dual-kamera belakang di ujung depan
+  CI(13.4,-5.2,2.1,'#334155',ph);CI(13.4,-5.2,1.2,'#020617',ph);CI(13.8,-5.6,.5,'#38BDF8',ph); // lensa kamera 1
+  CI(13.4,.2,2.1,'#334155',ph);CI(13.4,.2,1.2,'#020617',ph);CI(13.8,-.2,.5,'#38BDF8',ph); // lensa kamera 2
+  CI(17.9,-2.5,1.0,'#FEF3C7',ph); // lampu kilat LED
 
-  // FG Framing: dedaunan besar gelap di sudut depan untuk kedalaman & wibawa skala
-  const fgL=G({},p);P1.fgLeft=J(fgL,40,1080);CI(0,0,164,C.leaf2,fgL);CI(138,24,116,sh(C.leaf2,1.18),fgL);
-  const fgR=G({},p);P1.fgRight=J(fgR,1890,1080);CI(0,0,178,C.leaf2,fgR);CI(-142,32,122,sh(C.leaf2,1.18),fgR);
+  // Volumetric Light Beam diagonal (kiri-atas → kanan-bawah, menyatukan lingkungan & tokoh)
+  PA('M -180 -60 L 220 -60 L 1220 1120 L 720 1120 Z','#FFF6D6',p,{opacity:.11,'pointer-events':'none'});
+  PA('M 340 -60 L 520 -60 L 1540 1120 L 1300 1120 Z','#FFF6D6',p,{opacity:.08,'pointer-events':'none'});
+
+  // FG Edge Anchors: dedaunan 2-tone gelap di sudut depan untuk kedalaman instan
+  const fgL=G({},p);P1.fgLeft=J(fgL,40,1080);
+  PA('M -140 80 C -130 -90 -20 -170 96 -110 C 174 -70 218 20 190 90 Z',C.leaf2,fgL);
+  PA('M -80 80 C -60 -50 28 -110 116 -64 C 156 -42 180 20 160 80 Z',sh(C.leaf2,1.22),fgL);
+  const fgR=G({},p);P1.fgRight=J(fgR,1890,1080);
+  PA('M 140 80 C 130 -100 10 -184 -106 -114 C -186 -66 -228 24 -198 90 Z',C.leaf2,fgR);
+  PA('M 84 80 C 66 -54 -28 -116 -118 -64 C -158 -40 -182 22 -162 80 Z',sh(C.leaf2,1.22),fgR);
 }
 
 /* PANGGUNG 2 — Gardu Energi (Low-Angle horizon y=840 + Architectural Cropping + Vertical Tilt) */
 const P2=scene('gardu');{
   const p=P2.g,hy=840,gy=980;skyOf(p,-1600,1080);hillsOf(p,hy);groundOf(p,hy,gy);
-  // Pelataran beton perspektif Low-Angle mengarah ke cakrawala rendah
+  // Pelataran beton perspektif Low-Angle + sambungan pelat beton (micro-geometry)
   PA(`M -200 ${gy+140} L 260 ${hy+60} L 1840 ${hy+60} L 2200 ${gy+140} Z`,C.road,p);
-  LN(`M 360 ${gy+120} L 540 ${hy+70} M 1560 ${gy+120} L 1460 ${hy+70}`,C.road2,6,p);
+  LN(`M 360 ${gy+120} L 540 ${hy+70} M 1560 ${gy+120} L 1460 ${hy+70} M 960 ${gy+120} L 960 ${hy+70}`,C.road2,5,p,{opacity:.7});
 
   // Gardu raksasa menjulang (~3,8 H, atap + turbin menembus bagian atas bingkai → Architectural Cropping)
   const b=G({transform:`translate(420,${gy})`},p);
-  shadow(560,8,660,b);
-  // Fasad depan tinggi + sisi kanan 2.5D menyusut ke cakrawala rendah
+  shadow(580,8,665,b);
   R(0,-840,1180,840,C.wall,12,b);
   PA('M 1180 -840 L 1360 -740 L 1360 -68 L 1180 0 Z',C.wallSide,b);
   R(0,-840,1180,32,C.wall2,8,b);
-  // Pintu akses industri di sisi kiri fasad (tinggi 310 px vs teknisi 235 px → wibawa skala!)
-  R(46,-310,148,310,C.navy,8,b);R(62,-292,116,120,C.blue,6,b);
+  // Pintu akses industri + pantulan kaca diagonal seragam
+  R(46,-310,148,310,C.navy,8,b);R(62,-292,116,120,'#BFE4F2',6,b);
+  PA('M 82 -292 L 118 -292 L 74 -172 L 62 -172 L 62 -238 Z',C.white,b,{opacity:.48});
 
   // Bagian dalam rak energi (terungkap saat dinding penutup terangkat)
   P2.racks=G({opacity:0},b);R(220,-780,936,740,'#DCE7E4',6,P2.racks);P2.lights=[];P2.fans=[];
@@ -337,7 +876,6 @@ const P2=scene('gardu');{
     const fg=G({transform:`translate(${bx+87},-162)`},P2.racks);CI(0,0,30,'#0F2530',fg);
     const bl=G({},fg);for(let k=0;k<4;k++)R(-24,-4,48,8,C.mint,4,bl,{transform:`rotate(${k*45})`});P2.fans.push(J(bl));
   }
-  // Panel meteran analog besar
   const mg=G({transform:'translate(1010,-430)'},P2.racks);
   R(-112,-172,224,344,C.navy,14,mg);CI(0,-24,78,C.cream,mg);
   PA('M -58 -24 A 58 58 0 0 1 58 -24',null,mg,{stroke:C.teal,'stroke-width':12,'stroke-linecap':'round'});
@@ -349,16 +887,19 @@ const P2=scene('gardu');{
   [.28,.50,.72].forEach(f=>R(240,-796*f,900,12,C.wall2,6,wallG));
   R(490,-450,400,82,C.navy,14,wallG);TX(690,-396,'GARDU ENERGI',36,C.gold,wallG,{'letter-spacing':2.5});
 
-  // Pipa aliran daya + kipas turbin atap + kepulan uap tinggi
+  // Pipa aliran daya + kipas turbin atap 2.5D + kepulan uap tinggi
   P2.feedPath='M120 40 L120 -930 L560 -930';LN(P2.feedPath,C.navy,28,b);LN(P2.feedPath,C.blue,13,b);
   P2.drops=[];for(let i=0;i<9;i++)P2.drops.push(CI(0,0,9,C.gold,b,{opacity:0}));
-  const u=G({transform:'translate(560,-948)'},b);R(0,0,156,108,C.metal,14,u);CI(78,54,36,C.deep,u);
-  const bl=G({},u);P2.roofFan=J(bl,78,54);for(let k=0;k<4;k++)R(-30,-5,60,10,C.cream,5,bl,{transform:`rotate(${k*45})`});
+  const u=G({transform:'translate(560,-948)'},b);R(0,0,156,108,C.metal,14,u);R(132,0,24,108,sh(C.metal,.82),8,u);CI(74,54,36,C.deep,u);
+  const bl=G({},u);P2.roofFan=J(bl,74,54);for(let k=0;k<4;k++)R(-30,-5,60,10,C.cream,5,bl,{transform:`rotate(${k*45})`});
   P2.puffs=[];for(let i=0;i<14;i++){const pg=G({opacity:0},b);CI(0,0,28+((i*29)%28),C.steam,pg);P2.puffs.push(J(pg,638+((i*67)%110)-55,-970));}
 
-  // Referensi skala manusia (Raka scale 0.42 ≈ 235 px di depan gardu raksasa) + FG sudut
-  P2.w=character(p,310,gy+12,0.42,{who:'raka',facing:1,shirt:'#2B6CB0'});
-  const fg2=G({},p);CI(30,1090,156,C.leaf2,fg2);CI(1900,1090,168,C.leaf2,fg2);
+  // Referensi skala manusia (Raka scale 0.42 ≈ 235 px di depan gardu raksasa) + light shaft + FG sudut
+  P2.w=character(p,310,gy+12,0.42,{who:'raka',facing:1,pose:'3/4',shirt:'#2563EB',accent:'#F59E0B'});
+  PA('M -200 -1000 L 280 -1000 L 1420 1120 L 820 1120 Z','#FFF6D6',p,{opacity:.09,'pointer-events':'none'});
+  const fg2=G({},p);
+  PA('M -120 1120 C -110 950 20 890 138 960 C 204 1000 220 1080 198 1120 Z',C.leaf2,fg2);
+  PA('M 2040 1120 C 2030 940 1890 886 1770 962 C 1704 1004 1688 1082 1712 1120 Z',C.leaf2,fg2);
 }
 
 /* KOREOGRAFI (100% deterministik terikat pada timeline tl) */
@@ -369,6 +910,8 @@ setCam(P1,0,720,690,1.56);
 setCam(P2,0,910,700,1.32);
 
 idle(P1.w,0);idle(P2.w,5.8);
+// Sudut lengan bawah & pergelangan santai saat menggenggam HP miring-horizontal di samping pinggul
+tl.set(P1.w.Lfore,{r:-6,onUpdate:P1.w.Lfore.apply},0);tl.set(P1.w.Lhand,{r:-3,onUpdate:P1.w.Lhand.apply},0);
 tl.to(P1.sun,{sx:1.08,sy:1.08,duration:2.4,ease:'sine.inOut',yoyo:true,repeat:-1,onUpdate:P1.sun.apply},0);
 P1.clouds.forEach((cl,i)=>tl.to(cl,{x:160-i*55,duration:DUR,ease:'none',onUpdate:cl.apply},0));
 P1.birds.forEach((bd,i)=>{tl.to(bd,{x:260,y:-40,duration:6,ease:'none',onUpdate:bd.apply},i*.8);tl.to(bd,{yIdle:-10,duration:.45,ease:'sine.inOut',yoyo:true,repeat:-1,onUpdate:bd.apply},0);});
@@ -382,10 +925,11 @@ tl.to(P1.chick,{yIdle:-4,duration:.18,ease:'sine.inOut',yoyo:true,repeat:-1,onUp
 sway(P1.legs,0,14,.18);
 point(P1.w,.55,.78);
 cam(P1,.55,950,645,1.18,2.2,'power2.inOut');
-walk(P1.w,3.0,1.56,195);face(P1.w,'kaget',4.65);jump(P1.w,4.72,46,.68);face(P1.w,'senang',5.4);
+setHand(P1.w,'R','relaxed',2.85);rot(P1.w.Rfore,2.85,0,.22,'power2.out');
+walk(P1.w,3.0,1.56,195);face(P1.w,'kaget',4.65);jump(P1.w,4.72,46,.68);face(P1.w,'senang',5.4);setHand(P1.w,'R','thumbs',5.42);
 
 slide(5.8,P1,P2,'x',96);
-rot(P2.w.head,6.2,-18,.7,'power2.out');point(P2.w,6.35,.85);
+rot(P2.w.head,6.2,-18,.7,'power2.out');point(P2.w,6.35,.85);setHand(P2.w,'R','present',7.6);
 spin(P2.roofFan,5.8,1.0);flowAlong(P2.drops,P2.feedPath,5.8,2.1);
 P2.puffs.forEach((pj,i)=>drift(pj,5.8+((i*.31)%1)*3.6,{y:-390,s0:.55,s1:1.5,dur:3.6,peak:.85}));
 cam(P2,6.4,990,460,1.24,2.1,'power2.inOut');
@@ -399,13 +943,13 @@ tl.to({},{duration:.01},DUR);
 /* ============================================================================
    [RUNTIME & QC HUD — PERTAHANKAN 100%]
    ============================================================================ */
-const q=new URLSearchParams(location.search),vo=$('#vo'),hasVO=!!vo.getAttribute('src');let audioOn=false;
+const q=new URLSearchParams(location.search);
 function applyAll(){scenes.forEach(s=>s.apply());joints.forEach(j=>j.apply());}
 tl.eventCallback('onUpdate',applyAll);
 function activeScene(){return scenes.find(s=>s.g.style.display!=='none')||scenes[0];}
-function start(){tl.play(0);if(hasVO){vo.currentTime=0;vo.play().then(()=>audioOn=true).catch(()=>{});}}
+function start(){tl.play(0);}
 tl.eventCallback('onComplete',()=>start());
-gsap.ticker.add(()=>{if(!audioOn||tl.paused())return;if(Math.abs(vo.currentTime-tl.time())>.12)vo.currentTime=tl.time();});
+gsap.ticker.add(()=>{if(!tl.paused()&&tl.time()>=DUR)start();});
 
 function runAudit(){
   const issues=[],prevT=tl.time(),wasPaused=tl.paused();
@@ -413,9 +957,15 @@ function runAudit(){
     if(z<1.08)issues.push(`t=${t.toFixed(2)}s [${sc.name}]: zoom ${z.toFixed(2)} < 1.08`);}
   S.querySelectorAll('text').forEach(el=>{const sz=parseFloat(el.getAttribute('font-size')||getComputedStyle(el).fontSize);
     if(sz<30)issues.push(`Teks "${el.textContent.trim()}" berukuran ${sz}px (< 30px)`);});
+  if($('#stage').querySelector('section'))issues.push('Terdeteksi elemen <section> di dalam #stage (F-01: larangan pola slide)');
+  chars.forEach(c=>{if(!c.sdJ||!c.sdJ.el||!c.sdJ.el.isConnected)issues.push(`Tokoh "${c.who}" tidak memiliki bayangan kaki sdJ aktif (F-02)`);});
+  [...$('#stage').children,...$('#world').children].forEach(el=>{
+    if(['world','scene','safeGuide','dbg'].includes(el.id))return;
+    const txt=el.textContent.trim();if(txt)issues.push(`Teks HTML overlay di luar #scene: "${txt.slice(0,24)}" (wajib nol caption)`);
+  });
   window.OPENER.seek(prevT);if(!wasPaused)tl.play();
   console.group('[Bang Motion Audit — Cartoon Stage v2.1]');
-  if(!issues.length)console.log('LOLOS: semua panggung zoom ≥ 1.08 dan teks ≥ 30px.');
+  if(!issues.length)console.log('LOLOS: semua panggung zoom ≥ 1.08, nol caption/<section>, rig & sdJ utuh, dan teks ≥ 30px.');
   else issues.forEach(m=>console.warn(m));
   console.groupEnd();
   return issues;
@@ -444,12 +994,9 @@ if(q.has('debug')){
 document.fonts.ready.then(()=>{
   window.OPENER.seek(0);window.OPENER.ready=true;
   if(q.has('clean'))return;
-  if(!hasVO){start();return;}
-  vo.play().then(()=>{audioOn=true;vo.currentTime=0;tl.play(0);}).catch(()=>{
-    const go=()=>{removeEventListener('pointerdown',go);removeEventListener('keydown',go);start();};
-    addEventListener('pointerdown',go);addEventListener('keydown',go);
-  });
+  start();
 });
-</script>
+  </script>
 </body>
+
 </html>

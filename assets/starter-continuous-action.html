@@ -1,10 +1,11 @@
 <!doctype html>
 <html lang="id">
 <!-- Dibuat dengan Bang Motion Skill v2.1.0 oleh Bang Tutorial (https://youtube.com/bangtutorial) · MIT -->
+
 <head>
-<meta charset="utf-8">
-<title>Bang Motion — Starter Continuous Action (Aksi Kontinu)</title>
-<!--
+  <meta charset="utf-8">
+  <title>Bang Motion — Starter Continuous Action (Aksi Kontinu)</title>
+  <!--
   GAYA 2: CONTINUOUS ACTION / AKSI KONTINU (baca: references/continuous-action.md, visuals/continuous-viewpoints-continuity.svg, & visuals/shared-scale-perspective.svg).
   CARA PAKAI OLEH AI AGENT (LANGKAH 4):
     - Salin berkas ini sebagai fondasi index.html output user.
@@ -16,114 +17,300 @@
     - Angka besar di #side berdiri di lapisan #deepObjs (di belakang subjek) agar tersapu keluar.
     - Arah layar konsisten kiri → kanan di #side dan #map; dunia tetap mengalir (~35–45%) saat angka dibaca.
     - Skala 1 H & parallax berbasis jarak: faktor strip() berjenjang (0.16 → 0.36 → 0.64 → 0.95 → 1.40) + perspektif 1-titik di #cabin.
-  Autoplay + loop TANPA player; ?debug=1 panel scrub + QC HUD; ?clean=1 tahan di frame 0; suara: isi src #vo.
+  Autoplay + loop TANPA player; ?debug=1 panel scrub + QC HUD; ?clean=1 tahan di frame 0.
 -->
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
-<style>
-:root{--sky:#cfe2f7;--far:#9bb7de;--hill:#88b878;--hill2:#6da365;--field:#c8df96;--ink:#162542;--accent:#e63946;--accent2:#f59e0b}
-html,body{margin:0;height:100%;background:#0a0f1e;overflow:hidden}
-#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;overflow:hidden;background:var(--sky);
-  font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink)}
-#stage svg{position:absolute;inset:0;width:1920px;height:1080px;overflow:visible}
-.view{position:absolute;inset:0;will-change:transform,opacity,filter}
-.big{font-family:'Unbounded',sans-serif;font-weight:900;font-variant-numeric:tabular-nums}
-#ui{position:absolute;inset:0;pointer-events:none}
-.top{position:absolute;left:0;right:0;top:72px;text-align:center;opacity:0}
-.kick{font-weight:800;font-size:44px;letter-spacing:.18em}
-#vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(92% 92% at 50% 50%,transparent 62%,rgba(10,15,30,.24))}
-#safeGuide{position:absolute;inset:0;pointer-events:none;display:none;z-index:45}
-#safeGuide::before{content:'SAFE AREA 9:16 (78%)';position:absolute;left:11%;right:11%;top:11%;bottom:11%;border:3px dashed rgba(255,212,0,.85);color:#ffd400;font:700 22px system-ui;padding:8px 12px;background:rgba(255,212,0,.04)}
-#dbg{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);display:none;gap:10px;align-items:center;padding:9px 14px;border-radius:12px;background:rgba(14,16,22,.92);border:1px solid rgba(255,255,255,.12);color:#d7deec;font:12.5px system-ui;z-index:50;white-space:nowrap}
-#dbg input{width:300px}#dbg span{font-variant-numeric:tabular-nums}
-#dbg button{background:#232b3d;color:#eef2fa;border:1px solid #39455f;border-radius:6px;padding:4px 9px;font:inherit;cursor:pointer}
-#dbg button:hover{border-color:#5ea0ff}
-.badge{padding:3px 7px;border-radius:6px;background:#1f283a;font-weight:600}
-.badge.ok{background:#153827;color:#6ee7b7}.badge.warn{background:#4c1d24;color:#fca5a5}
-</style>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Unbounded:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --sky: #cfe2f5;
+      --far: #9fb9d9;
+      --hill: #8bb0a1;
+      --hill2: #6f988c;
+      --field: #b8ceb9;
+      --ink: #162542;
+      --accent: #e63946;
+      --accent2: #f59e0b
+    }
+
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      background: #0a0f1e;
+      overflow: hidden
+    }
+
+    #stage {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: var(--sky);
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      color: var(--ink)
+    }
+
+    #stage svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible
+    }
+
+    .view {
+      position: absolute;
+      inset: 0;
+      will-change: transform, opacity, filter
+    }
+
+    .big {
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums
+    }
+
+    #ui {
+      position: absolute;
+      inset: 0;
+      pointer-events: none
+    }
+
+    .top {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 72px;
+      text-align: center;
+      opacity: 0
+    }
+
+    .kick {
+      font-weight: 800;
+      font-size: 44px;
+      letter-spacing: .18em
+    }
+
+    #vig {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(92% 92% at 50% 50%, transparent 62%, rgba(10, 15, 30, .24))
+    }
+
+    #safeGuide {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      display: none;
+      z-index: 45
+    }
+
+    .safe {
+      transform: scale(.78);
+      transform-origin: 50% 45%;
+      transform-box: view-box
+    }
+
+    #safeGuide::before {
+      content: 'SAFE AREA 9:16 (HINDARI ATAS/BAWAH & STRIP UI KANAN)';
+      position: absolute;
+      left: 6%;
+      right: 16%;
+      top: 9.9%;
+      bottom: 12.1%;
+      border: 3px dashed rgba(255, 212, 0, .85);
+      color: #ffd400;
+      font: 700 20px system-ui;
+      padding: 8px 12px;
+      background: rgba(255, 212, 0, .04)
+    }
+
+    #safeGuide::after {
+      content: 'UI KANAN';
+      position: absolute;
+      right: 1.5%;
+      top: 44%;
+      width: 13%;
+      height: 37%;
+      border: 3px dashed rgba(239, 68, 68, .85);
+      color: #fca5a5;
+      font: 700 18px system-ui;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: rgba(239, 68, 68, .08)
+    }
+
+    #dbg {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      display: none;
+      gap: 10px;
+      align-items: center;
+      padding: 9px 14px;
+      border-radius: 12px;
+      background: rgba(14, 16, 22, .92);
+      border: 1px solid rgba(255, 255, 255, .12);
+      color: #d7deec;
+      font: 12.5px system-ui;
+      z-index: 50;
+      white-space: nowrap
+    }
+
+    #dbg input {
+      width: 300px
+    }
+
+    #dbg span {
+      font-variant-numeric: tabular-nums
+    }
+
+    #dbg button {
+      background: #232b3d;
+      color: #eef2fa;
+      border: 1px solid #39455f;
+      border-radius: 6px;
+      padding: 4px 9px;
+      font: inherit;
+      cursor: pointer
+    }
+
+    #dbg button:hover {
+      border-color: #5ea0ff
+    }
+
+    .badge {
+      padding: 3px 7px;
+      border-radius: 6px;
+      background: #1f283a;
+      font-weight: 600
+    }
+
+    .badge.ok {
+      background: #153827;
+      color: #6ee7b7
+    }
+
+    .badge.warn {
+      background: #4c1d24;
+      color: #fca5a5
+    }
+  </style>
 </head>
+
 <body>
-<div id="stage">
-  <!-- VIEW 1: Samping penuh — parallax 3 lapis + angka di #deepObjs belakang hero + tiang FG -->
-  <div id="side" class="view" data-view="side"><svg viewBox="0 0 1920 1080"><g id="sideCam">
-    <rect x="-300" y="-300" width="2520" height="1680" fill="var(--sky)"/>
-    <g id="far"></g><g id="hills"></g><g id="ground"></g><g id="deepObjs"></g>
-    <g id="viaduct"></g>
-    <g id="hero"></g><g id="speedLines"></g><g id="frontObjs"></g>
-  </g></svg></div>
+  <div id="stage">
+    <!-- VIEW 1: Samping penuh — parallax 3 lapis + angka di #deepObjs belakang hero + tiang FG -->
+    <div id="side" class="view" data-view="side"><svg viewBox="0 0 1920 1080">
+        <g id="sideCam">
+          <rect x="-300" y="-300" width="2520" height="1680" fill="var(--sky)" />
+          <g id="far"></g>
+          <g id="hills"></g>
+          <g id="ground"></g>
+          <g id="deepObjs"></g>
+          <g id="viaduct"></g>
+          <g id="hero"></g>
+          <g id="speedLines"></g>
+          <g id="frontObjs"></g>
+        </g>
+      </svg></div>
 
-  <!-- VIEW 2: Kabin penuh — kaca depan panoramik + konsol speedometer hidup -->
-  <div id="cabin" class="view" data-view="cabin" style="opacity:0;visibility:hidden"><svg viewBox="0 0 1920 1080">
-    <rect width="1920" height="1080" fill="#0f182b"/>
-    <path d="M120 590 L210 92 Q960 44 1710 92 L1800 590 Z" fill="var(--sky)"/>
-    <g id="cabinTrack"></g>
-    <!-- Bingkai pilar kokpit -->
-    <path d="M0 0 H1920 V1080 H0 Z M120 590 L210 92 Q960 44 1710 92 L1800 590 Z" fill="#142038" fill-rule="evenodd"/>
-    <rect x="0" y="578" width="1920" height="502" fill="#182745"/>
-    <rect x="96" y="616" width="1728" height="424" rx="30" fill="#101a30" stroke="#2d436e" stroke-width="6"/>
-    <!-- Panel daya kiri -->
-    <g transform="translate(220 710)">
-      <text x="0" y="0" fill="#8ea4cf" font-size="32" font-weight="800" letter-spacing="4">TENAGA</text>
-      <rect x="0" y="34" width="320" height="32" rx="16" fill="#1f3054"/>
-      <rect id="pwrBar" x="0" y="34" width="180" height="32" rx="16" fill="#22c55e"/>
-      <text x="0" y="132" fill="#8ea4cf" font-size="32" font-weight="800" letter-spacing="4">JALUR</text>
-      <text x="0" y="186" fill="#f8fafc" font-size="44" font-weight="800">EKSPRES 01</text>
-    </g>
-    <!-- Speedometer tengah -->
-    <g id="gauge" transform="translate(960 896)">
-      <path d="M -250 0 A 250 250 0 0 1 250 0" fill="none" stroke="#24385e" stroke-width="28" stroke-linecap="round"/>
-      <path id="gaugeArc" d="M -250 0 A 250 250 0 0 1 250 0" fill="none" stroke="var(--accent)" stroke-width="28" stroke-linecap="round"/>
-      <g id="gaugeTicks"></g>
-      <g id="needle"><line x1="0" y1="0" x2="-206" y2="0" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/><circle r="22" fill="var(--accent)"/><circle r="9" fill="#ffffff"/></g>
-      <text id="spdVal" x="0" y="-44" text-anchor="middle" fill="#ffffff" font-size="116" class="big">0</text>
-      <text x="0" y="54" text-anchor="middle" fill="#9fb2d8" font-size="36" font-weight="800" letter-spacing="6">KM / JAM</text>
-    </g>
-    <!-- Panel status kanan -->
-    <g transform="translate(1380 710)">
-      <text x="0" y="0" fill="#8ea4cf" font-size="32" font-weight="800" letter-spacing="4">STABILITAS</text>
-      <text x="0" y="64" fill="#38bdf8" font-size="54" class="big">99.4%</text>
-      <text x="0" y="132" fill="#8ea4cf" font-size="32" font-weight="800" letter-spacing="4">ARAH</text>
-      <text x="0" y="186" fill="#f59e0b" font-size="44" font-weight="800">TIMUR →</text>
-    </g>
-  </svg></div>
+    <!-- VIEW 2: Kabin penuh — kaca depan panoramik + konsol speedometer hidup -->
+    <div id="cabin" class="view" data-view="cabin" style="opacity:0;visibility:hidden"><svg viewBox="0 0 1920 1080">
+        <rect width="1920" height="1080" fill="#0f182b" />
+        <path d="M120 590 L210 92 Q960 44 1710 92 L1800 590 Z" fill="var(--sky)" />
+        <g id="cabinTrack"></g>
+        <!-- Bingkai pilar kokpit -->
+        <path d="M0 0 H1920 V1080 H0 Z M120 590 L210 92 Q960 44 1710 92 L1800 590 Z" fill="#142038"
+          fill-rule="evenodd" />
+        <rect x="0" y="578" width="1920" height="502" fill="#182745" />
+        <rect x="96" y="616" width="1728" height="424" rx="30" fill="#101a30" stroke="#2d436e" stroke-width="6" />
+        <!-- Panel daya kiri -->
+        <g transform="translate(220 710)">
+          <text x="0" y="0" fill="#8ea4cf" font-size="32" font-weight="800" letter-spacing="4">TENAGA</text>
+          <rect x="0" y="34" width="320" height="32" rx="16" fill="#1f3054" />
+          <rect id="pwrBar" x="0" y="34" width="180" height="32" rx="16" fill="#22c55e" />
+          <text x="0" y="132" fill="#8ea4cf" font-size="32" font-weight="800" letter-spacing="4">JALUR</text>
+          <text x="0" y="186" fill="#f8fafc" font-size="44" font-weight="800">EKSPRES 01</text>
+        </g>
+        <!-- Speedometer tengah -->
+        <g id="gauge" transform="translate(960 896)">
+          <path d="M -250 0 A 250 250 0 0 1 250 0" fill="none" stroke="#24385e" stroke-width="28"
+            stroke-linecap="round" />
+          <path id="gaugeArc" d="M -250 0 A 250 250 0 0 1 250 0" fill="none" stroke="var(--accent)" stroke-width="28"
+            stroke-linecap="round" />
+          <g id="gaugeTicks"></g>
+          <g id="needle">
+            <line x1="0" y1="0" x2="-206" y2="0" stroke="#ffffff" stroke-width="10" stroke-linecap="round" />
+            <circle r="22" fill="var(--accent)" />
+            <circle r="9" fill="#ffffff" />
+          </g>
+          <text id="spdVal" x="0" y="-44" text-anchor="middle" fill="#ffffff" font-size="116" class="big">0</text>
+          <text x="0" y="54" text-anchor="middle" fill="#9fb2d8" font-size="36" font-weight="800" letter-spacing="6">KM
+            / JAM</text>
+        </g>
+        <!-- Panel status kanan -->
+        <g transform="translate(1380 710)">
+          <text x="0" y="0" fill="#8ea4cf" font-size="32" font-weight="800" letter-spacing="4">STABILITAS</text>
+          <text x="0" y="64" fill="#38bdf8" font-size="54" class="big">99.4%</text>
+          <text x="0" y="132" fill="#8ea4cf" font-size="32" font-weight="800" letter-spacing="4">ARAH</text>
+          <text x="0" y="186" fill="#f59e0b" font-size="44" font-weight="800">TIMUR →</text>
+        </g>
+      </svg></div>
 
-  <!-- VIEW 3: Peta simulasi rute penuh (kiri → kanan) -->
-  <div id="map" class="view" data-view="map" style="opacity:0;visibility:hidden"><svg viewBox="0 0 1920 1080"><g id="mapCam">
-    <rect x="-1500" y="-1500" width="5000" height="4000" fill="#b4d6ef"/>
-    <g id="mapArt"></g>
-  </g></svg></div>
+    <!-- VIEW 3: Peta simulasi rute penuh (kiri → kanan) -->
+    <div id="map" class="view" data-view="map" style="opacity:0;visibility:hidden"><svg viewBox="0 0 1920 1080">
+        <g id="mapCam">
+          <rect x="-1500" y="-1500" width="5000" height="4000" fill="#b4d6ef" />
+          <g id="mapArt"></g>
+        </g>
+      </svg></div>
 
-  <div id="vig"></div>
-  <div id="ui">
-    <div class="top" id="numA">
-      <div class="kick">JARAK TEMPUH</div>
-      <div class="big" style="font-size:196px;color:var(--accent);line-height:1.05"><span id="odoDist">0</span><span style="font-size:90px;color:var(--ink)"> km</span></div>
+    <div id="vig"></div>
+    <div id="ui">
+      <div class="top" id="numA">
+        <div class="kick">JARAK TEMPUH</div>
+        <div class="big" style="font-size:196px;color:var(--accent);line-height:1.05">
+          <span id="odoDist">0</span><span style="font-size:90px;color:var(--ink)"> km</span>
+        </div>
+      </div>
+    </div>
+    <div id="safeGuide"></div>
+    <div id="dbg">
+      <button id="dPlay" type="button">Jeda</button>
+      <input id="dScrub" type="range" min="0" max="1000" value="0">
+      <span id="dClock">0.00s</span>
+      <span class="badge ok" id="dInfo">side</span>
+      <button id="dSafe" type="button">Safe</button>
+      <button id="dAudit" type="button">Audit</button>
+      <span class="badge" id="dRes" style="display:none"></span>
     </div>
   </div>
-  <div id="safeGuide"></div>
-  <div id="dbg">
-    <button id="dPlay" type="button">Jeda</button>
-    <input id="dScrub" type="range" min="0" max="1000" value="0">
-    <span id="dClock">0.00s</span>
-    <span class="badge ok" id="dInfo">side</span>
-    <button id="dSafe" type="button">Safe</button>
-    <button id="dAudit" type="button">Audit</button>
-    <span class="badge" id="dRes" style="display:none"></span>
-  </div>
-</div>
-<audio id="vo" src="" preload="auto"></audio>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    /* [KANVAS — 16:9 (1920×1080) | 9:16 (1080×1920)] */
+const W=1920,H=1080;
+
 /* ============================================================================
    [ENGINE — PERTAHANKAN 100%]
    Helper SVG, integrator jarak D(t), strip parallax, wobj, whip(), odometer().
    ============================================================================ */
-const W=1920,H=1080,$=s=>document.querySelector(s),NS='http://www.w3.org/2000/svg';
+const CX=W/2,CY=H/2,$=s=>document.querySelector(s),NS='http://www.w3.org/2000/svg';
 function S(tag,attrs={},parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
 const T=(txt,x,y,attrs,parent)=>{const e=S('text',{x,y,...attrs},parent);e.textContent=txt;return e;};
 const mod=(a,n)=>((a%n)+n)%n,smooth=x=>x<=0?0:x>=1?1:x*x*(3-2*x);
-function fit(){const s=Math.min(innerWidth/W,innerHeight/H);$('#stage').style.transform=`translate(-50%,-50%) scale(${s})`;}
+function fit(){const st=$('#stage');st.style.width=W+'px';st.style.height=H+'px';const s=Math.min(innerWidth/W,innerHeight/H);st.style.transform=`translate(-50%,-50%) scale(${s})`;}
 addEventListener('resize',fit);fit();
+document.querySelectorAll('#stage > .view > svg').forEach(el=>el.setAttribute('viewBox',`0 0 ${W} ${H}`));
 
 const strips=[],objs=[],P=2400;
 function strip(parent,f,draw){const g=S('g',{},parent);for(let c=0;c<2;c++)draw(S('g',{transform:`translate(${c*P} 0)`},g));strips.push({el:g,f});}
@@ -145,26 +332,44 @@ function paletteAt(t){
     const rgb=a.map((v,k)=>Math.round(v+(b[k]-v)*u));document.documentElement.style.setProperty('--sky',`rgb(${rgb[0]},${rgb[1]},${rgb[2]})`);return;}}
 }
 
-/* Strip dunia parallax berbasis jarak (shared-scale-perspective.svg):
-   Gunung jauh 0.16 → Bukit 0.36 → Padang 0.64 → Viaduk/jalur subjek 0.95 → Tiang FG 1.40.
+/* Strip dunia parallax berbasis jarak + Color Script 70-20-10 + Light Direction Anchor (kiri-atas → kanan-bawah):
+   Gunung jauh 0.16 (2-tone faset tanpa detail) → Bukit & siluet kota 0.36 → Padang 0.64 → Viaduk 0.95 → Tiang FG 1.40.
    Kalibrasi 1 H: bodi kereta ~148 px (≈2,2 H pada wide tracking shot) vs pilar viaduk & tiang listrik proporsional. */
 strip($('#far'),.16,g=>{
   S('path',{d:'M0 640 L0 510 L220 390 L430 490 L680 350 L920 480 L1180 380 L1440 495 L1720 360 L1980 485 L2220 410 L2400 510 L2400 640 Z',fill:'var(--far)'},g);
-  // Puncak salju tipis
-  [220,680,1180,1720].forEach((x,i)=>{const y=[390,350,380,360][i];S('polygon',{points:`${x},${y} ${x-52},${y+42} ${x+48},${y+42}`,fill:'#ffffff',opacity:.55},g);});
+  // Sisi bayangan kanan lereng gunung (2-tone faset searah cahaya kiri-atas)
+  [[220,390,430,490],[680,350,920,480],[1180,380,1440,495],[1720,360,1980,485]].forEach(([x0,y0,x1,y1])=>{
+    S('polygon',{points:`${x0},${y0} ${x1},${y1} ${x0+34},640 ${x0-10},640`,fill:'#7f9ec4',opacity:.52},g);
+    S('polygon',{points:`${x0},${y0} ${x0-52},${y0+42} ${x0+48},${y0+42}`,fill:'#ffffff',opacity:.58},g);
+  });
 });
 strip($('#hills'),.36,g=>{
+  // Siluet kota jauh berkontras sangat rendah (4-plane atmospheric attenuation)
+  [[320,120,170],[455,86,130],[560,110,195],[1380,104,165],[1500,132,205],[1650,82,140]].forEach(([bx,bw,bh])=>{
+    S('rect',{x:bx,y:625-bh,width:bw,height:bh,fill:'#8ca9c6',opacity:.45},g);
+    S('rect',{x:bx+bw-18,y:625-bh,width:18,height:bh,fill:'#7492b0',opacity:.45},g);
+  });
   S('path',{d:'M0 700 L0 612 C280 555 520 658 820 598 C1120 540 1380 652 1680 594 C1960 542 2200 644 2400 612 L2400 700 Z',fill:'var(--hill2)'},g);
-  for(let i=0;i<8;i++){const x=140+i*300;S('polygon',{points:`${x},590 ${x-18},640 ${x+18},640`,fill:'#4d8350'},g);}
+  // Pohon 2-tone asimetris bertingkat (bukan segitiga polos)
+  for(let i=0;i<8;i++){const x=140+i*300,h=54+(i%3)*12;
+    S('rect',{x:x-3,y:628,width:6,height:22,fill:'#4e635a'},g);
+    S('path',{d:`M${x-20} 632 C${x-24} ${632-h*.6} ${x-8} ${632-h} ${x+2} ${632-h} C${x+18} ${632-h} ${x+24} ${632-h*.55} ${x+20} 632 Z`,fill:'#487965'},g);
+    S('path',{d:`M${x-20} 632 C${x-22} ${632-h*.6} ${x-6} ${632-h} ${x+2} ${632-h} C${x-2} ${632-h*.45} ${x-4} 632 ${x-20} 632 Z`,fill:'#5c917b'},g);
+  }
 });
 strip($('#ground'),.64,g=>{
   S('rect',{x:0,y:736,width:2400,height:420,fill:'var(--field)'},g);
-  for(let i=0;i<12;i++)S('rect',{x:i*200,y:860+(i%3)*40,width:160,height:32,rx:10,fill:'var(--hill)',opacity:.55},g);
+  for(let i=0;i<12;i++)S('rect',{x:i*200,y:860+(i%3)*40,width:160,height:30,rx:10,fill:'var(--hill)',opacity:.45},g);
 });
 strip($('#viaduct'),.95,g=>{
   S('rect',{x:0,y:696,width:2400,height:44,fill:'#cbd5e1'},g);
+  S('rect',{x:0,y:726,width:2400,height:14,fill:'#94a3b8'},g); // bevel bayangan bawah dek viaduk
   S('rect',{x:0,y:696,width:2400,height:10,fill:'#475569'},g);
-  for(let i=0;i<6;i++){const x=i*400;S('rect',{x:x+160,y:740,width:48,height:360,fill:'#94a3b8'},g);S('rect',{x:x+196,y:740,width:12,height:360,fill:'#7b8da6'},g);}
+  for(let i=0;i<6;i++){const x=i*400;
+    S('rect',{x:x+160,y:740,width:48,height:360,fill:'#94a3b8'},g);
+    S('rect',{x:x+194,y:740,width:14,height:360,fill:'#7b8da6'},g);
+    S('polygon',{points:`${x+160},740 ${x+208},740 ${x+208},762 ${x+160},748`,fill:'#64748b',opacity:.55},g); // bayangan jatuh dek
+  }
 });
 strip($('#frontObjs'),1.4,g=>{
   for(let i=0;i<3;i++){const x=i*800+260;S('rect',{x,y:210,width:14,height:530,fill:'#1e293b',opacity:.22},g);S('rect',{x:x-36,y:230,width:86,height:8,fill:'#1e293b',opacity:.22},g);}
@@ -178,15 +383,20 @@ for(let i=0;i<10;i++){const y=200+(i*79)%460,w=140+(i*53)%180;sLines.push({el:S(
 const hero=S('g',{},$('#hero'));
 // Pantograf atap
 S('path',{d:'M-640 -144 L-605 -176 L-555 -176 L-580 -144 M-625 -178 L-535 -178',fill:'none',stroke:SUBJECT.ink,'stroke-width':6,'stroke-linecap':'round'},hero);
-// Bodi utama aerodinamis + bayangan bawah
+// Bodi utama aerodinamis + rim highlight atap + bayangan bawah 2-tone
 S('path',{d:'M-920 -24 L-920 -132 Q-920 -148 -900 -148 L-156 -148 Q-36 -148 36 -74 Q52 -56 38 -36 Q28 -24 -12 -24 Z',fill:SUBJECT.body,stroke:SUBJECT.ink,'stroke-width':6},hero);
+S('path',{d:'M-906 -142 L-160 -142 Q-96 -142 -42 -114 L-162 -132 L-906 -132 Z',fill:'#ffffff',opacity:.85},hero);
 S('path',{d:'M-916 -44 L36 -44 Q28 -26 -12 -26 L-916 -26 Z',fill:SUBJECT.shade},hero);
 // Garis pita aksen subjek (Subject Visual Anchor #1)
 S('path',{d:'M-916 -84 L12 -84 L28 -68 L-916 -68 Z',fill:SUBJECT.accent},hero);
-// Kaca kokpit + deret jendela penumpang
+// Kaca kokpit + deret jendela penumpang dengan pantulan kaca diagonal seragam
 S('path',{d:'M-148 -134 L-52 -134 Q-16 -134 2 -102 L-148 -102 Z',fill:SUBJECT.glass,stroke:SUBJECT.ink,'stroke-width':4},hero);
-S('line',{x1:-108,y1:-128,x2:-88,y2:-108,stroke:'#93c5fd','stroke-width':6,'stroke-linecap':'round'},hero);
-for(let i=0;i<8;i++){S('rect',{x:-868+i*88,y:-128,width:58,height:28,rx:7,fill:SUBJECT.ink},hero);S('rect',{x:-862+i*88,y:-124,width:20,height:8,rx:3,fill:'#60a5fa',opacity:.6},hero);}
+S('polygon',{points:'-126,-132 -104,-132 -120,-104 -140,-104',fill:'#93c5fd',opacity:.68},hero);
+S('polygon',{points:'-84,-132 -70,-132 -86,-104 -98,-104',fill:'#93c5fd',opacity:.45},hero);
+for(let i=0;i<8;i++){const wx=-868+i*88;
+  S('rect',{x:wx,y:-128,width:58,height:28,rx:7,fill:SUBJECT.ink},hero);
+  S('polygon',{points:`${wx+14},-126 ${wx+28},-126 ${wx+18},-102 ${wx+6},-102`,fill:'#60a5fa',opacity:.52},hero);
+}
 // Lampu depan menyala
 S('ellipse',{cx:12,cy:-54,rx:12,ry:6,fill:'#fde047'},hero);
 // Roda berputar deterministik
@@ -200,15 +410,21 @@ const HX=1400,HY=700;
   T('350',0,490,{class:'big','font-size':400,fill:'var(--ink)','letter-spacing':'-.04em',opacity:.9},g);
   T('km/jam',840,486,{'font-size':92,'font-weight':800,fill:'var(--accent)'},g);}
 
-/* VIEW 2: Kabin — lintasan perspektif & skala speedometer */
+/* VIEW 2: Kabin — window depth, lintasan perspektif, pantulan kaca seragam, & skala speedometer */
 const cabinTrack=$('#cabinTrack'),gaugeArc=$('#gaugeArc'),needle=$('#needle'),spdVal=$('#spdVal'),pwrBar=$('#pwrBar');
 const GL=gaugeArc.getTotalLength();gaugeArc.setAttribute('stroke-dasharray',GL);
 for(let i=0;i<=8;i++){const a=(-180+i*22.5)*Math.PI/180,x1=Math.cos(a)*206,y1=Math.sin(a)*206,x2=Math.cos(a)*230,y2=Math.sin(a)*230;
   S('line',{x1,y1,x2,y2,stroke:'#64748b','stroke-width':5,'stroke-linecap':'round'},$('#gaugeTicks'));}
-S('path',{d:'M120 350 Q480 260 960 326 T1800 300 L1800 590 L120 590 Z',fill:'#9bb7de'},cabinTrack);
-S('polygon',{points:'960,318 1820,590 100,590',fill:'#7c93b3'},cabinTrack);
+// Siluet gunung 2-tone di balik kaca depan (window depth konsisten dengan #side)
+S('path',{d:'M120 350 L360 245 L580 326 L880 236 L1160 324 L1480 250 L1800 318 L1800 590 L120 590 Z',fill:'#9fb9d9'},cabinTrack);
+S('polygon',{points:'360,245 580,326 390,360',fill:'#84a1c4',opacity:.55},cabinTrack);
+S('polygon',{points:'880,236 1160,324 910,360',fill:'#84a1c4',opacity:.55},cabinTrack);
+S('polygon',{points:'960,318 1820,590 100,590',fill:'#7b92af'},cabinTrack);
 S('polygon',{points:'960,318 1340,590 580,590',fill:'#2b3b5c'},cabinTrack);
 const ties=[];for(let i=0;i<8;i++)ties.push(S('line',{stroke:'#e2e8f0','stroke-width':8,'stroke-linecap':'round'},cabinTrack));
+// Pantulan kaca depan diagonal seragam (micro-geometry konsisten Light Direction Anchor)
+S('polygon',{points:'420,90 560,90 360,590 220,590',fill:'#ffffff',opacity:.13},cabinTrack);
+S('polygon',{points:'610,90 670,90 470,590 410,590',fill:'#ffffff',opacity:.08},cabinTrack);
 function renderCabin(t,d){
   const kmh=Math.round((vAt(t)/1140)*350),frac=Math.min(1,kmh/380);
   gaugeArc.setAttribute('stroke-dashoffset',GL*(1-frac));
@@ -246,7 +462,7 @@ function renderMap(t){
   marker.setAttribute('transform',`translate(${pt.x.toFixed(1)} ${pt.y.toFixed(1)}) rotate(${ang.toFixed(1)})`);
   stops.forEach(st=>{const sc=smooth((q-st.f+.04)/.08);st.dot.setAttribute('transform',`scale(${sc.toFixed(3)})`);});
   const cx=pt.x+(1000-pt.x)*e,cy=pt.y+(560-pt.y)*e,z=2.25+(1-2.25)*e;
-  mapCam.setAttribute('transform',`translate(960 540) scale(${z.toFixed(4)}) translate(${-cx.toFixed(1)} ${-cy.toFixed(1)})`);
+  mapCam.setAttribute('transform',`translate(${CX} ${CY}) scale(${z.toFixed(4)}) translate(${-cx.toFixed(1)} ${-cy.toFixed(1)})`);
 }
 
 const CAMK=[[0,1,960,540],[2.2,1.07,900,480],[6.4,1,960,540],[DUR+1,1,960,540]];
@@ -293,26 +509,32 @@ function render(){
   const rot=(d/18)*57.3;
   wheels.forEach(w=>{if(!w.__b)w.__b=w.getAttribute('transform');w.setAttribute('transform',`${w.__b} rotate(${(rot%360).toFixed(1)})`);});
   const [z,cx,cy]=camAt(t);
-  $('#sideCam').setAttribute('transform',`translate(960 540) scale(${(z*(1+Math.sin(t*.9)*.006)).toFixed(4)}) translate(${-cx.toFixed(1)} ${-cy.toFixed(1)})`);
+  $('#sideCam').setAttribute('transform',`translate(${CX} ${CY}) scale(${(z*(1+Math.sin(t*.9)*.006)).toFixed(4)}) translate(${-cx.toFixed(1)} ${-cy.toFixed(1)})`);
   renderCabin(t,d);
   renderMap(t);
 }
 gsap.ticker.add(render);
 
-const q=new URLSearchParams(location.search),vo=$('#vo'),hasVO=!!vo.getAttribute('src');let audioOn=false;
+const q=new URLSearchParams(location.search);
 function activeViewName(){const v=views.find(el=>parseFloat(getComputedStyle(el).opacity)>.2&&getComputedStyle(el).visibility!=='hidden');return v?v.dataset.view:'-';}
-function start(){tl.play(0);if(hasVO){vo.currentTime=0;vo.play().then(()=>audioOn=true).catch(()=>{});}}
+function start(){tl.play(0);}
 tl.eventCallback('onComplete',()=>start());
-gsap.ticker.add(()=>{if(!audioOn||tl.paused())return;if(Math.abs(vo.currentTime-tl.time())>.12)vo.currentTime=tl.time();});
 
 function runAudit(){
-  const issues=[];
+  const issues=[],prevT=tl.time(),wasPaused=tl.paused();
   $('#stage').querySelectorAll('text, .kick').forEach(el=>{const sz=parseFloat(el.getAttribute('font-size')||getComputedStyle(el).fontSize);
     if(sz<30)issues.push(`Teks "${el.textContent.trim()}" berukuran ${sz}px (< 30px)`);});
-  const visCount=views.filter(el=>parseFloat(getComputedStyle(el).opacity)>.2&&getComputedStyle(el).visibility!=='hidden').length;
-  if(visCount>1)issues.push(`${visCount} view terlihat bersamaan pada t=${tl.time().toFixed(2)}s`);
+  if($('#stage').querySelector('.view [visibility="visible"]'))issues.push('Terdeteksi visibility="visible" pada anak .view (pakai removeAttribute agar tidak tembus antar-view)');
+  let frozenReported=false,multiReported=false;
+  for(let i=0;i<=40;i++){
+    const t=(DUR*i)/40;window.OPENER.seek(t);
+    const visViews=views.filter(el=>parseFloat(getComputedStyle(el).opacity)>.2&&getComputedStyle(el).visibility!=='hidden');
+    if(!multiReported&&visViews.length>1){issues.push(`${visViews.length} view terlihat bersamaan pada t=${t.toFixed(2)}s`);multiReported=true;}
+    if(!frozenReported&&visViews.some(el=>el.dataset.view==='side')&&vAt(t)<=0){issues.push(`Kecepatan dunia vAt(${t.toFixed(2)}s) <= 0 di #side (F-04: dunia tidak boleh beku)`);frozenReported=true;}
+  }
+  window.OPENER.seek(prevT);if(!wasPaused)tl.play();
   console.group('[Bang Motion Audit — Continuous Action v2.1]');
-  if(!issues.length)console.log('LOLOS: satu view aktif, semua teks ≥ 30px, aliran D(t) deterministik.');
+  if(!issues.length)console.log('LOLOS: satu view aktif di seluruh durasi, vAt(t) > 0, nol visibility leak, semua teks ≥ 30px.');
   else issues.forEach(m=>console.warn(m));
   console.groupEnd();
   return issues;
@@ -339,12 +561,9 @@ if(q.has('debug')){
 document.fonts.ready.then(()=>{
   window.OPENER.seek(0);window.OPENER.ready=true;
   if(q.has('clean'))return;
-  if(!hasVO){start();return;}
-  vo.play().then(()=>{audioOn=true;vo.currentTime=0;tl.play(0);}).catch(()=>{
-    const go=()=>{removeEventListener('pointerdown',go);removeEventListener('keydown',go);start();};
-    addEventListener('pointerdown',go);addEventListener('keydown',go);
-  });
+  start();
 });
-</script>
+  </script>
 </body>
+
 </html>

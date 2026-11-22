@@ -9,9 +9,9 @@
 
 ## 2. Keputusan Langkah Nol (Ringkas)
 - **Gaya dipilih:** **Cartoon Collage** *(konsep sains populer, gaya kliping kertas krem, pill kata kunci, dan coretan tangan)*.
-- **Rasio:** `9:16` (`1080×1920`, wajib bungkus `.safe { transform: scale(.78); }` dengan kertas latar penuh 100%) *(sudah disebut user)*.
+- **Rasio:** `9:16` (`1080×1920`, wajib bungkus konten tiap area — bukan `#world` — dalam `.safe { transform: scale(.78); }` agar kertas latar tetap penuh 100%) *(sudah disebut user)*.
 - **Durasi:** `30 detik` *(sudah disebut user)*.
-- **Suara:** Tanpa audio dulu, naskah VO ditulis lengkap (`vo-script.md`).
+- **Naskah VO:** Ditulis lengkap (`vo-script.md`) sesuai pacing untuk sinkronisasi manual di video editor.
 - **Referensi yang diambil lewat `reference-index.md`:** `DOC-COLL`, `VIS-COLL-MAP`, `VIS-SHARED-CAM`, `EX-GVB`.
 
 ---
@@ -31,13 +31,13 @@ Untuk `9:16` (`1080×1920`), jarak aman antar pusat area `dx = 2200 px`, `dy = 2
 - **Panggilan wajib:** `sizeWorld(540, 960, 2740, 3560)` → otomatis memperluas `.paper`, `.grain`, dan `.stain` sebesar `±1600 px` ke semua sisi.
 
 ### C. Target Pacing VO
-- **Target durasi:** `30 detik` → **65 kata** (3 paragraf, 3 area, masing-masing 4–5 elemen bertahap).
+- **Target durasi:** `30 detik` → **57 kata** *(dalam rentang ideal 55–65 kata: 3 paragraf × 19 kata, 3 area, masing-masing 4–5 elemen bertahap)*.
 
 ---
 
 ## 4. Full Beat Sheet (30 Detik · 3 Area · Akresi 4–5 Elemen/Area)
 
-| Waktu | Area Dunia | Paragraf VO (65 kata total) | Akresi 4–5 Elemen Bertahap | Koreografi Kamera (`home` → +0,15s `say`) | Transisi |
+| Waktu | Area Dunia | Paragraf VO (57 kata total) | Akresi 4–5 Elemen Bertahap | Koreografi Kamera (`home` → +0,15s `say`) | Transisi |
 |---|---|---|---|---|---|
 | `0.0–10.5` | **Area 1 `(540, 960)`** | *"Cahaya matahari tampak putih polos, padahal di dalamnya tersimpan seluruh warna pelangi yang melesat bersama menuju bumi."* (19 kata) | (1) Cutout matahari `fly()`, (2) Cutout prisma spektrum `fly()` saat `look()`, (3) Kartu `.note` miring `-4°` *"7 warna spektrum"*, (4) `say()` kalimat + pill oranye `"putih polos"`, (5) Coretan panah biru `draw()`. | `CU (1.72)` di matahari → `look` ke prisma (`1.52`) → `home(3.4, 540, 960)` selesai `4.5s` → `say()` mulai `4.65s`. | `unsay(9.4)` → `into/settle` ke `(2740, 960)` |
 | `10.5–20.5` | **Area 2 `(2740, 960)`** | *"Saat menabrak molekul udara di atmosfer, gelombang cahaya biru yang pendek paling mudah terpencar cepat ke segala arah."* (19 kata) | (1) Cutout molekul nitrogen `fly()`, (2) Grid partikel biru menyebar via `gridPop()`, (3) Stempel `.stamp` `"HAMBURAN RAYLEIGH"` dihentak `slam()`, (4) `say()` kalimat + pill teal `"biru terpencar"`, (5) Lingkaran coretan merah `draw()`. | Mendarat `CU (1.65)` di molekul → `look` ke grid → `home(13.8, 2740, 960)` selesai `14.9s` → `say()` mulai `15.1s`. | `unsay(19.4)` → `into/settle` ke `(2740, 3560)` |
@@ -65,12 +65,12 @@ home(3.4, 540, 960, 1.1);
 say('#t1', 4.65);
 draw('#arrow1', 5.4);
 
-// 4. Transisi push-through di kertas yang sama (bukan fade section)
+// 4. Transisi push-through di kertas yang sama (into mulai di cutAt - 0.9 = 9.6s)
 unsay('#t1', 9.4);
-into(9.6, 2740, 960, 1.65);
+into(10.5, 2740, 960, 1.65);
 settle(10.5, 2740, 960, 1.65);
 ```
 
 ## 6. Hasil Ringkas Audit QC (Sesuai `templates/qc-audit-scorecard.md`)
-- **Lapis 1 (`?debug=1` Audit):** `0` teks `< 30 px`, semua `.cut` memiliki `.cut-body` utuh, `0` elemen di luar `.paper`, overlay **Safe 9:16** bersih dari zona atas ±190 px & bawah ±230 px.
-- **Lapis 2 (F-01 s.d. F-06):** 4–5 elemen per area (`F-01` lolos), bayangan kertas utuh pasca-`fly()` & `say()` selalu `≥ +0.15s` pasca-`home()` (`F-05` lolos), nol kebocoran area sebelah (`F-06` lolos).
+- **Lapis 1 (`?debug=1` Audit):** `0` teks `< 30 px`, semua `.cut` memiliki `.cut-body` utuh, `0` elemen di luar `.paper`, `say()` selalu dimulai pada `z = 1.00`, dan overlay **Safe 9:16** bersih dari zona atas `±190 px`, bawah `±230 px`, serta strip UI kanan `±160 px`.
+- **Lapis 2 (F-01 s.d. F-07):** 4–5 elemen per area (`F-01` lolos), bayangan kertas utuh pasca-`fly()` & `say()` selalu `≥ +0.15s` pasca-`home()` (`F-05` lolos), nol kebocoran area sebelah (`F-06` lolos), hierarki ukuran & Z-plane kertas konsisten (`F-07` lolos).

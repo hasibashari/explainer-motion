@@ -38,16 +38,21 @@
       <line x1="-20" y1="202" x2="-20" y2="254" stroke="#475569" stroke-width="11" stroke-linecap="round"/>
       <line x1="18" y1="146" x2="20" y2="202" stroke="#64748b" stroke-width="12" stroke-linecap="round"/>
       <line x1="20" y1="202" x2="20" y2="254" stroke="#475569" stroke-width="11" stroke-linecap="round"/>
-      <!-- Torso -->
-      <rect x="-28" y="64" width="56" height="86" rx="14" fill="#2f6fd6"/>
+      <!-- Torso (organic collar + 2-tone right shade + belt) -->
+      <rect x="-28" y="64" width="56" height="86" rx="14" fill="#2563eb"/>
+      <path d="M12 66 C24 72 28 90 28 148 L12 150 Z" fill="#1d4ed8"/>
+      <polygon points="-12,64 0,76 12,64" fill="#60a5fa"/>
+      <rect x="-28" y="138" width="56" height="8" rx="3" fill="#172d4a"/>
       <!-- Arms + Hand Slots -->
       <line x1="28" y1="78" x2="68" y2="108" stroke="#38bdf8" stroke-width="11" stroke-linecap="round"/>
       <line x1="68" y1="108" x2="102" y2="96" stroke="#38bdf8" stroke-width="10" stroke-linecap="round"/>
       <rect x="98" y="84" width="24" height="22" rx="4" fill="#22c55e" opacity="0.3" stroke="#22c55e" stroke-dasharray="3 2"/>
       <line x1="-28" y1="78" x2="-58" y2="122" stroke="#60a5fa" stroke-width="11" stroke-linecap="round"/>
       <line x1="-58" y1="122" x2="-50" y2="164" stroke="#60a5fa" stroke-width="10" stroke-linecap="round"/>
-      <!-- Head -->
-      <circle cx="0" cy="28" r="28" fill="#f7c8a0"/>
+      <!-- Neck + chin shadow + Head -->
+      <rect x="-8" y="50" width="16" height="16" rx="4" fill="#e5a77b"/>
+      <path d="M-8 54 Q0 61 8 54 L8 50 L-8 50 Z" fill="#bf865f"/>
+      <circle cx="0" cy="28" r="28" fill="#e5a77b"/>
       <!-- Joint pivot dots -->
       <circle cx="0" cy="146" r="5" class="joint"/>
       <circle cx="0" cy="64" r="5" class="joint"/>
@@ -58,8 +63,8 @@
       <circle cx="20" cy="202" r="5" class="joint"/>
 
       <!-- Labels -->
-      <text x="38" y="30" class="mono">head (0, -160)</text>
-      <text x="38" y="66" class="mono">Rarm (50, -126)</text>
+      <text x="38" y="30" class="mono">head (0, -162)</text>
+      <text x="38" y="66" class="mono">Rarm (46, -126)</text>
       <text x="128" y="99" class="mono" fill="#86efac">RhandSlot</text>
       <text x="-118" y="76" class="mono">Larm</text>
       <text x="-118" y="152" class="mono">root (facing sx)</text>
@@ -73,13 +78,13 @@
     <text x="30" y="434" class="mono">rotate(r + rIdle) scale(sx, sy)</text>
     <text x="30" y="450" class="note">idle() pakai kanal *Idle · aksi pakai kanal x/y/r</text>
 
-    <!-- Safe angle bounds -->
-    <text x="20" y="484" class="lbl" fill="#f59e0b">BATAS SUDUT ANATOMIS WAJAR:</text>
-    <text x="20" y="506" class="note">• Kepala (head.r): -22° s.d. +22° (idle ±1.7°)</text>
-    <text x="20" y="526" class="note">• Badan (torso.r): -16° s.d. +18° (idle ±1.1°)</text>
-    <text x="20" y="546" class="note">• Bahu (arm.r): -155° (angkat) s.d. +45° (belakang)</text>
-    <text x="20" y="566" class="note">• Siku (fore.r): 0° s.d. -130° (satu arah tekuk)</text>
-    <text x="20" y="586" class="note">• Balik arah: ubah root.sx = 1 | -1 (facing)</text>
+    <!-- Safe angle bounds & pose/hand options -->
+    <text x="20" y="484" class="lbl" fill="#f59e0b">BATAS SUDUT &amp; OPSI RIG v2.1:</text>
+    <text x="20" y="504" class="note">• Kepala: ±22° · Badan: -16°..+18° · Bahu: -155°..+45°</text>
+    <text x="20" y="524" class="note">• Siku (fore.r): 0° s.d. -130° (satu arah tekuk)</text>
+    <text x="20" y="544" class="note">• Sudut badan: pose '3/4' (default) | 'front' | 'side'</text>
+    <text x="20" y="564" class="note">• Tangan: setHand(ch, 'R'|'L', 'open'|'point'|'grip', t)</text>
+    <text x="20" y="584" class="note">• Balik arah: ubah root.sx = 1 | -1 (facing)</text>
   </g>
 
   <!-- Top Right: 6 Clear Silhouette Poses -->

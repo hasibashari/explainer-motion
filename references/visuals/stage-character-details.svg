@@ -1,0 +1,616 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Lembar Referensi Model Sheet Karakter Cartoon Stage: 8 Gestur Tangan Bezier, Exploded Puppet Rig, 4-View Turnaround, dan Rambut Berlapis">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .card { fill: #162033; stroke: #2b3a55; stroke-width: 1.5; }
+      .subcard { fill: #0b1324; stroke: #334155; stroke-width: 1.15; }
+      .title { font: 700 20px/1.2 system-ui, -apple-system, sans-serif; fill: #f8fafc; }
+      .sub { font: 500 12px/1.3 system-ui, -apple-system, sans-serif; fill: #94a3b8; }
+      .h2 { font: 700 13.5px/1.2 system-ui, sans-serif; fill: #f1f5f9; }
+      .lbl { font: 700 10.8px/1.2 system-ui, sans-serif; fill: #e2e8f0; }
+      .note { font: 500 9.8px/1.25 system-ui, sans-serif; fill: #94a3b8; }
+      .mono { font: 600 10px/1.2 ui-monospace, SFMono-Regular, monospace; fill: #38bdf8; }
+      .ok { font: 700 10px/1.2 system-ui, sans-serif; fill: #4ade80; }
+      .warn { font: 700 10px/1.2 system-ui, sans-serif; fill: #f87171; }
+      .guide { stroke: #38bdf8; stroke-width: 0.9; stroke-dasharray: 3 3; opacity: 0.45; }
+      .pivot { fill: #38bdf8; stroke: #0f172a; stroke-width: 1.1; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1280" height="720"/>
+
+  <!-- Header -->
+  <text x="32" y="34" class="title">CARTOON STAGE — MODEL SHEET KARAKTER: TANGAN BEZIER, PUPPET RIG, 4-VIEW, &amp; RAMBUT</text>
+  <text x="32" y="52" class="sub">Standar anatomi Flat 2D modern (~5 tinggi kepala) · Siluet tangan Bezier tunggal + lipatan halus · Sendi membulat · Turnaround 4 sudut · Rambut tuft berlapis</text>
+  <rect x="1046" y="16" width="202" height="30" rx="6" fill="#1e293b" stroke="#22c55e" stroke-width="1.2"/>
+  <text x="1147" y="35" text-anchor="middle" class="mono">ID: VIS-STAGE-CHAR</text>
+
+  <!-- ======================================================================= -->
+  <!-- PANEL 1: 9 ORGANIC SINGLE-BEZIER HAND GESTURES + 3-LAYER PROP SANDWICH -->
+  <!-- ======================================================================= -->
+  <g id="panel-hands" transform="translate(32, 66)">
+    <rect class="card" width="1216" height="270" rx="12"/>
+    <text x="18" y="23" class="h2">1. Katalog 9 Gestur Tangan Siluet Bezier Tunggal (+Y = Ujung Jari, +X = Ibu Jari) &amp; Orientasi Membawa vs Melihat HP</text>
+    <text x="18" y="38" class="note">Anatomi natural: lengan turun di samping pinggul wajib pakai carry (punggung tangan di depan + kamera belakang HP); grip (layar) khusus saat lengan diangkat.</text>
+
+    <!-- 9 Hand Cards (each 86 x 208, gap 6 -> total 822px from x=18 to x=840) -->
+
+    <!-- 1. RELAXED -->
+    <g transform="translate(18, 49)">
+      <rect class="subcard" width="86" height="208" rx="8" stroke="#38bdf8"/>
+      <text x="43" y="18" text-anchor="middle" class="mono">relaxed</text>
+      <g transform="translate(41, 64) scale(1.54)">
+        <rect x="-7.5" y="-20" width="15" height="18" rx="4" fill="#d99a70"/>
+        <path d="M -7.5 -6 C -9.5 1 -10.8 7 -10.5 14 C -10.2 19.5 -9.5 24.5 -8.5 27.5 C -7.6 30.2 -5.0 30.2 -4.5 27.2 C -4.0 29.8 -1.2 31.8 0.5 31.8 C 2.4 31.8 3.6 29.6 4.0 27.5 C 4.8 29.6 7.4 29.4 8.2 26.6 C 9.4 22.0 9.8 16.5 9.8 13.0 C 12.2 15.2 14.5 15.8 15.8 14.2 C 17.0 12.6 15.8 8.6 13.2 5.4 C 10.8 2.4 9.0 -1.5 7.5 -6 Z" fill="#e5a77b"/>
+        <path d="M -4.5 17.5 L -4.5 27.0 M 0.0 18.0 L 0.2 29.5 M 4.2 17.5 L 4.0 27.2" fill="none" stroke="#bd8158" stroke-width="0.9" stroke-linecap="round" opacity="0.65"/>
+      </g>
+      <text x="43" y="164" text-anchor="middle" class="lbl">Santai</text>
+      <text x="43" y="179" text-anchor="middle" class="note">berdiri / jalan</text>
+      <text x="43" y="193" text-anchor="middle" class="ok">default</text>
+    </g>
+
+    <!-- 2. OPEN -->
+    <g transform="translate(110, 49)">
+      <rect class="subcard" width="86" height="208" rx="8"/>
+      <text x="43" y="18" text-anchor="middle" class="mono">open</text>
+      <g transform="translate(41, 64) scale(1.48)">
+        <rect x="-7.5" y="-20" width="15" height="18" rx="4" fill="#d99a70"/>
+        <path d="M -7.5 -6 C -10.5 0 -13.0 5.5 -13.8 11.5 L -17.0 22.8 C -17.8 25.4 -14.2 26.8 -13.0 24.0 L -9.6 15.4 L -10.6 28.4 C -10.9 31.4 -6.8 31.8 -6.2 28.8 L -4.4 16.4 L -2.6 31.2 C -2.4 34.4 1.8 34.4 2.0 31.2 L 2.2 16.2 L 6.4 29.2 C 7.2 32.0 11.2 30.8 10.4 27.8 L 7.6 14.5 C 10.6 13.6 14.5 16.2 18.6 16.0 C 21.8 15.8 22.4 11.6 19.6 9.8 C 16.0 7.4 12.6 4.8 10.0 0.8 C 8.8 -1.6 8.2 -4.0 7.5 -6 Z" fill="#e5a77b"/>
+        <path d="M -7.5 11.5 C -2.5 15.5 3.5 15.5 7.5 11.0 C 4.5 17.5 -4.5 17.5 -7.5 11.5 Z" fill="#d29266" opacity="0.48"/>
+      </g>
+      <text x="43" y="164" text-anchor="middle" class="lbl">Terbuka</text>
+      <text x="43" y="179" text-anchor="middle" class="note">5 jari mekar</text>
+      <text x="43" y="193" text-anchor="middle" class="mono">wave / sapa</text>
+    </g>
+
+    <!-- 3. POINT -->
+    <g transform="translate(202, 49)">
+      <rect class="subcard" width="86" height="208" rx="8"/>
+      <text x="43" y="18" text-anchor="middle" class="mono">point</text>
+      <g transform="translate(26, 98) rotate(-90) scale(1.48)">
+        <rect x="-7.5" y="-15" width="15" height="14" rx="4" fill="#d99a70"/>
+        <path d="M -7.5 -6 C -10.5 0 -11.8 6.5 -11.4 13.5 C -11.0 18.8 -8.2 21.0 -5.6 20.6 C -4.8 22.0 -2.0 22.4 -0.4 21.4 C 1.0 22.4 3.4 22.0 4.2 19.6 L 4.4 33.8 C 4.4 36.8 8.8 36.8 9.0 33.8 L 9.8 14.2 C 12.6 15.6 16.2 14.8 17.0 11.8 C 17.8 8.4 15.0 4.2 10.6 1.4 C 8.8 0.2 8.2 -2.6 7.5 -6 Z" fill="#e5a77b"/>
+        <path d="M -11.0 12.2 L 4.2 12.2 L 4.2 19.6 C 3.4 22.0 1.0 22.4 -0.4 21.4 C -2.0 22.4 -4.8 22.0 -5.6 20.6 C -8.2 21.0 -11.0 18.8 -11.0 12.2 Z" fill="#d29266" opacity="0.32"/>
+        <path d="M 4.2 12.2 L 4.2 19.2 M -0.6 12.4 L -0.6 21.0 M -5.6 12.6 L -5.6 20.2 M 8.8 10.2 C 11.5 11.2 13.6 12.6 15.0 14.0" fill="none" stroke="#b97d54" stroke-width="0.95" stroke-linecap="round"/>
+      </g>
+      <text x="43" y="164" text-anchor="middle" class="lbl">Menunjuk</text>
+      <text x="43" y="179" text-anchor="middle" class="note">telunjuk +Y</text>
+      <text x="43" y="193" text-anchor="middle" class="ok">3 jari lipat</text>
+    </g>
+
+    <!-- 4. GRIP (Palm/Screen Facing — Raised Arm) -->
+    <g transform="translate(294, 49)">
+      <rect class="subcard" width="86" height="208" rx="8" stroke="#38bdf8"/>
+      <text x="43" y="18" text-anchor="middle" class="mono">grip</text>
+      <g transform="translate(43, 72) scale(1.42)">
+        <rect x="-7.5" y="-22" width="15" height="18" rx="4" fill="#d99a70"/>
+        <path d="M -7.5 -6 C -11.2 1 -13.2 8 -13.0 21 C -12.6 27.5 12.6 27.5 13.0 21 C 13.2 8 11.2 1 7.5 -6 Z" fill="#d19166"/>
+        <rect x="12.4" y="6" width="2" height="7.5" rx="0.9" fill="#64748b"/>
+        <rect x="-13" y="-6" width="26" height="48" rx="4.8" fill="#1e293b" stroke="#475569" stroke-width="0.8"/>
+        <rect x="-10.8" y="-3.8" width="21.6" height="43.6" rx="3.0" fill="#38bdf8"/>
+        <path d="M -10.8 6 L 4 -3.8 L 10.8 -3.8 L -10.8 16 Z" fill="#e0f2fe" opacity="0.42"/>
+        <rect x="-4.2" y="-2.4" width="8.4" height="2.4" rx="1.2" fill="#0f172a"/>
+        <rect x="-8.2" y="2.8" width="16.4" height="9.5" rx="2" fill="#0284c7" opacity="0.48"/>
+        <rect x="-4.5" y="36.8" width="9.0" height="1.6" rx="0.8" fill="#fffdf7" opacity="0.9"/>
+        <path d="M -12.6 9.2 L -6.0 9.6 C -4.6 10.6 -4.6 29.2 -6.4 30.8 L -12.4 30.8 Z" fill="#0f172a" opacity="0.18"/>
+        <path d="M -13.0 8.2 C -17.4 8.4 -17.6 13.4 -13.2 13.8 C -18.0 14.0 -18.2 19.2 -13.4 19.6 C -17.6 19.8 -17.6 24.8 -13.0 25.2 C -16.4 25.6 -16.2 30.0 -11.8 30.0 L -6.8 29.6 C -5.0 29.2 -4.8 25.6 -7.0 25.0 C -4.4 24.4 -4.4 20.0 -7.0 19.4 C -4.2 18.8 -4.2 14.2 -7.0 13.6 C -4.6 13.0 -4.8 8.6 -7.4 8.4 Z" fill="#e5a77b"/>
+        <path d="M -15.2 13.8 L -7.0 13.6 M -15.6 19.6 L -7.0 19.4 M -14.8 25.2 L -7.0 25.0" fill="none" stroke="#b97d54" stroke-width="0.9" stroke-linecap="round"/>
+        <path d="M 11.8 7.8 C 18.0 10.2 19.0 17.4 13.6 21.4 C 10.4 23.6 5.4 22.8 4.2 19.8 C 3.0 17.2 5.6 14.8 9.2 14.2 C 11.4 13.8 12.4 12.2 11.4 9.2 Z" fill="#e5a77b"/>
+      </g>
+      <text x="43" y="164" text-anchor="middle" class="lbl">Lihat Layar</text>
+      <text x="43" y="179" text-anchor="middle" class="note">siku diangkat</text>
+      <text x="43" y="193" text-anchor="middle" class="mono">layar / cup</text>
+    </g>
+
+    <!-- 5. CARRY (Back-of-Hand Casual Carry — Slightly Horizontal Gripped Phone) -->
+    <g transform="translate(386, 49)">
+      <rect class="subcard" width="86" height="208" rx="8" stroke="#22c55e"/>
+      <text x="43" y="18" text-anchor="middle" class="mono">carry</text>
+      <g transform="translate(39, 76) scale(1.36)">
+        <rect x="-7.5" y="-22" width="15" height="18" rx="4" fill="#d99a70"/>
+        <!-- handBack: thumb clamping upper-front rim of phone -->
+        <path d="M 6.0 1.8 C 11.4 3.2 15.8 6.0 15.4 9.8 C 15.0 12.2 11.4 12.2 7.8 10.4 Z" fill="#d19166"/>
+        <!-- handSlot: rear smartphone tilted slightly horizontal (+14°) -->
+        <g transform="translate(2, 17) rotate(14)">
+          <rect x="-15.5" y="-12.1" width="5.5" height="1.2" rx="0.6" fill="#64748b"/>
+          <rect x="-23" y="-11" width="46" height="22" rx="4.4" fill="#1e293b" stroke="#475569" stroke-width="0.9"/>
+          <path d="M -18 -10.3 L -6 -10.3 L -15 10.3 L -22 10.3 Z" fill="#334155" opacity="0.40"/>
+          <circle cx="-14.2" cy="0.5" r="1.8" fill="#475569" opacity="0.55"/>
+          <rect x="10.2" y="-8.4" width="10.2" height="12.2" rx="2.4" fill="#0f172a" stroke="#334155" stroke-width="0.6"/>
+          <circle cx="13.4" cy="-5.2" r="2.1" fill="#334155"/><circle cx="13.4" cy="-5.2" r="1.2" fill="#020617"/><circle cx="13.8" cy="-5.6" r="0.5" fill="#38bdf8"/>
+          <circle cx="13.4" cy="0.2" r="2.1" fill="#334155"/><circle cx="13.4" cy="0.2" r="1.2" fill="#020617"/><circle cx="13.8" cy="-0.2" r="0.5" fill="#38bdf8"/>
+          <circle cx="17.9" cy="-2.5" r="1.0" fill="#fef3c7"/>
+        </g>
+        <!-- handFront: back of hand + 4 fingers firmly gripping past bottom rim -->
+        <path d="M -8.2 3.8 L 10.2 8.3 C 11.8 14.4 12.2 21.8 11.2 29.6 L -8.6 25.2 Z" fill="#020617" opacity="0.24"/>
+        <path d="M -7.5 -6 C -9.6 1 -10.6 7.5 -10.4 15.0 C -10.2 21.2 -9.6 25.8 -7.6 26.8 C -6.2 27.4 -5.4 26.4 -5.2 25.2 C -4.8 27.4 -3.6 28.4 -2.2 28.4 C -0.8 28.4 -0.4 27.4 -0.2 26.4 C 0.2 28.6 1.6 29.8 3.0 29.8 C 4.4 29.8 4.8 28.8 5.0 27.8 C 5.6 29.8 7.2 30.8 8.8 30.2 C 10.6 29.6 11.2 24.8 10.8 17.8 C 10.5 12.6 10.0 7.6 9.2 3.2 C 8.6 -0.2 8.2 -3.2 7.5 -6 Z" fill="#e5a77b"/>
+        <path d="M -9.8 16.0 C -3.4 18.8 3.8 20.6 10.2 21.2 C 9.8 24.4 3.0 23.4 -3.6 21.8 C -8.6 20.6 -9.8 18.8 -9.8 16.0 Z" fill="#d19166" opacity="0.34"/>
+        <path d="M -5.4 18.4 L -5.2 25.4 M -0.2 19.6 L -0.2 26.6 M 5.0 20.8 L 5.0 27.8" fill="none" stroke="#b97d54" stroke-width="0.95" stroke-linecap="round"/>
+      </g>
+      <text x="43" y="164" text-anchor="middle" class="lbl">Bawa HP</text>
+      <text x="43" y="179" text-anchor="middle" class="note">genggam miring</text>
+      <text x="43" y="193" text-anchor="middle" class="ok">punggung tgn</text>
+    </g>
+
+    <!-- 6. PINCH -->
+    <g transform="translate(478, 49)">
+      <rect class="subcard" width="86" height="208" rx="8"/>
+      <text x="43" y="18" text-anchor="middle" class="mono">pinch</text>
+      <g transform="translate(41, 64) scale(1.48)">
+        <rect x="-7.5" y="-20" width="15" height="18" rx="4" fill="#d99a70"/>
+        <path d="M -7.5 -6 C -10.5 0 -12.0 6.5 -12.2 12.5 L -16.6 22.8 C -17.6 25.2 -14.2 26.8 -13.0 24.4 L -9.2 16.0 L -11.0 27.6 C -11.4 30.2 -7.8 30.8 -7.2 28.2 L -4.4 17.4 L -3.6 29.6 C -3.4 32.2 0.2 32.2 0.4 29.6 L 1.4 17.8 C 5.5 18.2 10.5 15.5 11.0 9.5 C 11.4 4.0 9.6 -1.5 7.5 -6 Z" fill="#dca074"/>
+        <circle cx="11.0" cy="27.2" r="3.4" fill="#f59e0b"/>
+        <path d="M 2.0 12.0 C 3.4 18.8 5.6 23.8 8.2 27.0 C 9.8 28.8 12.4 27.4 11.6 24.8 C 10.2 21.2 8.4 16.8 7.8 11.4 Z" fill="#e5a77b"/>
+        <path d="M 8.4 2.2 C 15.8 5.2 19.6 13.8 17.2 22.0 C 16.0 26.0 12.4 28.2 10.4 26.8 C 8.8 25.6 10.0 23.4 12.0 21.6 C 14.0 19.6 14.0 12.8 10.0 9.4 Z" fill="#e5a77b"/>
+      </g>
+      <text x="43" y="164" text-anchor="middle" class="lbl">Menjepit</text>
+      <text x="43" y="179" text-anchor="middle" class="note">koin / kartu</text>
+      <text x="43" y="193" text-anchor="middle" class="note">ujung temu</text>
+    </g>
+
+    <!-- 7. FIST -->
+    <g transform="translate(570, 49)">
+      <rect class="subcard" width="86" height="208" rx="8"/>
+      <text x="43" y="18" text-anchor="middle" class="mono">fist</text>
+      <g transform="translate(43, 72) scale(1.56)">
+        <rect x="-7.5" y="-22" width="15" height="20" rx="4" fill="#d99a70"/>
+        <path d="M -7.5 -6 C -10.5 0 -12.0 5.5 -11.8 13.0 C -11.6 18.6 -8.8 20.6 -6.2 20.0 C -5.2 21.8 -2.2 22.2 -0.2 21.2 C 1.4 22.4 4.4 22.0 5.6 20.6 C 8.4 21.2 11.6 19.0 11.8 13.0 C 12.0 5.5 10.5 0 7.5 -6 Z" fill="#e5a77b"/>
+        <path d="M -6.2 12.4 L -6.2 19.6 M -0.2 12.6 L -0.2 21.0 M 5.6 12.4 L 5.6 20.2" fill="none" stroke="#b97d54" stroke-width="0.95" stroke-linecap="round"/>
+        <path d="M 10.8 3.2 C 14.8 6.4 14.2 13.4 8.8 14.8 L -1.2 15.2 C -4.6 15.2 -4.8 10.4 -1.2 9.8 L 8.0 9.0 C 10.0 8.6 10.4 7.0 9.4 4.6 Z" fill="#e5a77b"/>
+        <path d="M -2.2 15.4 L 9.4 14.8" fill="none" stroke="#b97d54" stroke-width="0.95" stroke-linecap="round"/>
+      </g>
+      <text x="43" y="164" text-anchor="middle" class="lbl">Mengepal</text>
+      <text x="43" y="179" text-anchor="middle" class="note">yakin / kuat</text>
+      <text x="43" y="193" text-anchor="middle" class="note">3 garis lipat</text>
+    </g>
+
+    <!-- 8. THUMBS -->
+    <g transform="translate(662, 49)">
+      <rect class="subcard" width="86" height="208" rx="8"/>
+      <text x="43" y="18" text-anchor="middle" class="mono">thumbs</text>
+      <g transform="translate(32, 102) rotate(-90) scale(1.52)">
+        <rect x="-7.5" y="-15" width="15" height="14" rx="4" fill="#d99a70"/>
+        <path d="M -7.5 -6 C -10.4 0 -11.4 6.5 -11.0 13.5 C -10.6 18.8 -7.8 20.6 -5.4 20.2 C -4.2 22.0 -1.2 22.2 0.4 21.2 C 2.2 22.2 5.0 21.8 6.2 20.4 C 8.8 20.6 10.8 18.2 10.8 13.6 L 10.8 10.2 C 16.4 10.8 22.2 11.4 25.4 9.6 C 28.6 7.8 28.4 3.0 24.8 2.2 C 20.8 1.4 16.2 2.8 12.0 1.8 C 10.2 0.4 8.8 -2.2 7.5 -6 Z" fill="#e5a77b"/>
+        <path d="M -10.4 11.5 L 10.4 11.5 L 10.4 16.5 C 9.2 19.8 6.8 21.4 0.4 21.2 C -6.0 21.4 -10.0 19.4 -10.4 14.2 Z" fill="#d29266" opacity="0.26"/>
+        <path d="M 5.6 11.2 L 5.6 19.8 M 0.4 11.6 L 0.4 20.8 M -5.2 11.4 L -5.2 19.8" fill="none" stroke="#b97d54" stroke-width="0.95" stroke-linecap="round"/>
+      </g>
+      <text x="43" y="164" text-anchor="middle" class="lbl">Jempol</text>
+      <text x="43" y="179" text-anchor="middle" class="note">setuju (+X)</text>
+      <text x="43" y="193" text-anchor="middle" class="note">3 garis lipat</text>
+    </g>
+
+    <!-- 9. PRESENT -->
+    <g transform="translate(754, 49)">
+      <rect class="subcard" width="86" height="208" rx="8"/>
+      <text x="43" y="18" text-anchor="middle" class="mono">present</text>
+      <g transform="translate(27, 100) rotate(-78) scale(1.48)">
+        <rect x="-7.5" y="-15" width="15" height="14" rx="4" fill="#d99a70"/>
+        <path d="M -7.5 -6 C -10.2 2 -11.2 10 -9.4 18.5 C -7.8 25.8 -2.2 31.4 4.8 33.4 C 7.6 34.2 9.4 31.2 7.4 29.2 C 4.4 26.2 2.6 22.2 3.2 18.2 C 6.0 19.8 10.2 21.4 13.8 21.2 C 16.6 21.0 17.0 17.4 14.4 16.0 C 11.4 14.4 8.8 11.6 8.4 7.8 C 8.0 3.2 8.2 -1.8 7.5 -6 Z" fill="#e5a77b"/>
+        <path d="M -5.5 14.0 C -3.8 21.0 0.0 26.0 4.5 28.5" fill="none" stroke="#bd8158" stroke-width="0.95" stroke-linecap="round" opacity="0.6"/>
+      </g>
+      <text x="43" y="164" text-anchor="middle" class="lbl">Tengadah</text>
+      <text x="43" y="179" text-anchor="middle" class="note">jelaskan</text>
+      <text x="43" y="193" text-anchor="middle" class="mono">presenter</text>
+    </g>
+
+    <!-- Right Box: 3-Layer Sandwich + Anatomical Orientation Rule (carry vs grip) -->
+    <g transform="translate(852, 49)">
+      <rect class="subcard" width="346" height="208" rx="8" stroke="#f59e0b"/>
+      <text x="14" y="21" class="lbl" fill="#f59e0b">Z-ORDER 3 LAPIS &amp; ORIENTASI HP</text>
+      <text x="14" y="36" class="note">Sesuaikan orientasi tangan dengan posisi lengan:</text>
+
+      <!-- Layer Stack -->
+      <rect x="14" y="46" width="166" height="36" rx="5" fill="#1e293b" stroke="#64748b"/>
+      <text x="23" y="61" class="mono">1. handBack</text>
+      <text x="23" y="75" class="note">Telapak / ujung jari jauh</text>
+
+      <rect x="22" y="88" width="166" height="36" rx="5" fill="#172554" stroke="#38bdf8"/>
+      <text x="31" y="103" class="mono">2. L/RhandSlot</text>
+      <text x="31" y="117" class="note">HP (depan/belakang), cup</text>
+
+      <rect x="30" y="130" width="166" height="36" rx="5" fill="#14532d" stroke="#22c55e"/>
+      <text x="39" y="145" class="mono" fill="#86efac">3. handFront</text>
+      <text x="39" y="159" class="note">Jari depan / punggung tgn</text>
+
+      <text x="14" y="186" class="warn">HINDARI:</text>
+      <text x="64" y="186" class="note">tampak layar ke kamera</text>
+      <text x="14" y="199" class="note">saat lengan lurus ke bawah (terputar 180°).</text>
+
+      <!-- Visual 1: carry (Hanging arm -> Back of hand + Horizontal-tilted rear phone) -->
+      <g transform="translate(206, 46)">
+        <rect width="126" height="72" rx="6" fill="#0f291e" stroke="#22c55e"/>
+        <text x="63" y="15" text-anchor="middle" class="ok">carry (Lengan Turun)</text>
+        <g transform="translate(34, 34) scale(0.84)">
+          <path d="M 6.0 1.8 C 11.4 3.2 15.8 6.0 15.4 9.8 C 15.0 12.2 11.4 12.2 7.8 10.4 Z" fill="#d19166"/>
+          <g transform="translate(2, 17) rotate(14)">
+            <rect x="-23" y="-11" width="46" height="22" rx="4.4" fill="#1e293b" stroke="#64748b" stroke-width="0.9"/>
+            <rect x="10.2" y="-8.4" width="10.2" height="12.2" rx="2.4" fill="#0f172a"/>
+            <circle cx="13.4" cy="-5.2" r="2.0" fill="#334155"/><circle cx="13.4" cy="0.2" r="2.0" fill="#334155"/>
+            <circle cx="17.9" cy="-2.5" r="0.9" fill="#fef3c7"/>
+          </g>
+          <path d="M -7.5 -6 C -9.6 1 -10.6 7.5 -10.4 15.0 C -10.2 21.2 -9.6 25.8 -7.6 26.8 C -6.2 27.4 -5.4 26.4 -5.2 25.2 C -4.8 27.4 -3.6 28.4 -2.2 28.4 C -0.8 28.4 -0.4 27.4 -0.2 26.4 C 0.2 28.6 1.6 29.8 3.0 29.8 C 4.4 29.8 4.8 28.8 5.0 27.8 C 5.6 29.8 7.2 30.8 8.8 30.2 C 10.6 29.6 11.2 24.8 10.8 17.8 C 10.5 12.6 10.0 7.6 9.2 3.2 C 8.6 -0.2 8.2 -3.2 7.5 -6 Z" fill="#e5a77b"/>
+          <path d="M -5.4 18.4 L -5.2 25.4 M -0.2 19.6 L -0.2 26.6 M 5.0 20.8 L 5.0 27.8" fill="none" stroke="#b97d54" stroke-width="0.95" stroke-linecap="round"/>
+        </g>
+        <text x="68" y="38" class="note">Genggam</text>
+        <text x="68" y="50" class="note">miring +</text>
+        <text x="68" y="62" class="ok">kamera blkg</text>
+      </g>
+
+      <!-- Visual 2: grip (Raised arm -> Front screen / cup) -->
+      <g transform="translate(206, 126)">
+        <rect width="126" height="72" rx="6" fill="#172554" stroke="#38bdf8"/>
+        <text x="63" y="15" text-anchor="middle" class="mono">grip (Lengan Diangkat)</text>
+        <g transform="translate(38, 36) scale(0.84)">
+          <rect x="-12" y="-12" width="24" height="42" rx="4.2" fill="#1e293b" stroke="#64748b" stroke-width="0.8"/>
+          <rect x="-10" y="-10" width="20" height="38" rx="2.6" fill="#38bdf8"/>
+          <rect x="-4" y="-8.5" width="8" height="2" rx="1" fill="#0f172a"/>
+          <path d="M -12 2 C -16.5 2.4 -16.5 7.4 -12 7.8 C -17 8.2 -17 13.2 -12 13.6 C -16.5 14 -16.5 19 -12 19.4 L -6.8 19.2 C -4.8 18.6 -4.8 2.6 -6.8 2 Z" fill="#e5a77b"/>
+          <path d="M 11 2.5 C 17 5.2 18 12.2 12.8 16 C 9.6 18 5 17 4 14.4 C 3 12 6 9.8 9 9.2 Z" fill="#e5a77b"/>
+        </g>
+        <text x="68" y="38" class="note">Layar HP</text>
+        <text x="68" y="50" class="note">/ gelas di</text>
+        <text x="68" y="62" class="note">depan dada</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ======================================================================= -->
+  <!-- PANEL 2: EXPLODED PUPPET RIG & MODERN ~5-HEAD PROPORTIONS               -->
+  <!-- ======================================================================= -->
+  <g id="panel-puppet" transform="translate(32, 348)">
+    <rect class="card" width="388" height="356" rx="12"/>
+    <text x="16" y="23" class="h2">2. Proporsi ~5 Kepala &amp; Exploded Puppet Rig</text>
+    <text x="16" y="38" class="note">Ujung sendi membulat (rounded caps) + pelvis jembatan → nol celah saat rotasi J().</text>
+
+    <!-- 5-Head Proportion Ruler Lines -->
+    <g transform="translate(16, 52)">
+      <rect class="subcard" width="356" height="290" rx="8"/>
+      <!-- Horizontal 5H guides -->
+      <line x1="28" y1="22" x2="156" y2="22" class="guide"/>
+      <line x1="28" y1="70" x2="156" y2="70" class="guide"/>
+      <line x1="28" y1="118" x2="156" y2="118" class="guide"/>
+      <line x1="28" y1="166" x2="156" y2="166" class="guide"/>
+      <line x1="28" y1="214" x2="156" y2="214" class="guide"/>
+      <line x1="16" y1="262" x2="342" y2="262" stroke="#22c55e" stroke-width="1.2" stroke-dasharray="5 3"/>
+      <text x="10" y="26" class="mono">5H</text>
+      <text x="10" y="74" class="mono">4H</text>
+      <text x="10" y="122" class="mono">3H</text>
+      <text x="10" y="170" class="mono">2H</text>
+      <text x="10" y="218" class="mono">1H</text>
+      <text x="10" y="265" class="ok">y=0</text>
+
+      <!-- LEFT: ASSEMBLED MODERN CHARACTER (scale ~0.42 -> 240px tall from y=22 to y=262) -->
+      <text x="92" y="16" text-anchor="middle" class="lbl">Terakit (5 Kepala)</text>
+      <g transform="translate(92, 262) scale(0.42)">
+        <ellipse cx="0" cy="2" rx="64" ry="12" fill="#000" opacity="0.32"/>
+        <!-- Legs + cuffs + laced sneakers -->
+        <path d="M -28 -268 C -29 -210 -26 -156 -24 -138 L -4 -138 C -2 -166 -2 -218 -4 -268 Z" fill="#1e293b"/>
+        <path d="M 4 -268 C 2 -218 2 -166 4 -138 L 24 -138 C 26 -156 29 -210 28 -268 Z" fill="#273549"/>
+        <path d="M -24 -144 L -4 -144 L -6 -28 L -22 -28 Z" fill="#1e293b"/>
+        <path d="M 4 -144 L 24 -144 L 22 -28 L 6 -28 Z" fill="#273549"/>
+        <rect x="-24" y="-36" width="20" height="10" rx="3" fill="#475569"/>
+        <rect x="4" y="-36" width="20" height="10" rx="3" fill="#64748b"/>
+        <rect x="-21" y="-26" width="14" height="10" fill="#cbd5e1"/>
+        <rect x="7" y="-26" width="14" height="10" fill="#e2e8f0"/>
+        <!-- Sneakers with 3 laces -->
+        <path d="M -30 -16 L -4 -16 C 4 -6 14 -4 18 0 L -32 0 Z" fill="#ea580c"/>
+        <rect x="-32" y="-5" width="50" height="5" rx="2" fill="#f8fafc"/>
+        <path d="M 4 -16 L 30 -16 C 38 -6 46 -4 50 0 L 2 0 Z" fill="#f97316"/>
+        <rect x="2" y="-5" width="48" height="5" rx="2" fill="#f8fafc"/>
+        <path d="M 18 -13 L 26 -11 M 22 -10 L 30 -8" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
+        <!-- Pelvis -->
+        <rect x="-32" y="-284" width="64" height="28" rx="10" fill="#1e293b"/>
+        <!-- Layered Torso: Jacket over tee -->
+        <path d="M -42 -428 C -52 -420 -52 -340 -44 -274 L 44 -274 C 52 -340 52 -420 42 -428 Z" fill="#ea580c"/>
+        <rect x="-14" y="-426" width="28" height="150" fill="#facc15"/>
+        <path d="M -42 -428 L -14 -428 L -12 -274 L -44 -274 Z" fill="#f97316"/>
+        <path d="M 14 -428 L 42 -428 L 44 -274 L 12 -274 Z" fill="#ea580c"/>
+        <rect x="-38" y="-364" width="18" height="20" rx="3" fill="none" stroke="#c2410c" stroke-width="2.5"/>
+        <rect x="20" y="-364" width="18" height="20" rx="3" fill="none" stroke="#c2410c" stroke-width="2.5"/>
+        <!-- Arms (tapered + relaxed hands) -->
+        <path d="M -58 -416 C -62 -384 -60 -336 -55 -274 L -39 -274 C -36 -336 -38 -384 -42 -416 Z" fill="#f97316"/>
+        <path d="M 42 -416 C 38 -384 36 -336 39 -274 L 55 -274 C 60 -336 62 -384 58 -416 Z" fill="#ea580c"/>
+        <path d="M -54 -274 C -58 -254 -56 -238 -47 -236 C -40 -236 -38 -254 -40 -274 Z" fill="#e5a77b"/>
+        <path d="M 40 -274 C 38 -254 40 -236 47 -236 C 56 -238 58 -254 54 -274 Z" fill="#e5a77b"/>
+        <!-- Neck & chin shadow -->
+        <rect x="-12" y="-456" width="24" height="36" rx="8" fill="#e5a77b"/>
+        <path d="M -12 -448 Q 0 -434 12 -448 L 12 -456 L -12 -456 Z" fill="#c3845a"/>
+        <!-- Head + Sculpted Jaw + Tufted Hair -->
+        <path d="M -46 -524 C -48 -568 48 -568 46 -524 L 44 -488 C 40 -454 18 -446 0 -446 C -18 -446 -40 -454 -44 -488 Z" fill="#e5a77b"/>
+        <ellipse cx="-46" cy="-494" rx="8" ry="13" fill="#d99a70"/>
+        <ellipse cx="46" cy="-494" rx="8" ry="13" fill="#e5a77b"/>
+        <path d="M -48 -512 C -54 -574 50 -576 48 -512 C 34 -536 14 -542 -6 -534 C -24 -528 -36 -520 -42 -504 Z" fill="#1e293b"/>
+        <path d="M -26 -552 C -14 -572 8 -574 28 -558 L 16 -548 C 4 -556 -12 -554 -26 -552 Z" fill="#334155"/>
+        <circle cx="-16" cy="-502" r="4.8" fill="#182436"/><circle cx="-14.5" cy="-503.5" r="1.6" fill="#fff"/>
+        <circle cx="16" cy="-502" r="4.8" fill="#182436"/><circle cx="17.5" cy="-503.5" r="1.6" fill="#fff"/>
+        <path d="M -26 -518 Q -16 -522 -8 -518 M 8 -518 Q 16 -522 26 -518" fill="none" stroke="#182436" stroke-width="3.6" stroke-linecap="round"/>
+        <path d="M -11 -472 Q 0 -462 11 -472" fill="none" stroke="#9a3412" stroke-width="3.8" stroke-linecap="round"/>
+      </g>
+
+      <!-- RIGHT: EXPLODED MODULAR PUPPET RIG -->
+      <text x="256" y="16" text-anchor="middle" class="lbl">Exploded Rig (Sendi J())</text>
+      <g transform="translate(256, 262) scale(0.39)">
+        <!-- Head detached -->
+        <g transform="translate(0, -34)">
+          <path d="M -44 -524 C -46 -568 46 -568 44 -524 L 42 -488 C 38 -454 18 -446 0 -446 C -18 -446 -38 -454 -42 -488 Z" fill="#e5a77b"/>
+          <path d="M -46 -512 C -52 -574 48 -576 46 -512 C 32 -536 14 -542 -6 -534 C -24 -528 -34 -520 -40 -504 Z" fill="#1e293b"/>
+          <circle cx="-15" cy="-502" r="4.5" fill="#182436"/><circle cx="15" cy="-502" r="4.5" fill="#182436"/>
+          <circle cx="0" cy="-446" r="6.5" class="pivot"/>
+        </g>
+        <!-- Torso detached -->
+        <g transform="translate(0, -10)">
+          <rect x="-12" y="-448" width="24" height="26" rx="8" fill="#e5a77b"/>
+          <path d="M -40 -428 C -48 -420 -48 -348 -42 -292 L 42 -292 C 48 -348 48 -420 40 -428 Z" fill="#ea580c"/>
+          <rect x="-13" y="-426" width="26" height="132" fill="#facc15"/>
+          <circle cx="0" cy="-292" r="6.5" class="pivot"/>
+        </g>
+        <!-- Left Arm exploded (upper + fore + hand with rounded caps!) -->
+        <g transform="translate(-44, -8)">
+          <rect x="-46" y="-418" width="26" height="82" rx="13" fill="#f97316"/>
+          <circle cx="-33" cy="-405" r="6" class="pivot"/>
+          <rect x="-43" y="-322" width="20" height="74" rx="10" fill="#ea580c"/>
+          <circle cx="-33" cy="-312" r="6" class="pivot"/>
+          <path d="M -40 -238 C -44 -216 -40 -202 -32 -202 C -24 -202 -20 -216 -24 -238 Z" fill="#e5a77b"/>
+          <circle cx="-33" cy="-234" r="5.5" class="pivot"/>
+        </g>
+        <!-- Right Arm exploded -->
+        <g transform="translate(44, -8)">
+          <rect x="20" y="-418" width="26" height="82" rx="13" fill="#ea580c"/>
+          <circle cx="33" cy="-405" r="6" class="pivot"/>
+          <rect x="23" y="-322" width="20" height="74" rx="10" fill="#c2410c"/>
+          <circle cx="33" cy="-312" r="6" class="pivot"/>
+          <path d="M 24 -238 C 20 -216 24 -202 32 -202 C 40 -202 44 -216 40 -238 Z" fill="#e5a77b"/>
+          <circle cx="33" cy="-234" r="5.5" class="pivot"/>
+        </g>
+        <!-- Pelvis block -->
+        <rect x="-34" y="-282" width="68" height="30" rx="12" fill="#1e293b"/>
+        <!-- Thighs detached -->
+        <rect x="-34" y="-238" width="26" height="92" rx="12" fill="#1e293b"/>
+        <rect x="8" y="-238" width="26" height="92" rx="12" fill="#273549"/>
+        <circle cx="-21" cy="-226" r="6" class="pivot"/><circle cx="21" cy="-226" r="6" class="pivot"/>
+        <!-- Shins detached -->
+        <rect x="-32" y="-132" width="22" height="90" rx="10" fill="#1e293b"/>
+        <rect x="10" y="-132" width="22" height="90" rx="10" fill="#273549"/>
+        <circle cx="-21" cy="-122" r="6" class="pivot"/><circle cx="21" cy="-122" r="6" class="pivot"/>
+        <!-- Shoes detached -->
+        <path d="M -36 -24 L -10 -24 C -2 -14 6 -12 10 -8 L -38 -8 Z" fill="#ea580c"/>
+        <path d="M 10 -24 L 36 -24 C 44 -14 52 -12 56 -8 L 8 -8 Z" fill="#f97316"/>
+        <circle cx="-21" cy="-22" r="5.5" class="pivot"/><circle cx="21" cy="-22" r="5.5" class="pivot"/>
+      </g>
+      <!-- Legend -->
+      <circle cx="192" cy="278" r="4" class="pivot"/>
+      <text x="202" y="281" class="note">= Titik Pivot J() · Semua ujung sendi rounded</text>
+    </g>
+  </g>
+
+  <!-- ======================================================================= -->
+  <!-- PANEL 3: 4-VIEW CHARACTER TURNAROUND (FRONT · 3/4 · SIDE · BACK)        -->
+  <!-- ======================================================================= -->
+  <g id="panel-turnaround" transform="translate(432, 348)">
+    <rect class="card" width="446" height="356" rx="12"/>
+    <text x="16" y="23" class="h2">3. 4-View Turnaround (front · 3/4 · side · back) &amp; Detail Wajah</text>
+    <text x="16" y="38" class="note">Keempat sudut sejajar pada garis kepala, mata, bahu, pinggang, dan lantai y=0.</text>
+
+    <g transform="translate(16, 52)">
+      <rect class="subcard" width="414" height="222" rx="8"/>
+      <!-- Shared alignment guides across all 4 views -->
+      <line x1="12" y1="30" x2="402" y2="30" class="guide"/>
+      <line x1="12" y1="54" x2="402" y2="54" class="guide"/>
+      <line x1="12" y1="86" x2="402" y2="86" class="guide"/>
+      <line x1="12" y1="132" x2="402" y2="132" class="guide"/>
+      <line x1="12" y1="200" x2="402" y2="200" stroke="#22c55e" stroke-width="1.1" stroke-dasharray="4 3"/>
+
+      <!-- 1. FRONT -->
+      <g transform="translate(56, 200) scale(0.31)">
+        <rect x="-26" y="-260" width="20" height="236" rx="8" fill="#1e293b"/>
+        <rect x="6" y="-260" width="20" height="236" rx="8" fill="#273549"/>
+        <rect x="-32" y="-22" width="32" height="22" rx="8" fill="#1e293b"/>
+        <rect x="0" y="-22" width="32" height="22" rx="8" fill="#334155"/>
+        <rect x="-32" y="-276" width="64" height="26" rx="10" fill="#1e293b"/>
+        <path d="M -42 -422 C -50 -414 -50 -336 -44 -270 L 44 -270 C 50 -336 50 -414 42 -422 Z" fill="#2563eb"/>
+        <rect x="-12" y="-420" width="24" height="148" fill="#fffdf7"/>
+        <rect x="-56" y="-412" width="18" height="136" rx="9" fill="#3b82f6"/>
+        <rect x="38" y="-412" width="18" height="136" rx="9" fill="#1d4ed8"/>
+        <path d="M -54 -278 C -56 -256 -52 -242 -45 -242 C -38 -242 -36 -258 -38 -278 Z" fill="#e5a77b"/>
+        <path d="M 38 -278 C 36 -258 38 -242 45 -242 C 52 -242 56 -256 54 -278 Z" fill="#e5a77b"/>
+        <rect x="-12" y="-450" width="24" height="34" rx="8" fill="#e5a77b"/>
+        <ellipse cx="-46" cy="-488" rx="8" ry="13" fill="#d99a70"/>
+        <ellipse cx="46" cy="-488" rx="8" ry="13" fill="#e5a77b"/>
+        <path d="M -46 -518 C -46 -564 46 -564 46 -518 L 44 -482 C 40 -448 18 -440 0 -440 C -18 -440 -40 -448 -44 -482 Z" fill="#e5a77b"/>
+        <path d="M -48 -506 C -52 -570 50 -572 48 -506 C 32 -532 10 -538 -12 -530 C -28 -524 -38 -514 -42 -498 Z" fill="#182436"/>
+        <circle cx="-16" cy="-494" r="5" fill="#182436"/><circle cx="-14.5" cy="-495.5" r="1.7" fill="#fff"/>
+        <circle cx="16" cy="-494" r="5" fill="#182436"/><circle cx="17.5" cy="-495.5" r="1.7" fill="#fff"/>
+        <path d="M -12 -464 Q 0 -454 12 -464" fill="none" stroke="#9a3412" stroke-width="4" stroke-linecap="round"/>
+      </g>
+      <text x="56" y="215" text-anchor="middle" class="mono">front</text>
+
+      <!-- 2. 3/4 (DEFAULT — highlighted) -->
+      <rect x="108" y="8" width="94" height="206" rx="6" fill="#172554" opacity="0.28" stroke="#38bdf8" stroke-width="1"/>
+      <g transform="translate(155, 200) scale(0.31)">
+        <rect x="-22" y="-260" width="20" height="236" rx="8" fill="#1e293b"/>
+        <rect x="6" y="-260" width="20" height="236" rx="8" fill="#273549"/>
+        <path d="M -24 -22 L 10 -22 C 20 -10 26 -6 30 0 L -26 0 Z" fill="#1e293b"/>
+        <path d="M 4 -22 L 38 -22 C 48 -10 54 -6 58 0 L 2 0 Z" fill="#334155"/>
+        <rect x="-30" y="-276" width="60" height="26" rx="10" fill="#1e293b"/>
+        <path d="M -40 -422 C -48 -414 -48 -336 -40 -270 L 40 -270 C 48 -336 46 -414 36 -422 Z" fill="#2563eb"/>
+        <rect x="-2" y="-420" width="22" height="148" fill="#fffdf7"/>
+        <rect x="-52" y="-410" width="18" height="136" rx="9" fill="#3b82f6"/>
+        <rect x="30" y="-410" width="16" height="134" rx="8" fill="#1d4ed8"/>
+        <path d="M -50 -278 C -52 -256 -48 -242 -41 -242 C -34 -242 -32 -258 -34 -278 Z" fill="#e5a77b"/>
+        <path d="M 30 -278 C 28 -258 30 -242 37 -242 C 44 -242 48 -256 46 -278 Z" fill="#d99a70"/>
+        <rect x="-12" y="-450" width="24" height="34" rx="8" fill="#e5a77b"/>
+        <ellipse cx="-46" cy="-488" rx="8" ry="13" fill="#d99a70"/>
+        <path d="M -46 -518 C -48 -564 38 -566 42 -514 L 40 -480 C 36 -448 16 -440 -2 -440 C -22 -440 -42 -448 -46 -482 Z" fill="#e5a77b"/>
+        <path d="M -48 -504 C -54 -570 44 -572 44 -508 C 28 -532 8 -538 -14 -528 C -28 -522 -38 -512 -42 -494 Z" fill="#182436"/>
+        <circle cx="-6" cy="-494" r="5" fill="#182436"/><circle cx="-4.5" cy="-495.5" r="1.7" fill="#fff"/>
+        <circle cx="22" cy="-494" r="4.8" fill="#182436"/><circle cx="23.5" cy="-495.5" r="1.6" fill="#fff"/>
+        <path d="M -2 -464 Q 10 -454 21 -464" fill="none" stroke="#9a3412" stroke-width="4" stroke-linecap="round"/>
+      </g>
+      <text x="155" y="215" text-anchor="middle" class="ok">3/4 (default)</text>
+
+      <!-- 3. SIDE -->
+      <g transform="translate(256, 200) scale(0.31)">
+        <rect x="-12" y="-260" width="24" height="236" rx="10" fill="#1e293b"/>
+        <path d="M -16 -22 L 24 -22 C 36 -10 42 -6 46 0 L -18 0 Z" fill="#334155"/>
+        <path d="M -26 -422 C -34 -410 -34 -336 -28 -270 L 26 -270 C 32 -336 28 -410 18 -422 Z" fill="#2563eb"/>
+        <rect x="-12" y="-410" width="20" height="136" rx="10" fill="#3b82f6"/>
+        <path d="M -10 -278 C -10 -256 -4 -240 6 -242 C 12 -244 12 -260 10 -278 Z" fill="#e5a77b"/>
+        <rect x="-12" y="-450" width="24" height="34" rx="8" fill="#e5a77b"/>
+        <path d="M -38 -518 C -38 -564 36 -566 40 -512 L 42 -492 L 54 -478 L 40 -472 L 38 -456 C 36 -442 18 -440 -10 -440 C -34 -442 -42 -466 -38 -518 Z" fill="#e5a77b"/>
+        <ellipse cx="-12" cy="-488" rx="8" ry="13" fill="#d99a70"/>
+        <path d="M -42 -504 C -48 -570 38 -572 42 -516 C 24 -532 2 -536 -14 -518 C -22 -508 -26 -496 -36 -484 Z" fill="#182436"/>
+        <circle cx="24" cy="-494" r="5" fill="#182436"/><circle cx="25.5" cy="-495.5" r="1.7" fill="#fff"/>
+        <path d="M 24 -462 Q 32 -456 38 -462" fill="none" stroke="#9a3412" stroke-width="3.8" stroke-linecap="round"/>
+      </g>
+      <text x="256" y="215" text-anchor="middle" class="mono">side</text>
+
+      <!-- 4. BACK (NEW!) -->
+      <g transform="translate(356, 200) scale(0.31)">
+        <rect x="-26" y="-260" width="20" height="236" rx="8" fill="#1e293b"/>
+        <rect x="6" y="-260" width="20" height="236" rx="8" fill="#1e293b"/>
+        <rect x="-28" y="-22" width="24" height="22" rx="6" fill="#334155"/>
+        <rect x="4" y="-22" width="24" height="22" rx="6" fill="#334155"/>
+        <rect x="-32" y="-276" width="64" height="26" rx="10" fill="#1e293b"/>
+        <!-- Back of jacket (solid back panel + center seam) -->
+        <path d="M -42 -422 C -50 -414 -50 -336 -44 -270 L 44 -270 C 50 -336 50 -414 42 -422 Z" fill="#1d4ed8"/>
+        <line x1="0" y1="-416" x2="0" y2="-274" stroke="#1e40af" stroke-width="3"/>
+        <rect x="-56" y="-412" width="18" height="136" rx="9" fill="#2563eb"/>
+        <rect x="38" y="-412" width="18" height="136" rx="9" fill="#2563eb"/>
+        <path d="M -54 -278 C -56 -256 -52 -242 -45 -242 C -38 -242 -36 -258 -38 -278 Z" fill="#d99a70"/>
+        <path d="M 38 -278 C 36 -258 38 -242 45 -242 C 52 -242 56 -256 54 -278 Z" fill="#d99a70"/>
+        <!-- Nape + Ears + Full Back Hair -->
+        <rect x="-12" y="-450" width="24" height="34" rx="8" fill="#d99a70"/>
+        <ellipse cx="-46" cy="-488" rx="8" ry="13" fill="#d99a70"/>
+        <ellipse cx="46" cy="-488" rx="8" ry="13" fill="#d99a70"/>
+        <path d="M -48 -512 C -50 -572 50 -572 48 -512 L 44 -462 C 26 -448 -26 -448 -44 -462 Z" fill="#182436"/>
+        <path d="M -28 -538 C -8 -552 12 -552 30 -536 C 10 -544 -10 -544 -28 -538 Z" fill="#334155" opacity="0.5"/>
+      </g>
+      <text x="356" y="215" text-anchor="middle" class="mono">back</text>
+    </g>
+
+    <!-- Bottom Facial Micro-Detail Badges -->
+    <g transform="translate(16, 282)">
+      <rect class="subcard" width="132" height="60" rx="7"/>
+      <text x="10" y="18" class="ok">Mata &amp; Telinga</text>
+      <text x="10" y="33" class="note">• Titik kilau putih pupil</text>
+      <text x="10" y="47" class="note">• Lipatan dalam telinga</text>
+
+      <rect class="subcard" x="141" width="132" height="60" rx="7"/>
+      <text x="151" y="18" class="ok">Rahang &amp; Mulut</text>
+      <text x="151" y="33" class="note">• Dagu tirus asimetris</text>
+      <text x="151" y="47" class="note">• Gigi putih + lidah halus</text>
+
+      <rect class="subcard" x="282" width="132" height="60" rx="7"/>
+      <text x="292" y="18" class="ok">Pakaian &amp; Sepatu</text>
+      <text x="292" y="33" class="note">• Layer jaket + kaos</text>
+      <text x="292" y="47" class="note">• Cuff celana + 3 tali</text>
+    </g>
+  </g>
+
+  <!-- ======================================================================= -->
+  <!-- PANEL 4: LAYERED TUFTED HAIR & 6 MODERN ARCHETYPES                      -->
+  <!-- ======================================================================= -->
+  <g id="panel-hair" transform="translate(890, 348)">
+    <rect class="card" width="358" height="356" rx="12"/>
+    <text x="16" y="23" class="h2">4. Rambut Berlapis &amp; 6 Arketipe</text>
+    <text x="16" y="38" class="note">1. backHair → 2. Kepala/Telinga → 3. frontHair tuft.</text>
+
+    <!-- Rule Strip -->
+    <g transform="translate(16, 52)">
+      <rect class="subcard" width="326" height="44" rx="7" stroke="#22c55e"/>
+      <text x="10" y="18" class="ok">ANTI-HELM:</text>
+      <text x="72" y="18" class="note">Selalu beri helai belakang telinga &amp; poni</text>
+      <text x="10" y="34" class="note">bercabang (tuft); highlight wajib DI DALAM kontur rambut.</text>
+    </g>
+
+    <!-- 3x2 Hair Archetype Grid (each 103 x 114, gap 8) -->
+    <!-- Row 1 -->
+    <!-- 1. short -->
+    <g transform="translate(16, 106)">
+      <rect class="subcard" width="103" height="114" rx="8"/>
+      <g transform="translate(52, 72) scale(0.42)">
+        <path d="M -52 -106 C -56 -166 50 -168 50 -104 L 46 -52 C 30 -38 -36 -38 -50 -54 Z" fill="#131c2b"/>
+        <ellipse cx="-48" cy="-64" rx="9" ry="14" fill="#d4956b"/>
+        <path d="M -48 -112 C -50 -164 42 -166 46 -108 L 44 -60 C 40 -16 18 -4 -2 -4 C -24 -4 -44 -16 -48 -60 Z" fill="#e5a77b"/>
+        <path d="M -52 -92 C -58 -174 52 -178 50 -104 C 36 -124 14 -132 -8 -122 L -16 -108 L -22 -120 C -36 -112 -44 -96 -46 -68 L -52 -74 Z" fill="#1e293b"/>
+        <path d="M -28 -140 C -8 -154 14 -154 32 -138 C 12 -144 -10 -144 -28 -140 Z" fill="#3b4d6b" opacity="0.5"/>
+      </g>
+      <text x="52" y="92" text-anchor="middle" class="mono">short</text>
+      <text x="52" y="106" text-anchor="middle" class="note">tuft samping</text>
+    </g>
+
+    <!-- 2. bob -->
+    <g transform="translate(127, 106)">
+      <rect class="subcard" width="103" height="114" rx="8"/>
+      <g transform="translate(52, 72) scale(0.42)">
+        <path d="M -58 -102 C -62 -170 56 -172 56 -98 L 62 2 C 36 14 -40 14 -62 2 Z" fill="#2c1810"/>
+        <path d="M -48 -112 C -50 -164 42 -166 46 -108 L 44 -60 C 40 -16 18 -4 -2 -4 C -24 -4 -44 -16 -48 -60 Z" fill="#e5a77b"/>
+        <path d="M -56 -88 C -60 -172 56 -174 52 -100 C 36 -124 12 -134 -14 -118 C -34 -104 -46 -78 -48 -32 L -58 -30 Z" fill="#432818"/>
+        <path d="M -26 -140 C -8 -154 16 -154 34 -138 C 14 -144 -8 -144 -26 -140 Z" fill="#6f462d" opacity="0.5"/>
+      </g>
+      <text x="52" y="92" text-anchor="middle" class="mono">bob</text>
+      <text x="52" y="106" text-anchor="middle" class="note">sebahu berlapis</text>
+    </g>
+
+    <!-- 3. bun -->
+    <g transform="translate(238, 106)">
+      <rect class="subcard" width="103" height="114" rx="8"/>
+      <g transform="translate(52, 72) scale(0.42)">
+        <circle cx="-42" cy="-148" r="28" fill="#1e293b"/>
+        <rect x="-32" y="-140" width="14" height="7" rx="3.5" fill="#f59e0b" transform="rotate(-40 -32 -140)"/>
+        <path d="M -52 -106 C -56 -166 50 -168 50 -104 L 46 -52 C 30 -38 -36 -38 -50 -54 Z" fill="#131c2b"/>
+        <ellipse cx="-48" cy="-64" rx="9" ry="14" fill="#d4956b"/>
+        <path d="M -48 -112 C -50 -164 42 -166 46 -108 L 44 -60 C 40 -16 18 -4 -2 -4 C -24 -4 -44 -16 -48 -60 Z" fill="#e5a77b"/>
+        <path d="M -52 -92 C -56 -170 52 -172 48 -104 C 30 -126 4 -134 -24 -118 C -38 -110 -46 -94 -48 -72 L -52 -76 Z" fill="#1e293b"/>
+      </g>
+      <text x="52" y="92" text-anchor="middle" class="mono">bun</text>
+      <text x="52" y="106" text-anchor="middle" class="note">cepol / ikat</text>
+    </g>
+
+    <!-- Row 2 -->
+    <!-- 4. curly -->
+    <g transform="translate(16, 228)">
+      <rect class="subcard" width="103" height="114" rx="8"/>
+      <g transform="translate(52, 72) scale(0.42)">
+        <circle cx="-46" cy="-108" r="30" fill="#1c1917"/>
+        <circle cx="40" cy="-112" r="28" fill="#1c1917"/>
+        <circle cx="0" cy="-142" r="36" fill="#1c1917"/>
+        <ellipse cx="-48" cy="-64" rx="9" ry="14" fill="#d4956b"/>
+        <path d="M -48 -112 C -50 -164 42 -166 46 -108 L 44 -60 C 40 -16 18 -4 -2 -4 C -24 -4 -44 -16 -48 -60 Z" fill="#e5a77b"/>
+        <circle cx="-36" cy="-128" r="22" fill="#292524"/>
+        <circle cx="-2" cy="-140" r="26" fill="#292524"/>
+        <circle cx="32" cy="-126" r="21" fill="#292524"/>
+        <circle cx="-46" cy="-94" r="14" fill="#292524"/>
+      </g>
+      <text x="52" y="92" text-anchor="middle" class="mono">curly</text>
+      <text x="52" y="106" text-anchor="middle" class="note">volume puff</text>
+    </g>
+
+    <!-- 5. hijab -->
+    <g transform="translate(127, 228)">
+      <rect class="subcard" width="103" height="114" rx="8"/>
+      <g transform="translate(52, 72) scale(0.42)">
+        <path d="M -60 -100 C -64 -174 58 -176 56 -98 L 62 18 C 36 32 -38 32 -64 16 Z" fill="#0d9488"/>
+        <path d="M 28 -154 C 54 -140 60 -100 60 16 L 34 24 C 40 -48 38 -118 28 -154 Z" fill="#0f766e"/>
+        <path d="M -42 -106 C -42 -148 36 -150 38 -102 L 36 -58 C 34 -18 16 -6 -2 -6 C -20 -6 -38 -18 -42 -58 Z" fill="#e5a77b"/>
+        <path d="M -48 -12 C -14 10 26 8 52 -6 L 56 18 C 24 32 -28 32 -56 18 Z" fill="#14b8a6"/>
+      </g>
+      <text x="52" y="92" text-anchor="middle" class="mono">hijab</text>
+      <text x="52" y="106" text-anchor="middle" class="note">drape 2-tone</text>
+    </g>
+
+    <!-- 6. cap -->
+    <g transform="translate(238, 228)">
+      <rect class="subcard" width="103" height="114" rx="8"/>
+      <g transform="translate(52, 72) scale(0.42)">
+        <ellipse cx="-48" cy="-64" rx="9" ry="14" fill="#d4956b"/>
+        <path d="M -48 -112 C -50 -164 42 -166 46 -108 L 44 -60 C 40 -16 18 -4 -2 -4 C -24 -4 -44 -16 -48 -60 Z" fill="#e5a77b"/>
+        <path d="M -54 -108 C -56 -174 50 -174 50 -108 Z" fill="#2563eb"/>
+        <path d="M -56 -110 L 74 -106 C 78 -98 68 -92 48 -94 L -52 -98 Z" fill="#1d4ed8"/>
+        <circle cx="-2" cy="-160" r="6" fill="#f59e0b"/>
+      </g>
+      <text x="52" y="92" text-anchor="middle" class="mono">cap</text>
+      <text x="52" y="106" text-anchor="middle" class="note">topi + visor</text>
+    </g>
+  </g>
+</svg>

@@ -11,7 +11,7 @@
 - **Gaya dipilih:** **Continuous Action** *(proses perjalanan nonstop, kecepatan, rute antarkota, 100% vektor)*.
 - **Rasio:** `16:9` *(default)*.
 - **Durasi:** `30 detik` *(sudah disebut user)*.
-- **Suara:** Tanpa audio dulu, naskah VO ditulis lengkap (`vo-script.md`).
+- **Naskah VO:** Ditulis lengkap (`vo-script.md`) sesuai pacing untuk sinkronisasi manual di video editor.
 - **Referensi yang diambil lewat `reference-index.md`:** `DOC-CONT`, `VIS-CONT-VIEW`, `VIS-SHARED-CAM`, `EX-GVB` *(fokus pencegahan F-03 dashboard inset)*.
 
 ---
@@ -37,8 +37,8 @@
 
 | Waktu | View Full-Frame | Paragraf VO (64 kata total) | Aksi Deterministik (`D(t)` & Instrumen) | Profil `VK` & Kamera | Transisi |
 |---|---|---|---|---|---|
-| `0.0–10.5` | **`#side` (Samping)** | *"Begitu pesanan diklik malam hari, paket langsung masuk ke armada ekspres yang melaju nonstop menembus jalur tol antarkota."* (20 kata) | 3 lapis kota malam parallax mengalir via `D(t)`, lampu jalan menyapu, roda berputar deterministik, angka raksasa `"95"` + `"KM/JAM"` muncul di `#deepObjs` **di belakang** van lalu tersapu ke kiri. | `VK`: `720 → 980 → 440` (melambat 45% saat `"95"` dibaca) → `960 px/dtk`. `CAMK` zoom `1.0 → 1.08`. | `whip('#side', '#cabin', 10.2, +1)` |
-| `10.5–20.0` | **`#cabin` (Kabin)** | *"Di ruang kemudi, kecepatan dijaga stabil sementara sistem memantau jarak tempuh ratusan kilometer tanpa berhenti lama di jalan."* (20 kata) | Full-frame kaca depan dengan garis marka melesat, jarum speedometer menyapu mengikuti `vAt(t)` ke `95`, odometer digital `tabular-nums` bergulir `0 → 420 KM`, indikator rute berkedip lembut. | `VK`: stabil tinggi `960 → 1020 px/dtk`. Banking halus `±3°` mengikuti tikungan. | `whip('#cabin', '#map', 19.7, +1)` |
+| `0.0–10.5` | **`#side` (Samping)** | *"Begitu pesanan diklik malam hari, paket langsung masuk ke armada ekspres yang melaju nonstop menembus jalur tol antarkota."* (20 kata) | 3 lapis kota malam parallax mengalir via `D(t)`, lampu jalan menyapu, roda berputar deterministik, angka raksasa `"95"` + `"KM/JAM"` muncul di `#deepObjs` **di belakang** van lalu tersapu ke kiri. | `VK`: `720 → 980 → 440` (melambat 45% saat `"95"` dibaca) → `960 px/dtk`. `CAMK` zoom `1.0 → 1.08`. | `whip(10.2, view.side, view.cabin, +1)` |
+| `10.5–20.0` | **`#cabin` (Kabin)** | *"Di ruang kemudi, kecepatan dijaga stabil sementara sistem memantau jarak tempuh ratusan kilometer tanpa berhenti lama di jalan."* (20 kata) | Full-frame kaca depan dengan garis marka melesat, jarum speedometer menyapu mengikuti `vAt(t)` ke `95`, odometer digital `tabular-nums` bergulir `0 → 420 KM`, indikator rute berkedip lembut. | `VK`: stabil tinggi `960 → 1020 px/dtk`. Banking halus `±3°` mengikuti tikungan. | `whip(19.7, view.cabin, view.map, +1)` |
 | `20.0–30.0` | **`#map` (Simulasi Peta)** | *"Dalam delapan jam, rute lintas provinsi tuntas ditempuh dan paket tiba di depan rumah tepat sebelum pagi menyapa."* (24 kata) | Full-frame peta vektor (kiri→kanan), path tol tergambar via `stroke-dasharray`, penanda oranye melaju lewat `getPointAtLength` menghadap tangen, 3 titik hub pop berurutan, kamera zoom `2.3× → 1.0×` selesai di `25.8s`, lalu `"8 JAM"` tampil di `26.0s`. | Zoom out selesai `25.8s` → teks `"8 JAM"` muncul `26.0s` (tidak bertabrakan gerak kamera). | Loop bersih ke `0.0s` |
 
 ---
@@ -53,11 +53,13 @@ const VK = [
 ];
 
 // 2. Angka raksasa diletakkan di #deepObjs (parallax 0.80, DI BELAKANG subjek)
-wobj('#deepObjs', { t0: 4.4, t1: 8.8, parallax: 0.80, render: makeBigStat('95', 'KM/JAM') });
+const statG = wobj($('#deepObjs'), 0.80, W + 80, 4.4, 1000, 8.8);
+T('95', 0, 490, { class: 'big', 'font-size': 400, fill: 'var(--ink)' }, statG);
+T('KM/JAM', 580, 486, { 'font-size': 92, 'font-weight': 800, fill: 'var(--accent)' }, statG);
 
 // 3. Pindah sudut pandang full-frame pakai whip() berbasis autoAlpha (nol dashboard inset!)
-whip('#side', '#cabin', 10.2, 1);
-whip('#cabin', '#map', 19.7, 1);
+whip(10.2, view.side, view.cabin, 1);
+whip(19.7, view.cabin, view.map, 1);
 
 // 4. Jangan pakai setAttribute('visibility','visible') pada anak view — pakai removeAttribute
 // agar elemen anak tidak tembus saat view induk tersembunyi oleh whip().
@@ -65,4 +67,4 @@ whip('#cabin', '#map', 19.7, 1);
 
 ## 6. Hasil Ringkas Audit QC (Sesuai `templates/qc-audit-scorecard.md`)
 - **Lapis 1 (`?debug=1` Audit):** `0` teks `< 30 px`, `0` konflik view saat scrub bolak-balik di `10.2s` dan `19.7s`, semua odometer memakai `tabular-nums`.
-- **Lapis 2 (F-01 s.d. F-06):** Nol mini-map/gauge inset (`F-03` lolos), arah kiri→kanan terjaga di `#side` dan `#map` (`F-04` lolos), dunia tetap mengalir ≥44% saat angka dibaca (`F-01` lolos).
+- **Lapis 2 (F-01 s.d. F-07):** Nol mini-map/gauge inset (`F-03` lolos), arah kiri→kanan terjaga di `#side` dan `#map` (`F-04` lolos), dunia tetap mengalir ≥44% saat angka dibaca (`F-01` lolos), rasio parallax berjenjang (`0.16→1.40`) & proporsi van selaras terhadap tiang/viaduk (`F-07` lolos).

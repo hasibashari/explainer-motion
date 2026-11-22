@@ -48,6 +48,7 @@ Agar penonton langsung mengenali bahwa seluruh sudut pandang masih menceritakan 
 - **Rasio Kecepatan Parallax Berbasis Jarak Nyata:** Urutan faktor `f` pada `strip()` wajib meningkat konsisten dari belakang ke depan agar ilusi kedalaman terasa optik nyata:
   `Awan/langit (0,06)` → `Gunung jauh (0,16)` → `Bukit/kota (0,36)` → `Ladang/gedung menengah (0,64)` → `Jalur/viaduk (0,95–1,00)` → `Tiang/semak FG dekat lensa (1,35–1,60)`.
 - **Perspektif 1-Titik & Low-Angle:** Di `#cabin` dan *Tampak Depan*, gunakan kurva percepatan kuadratik (`p = q*q`) dari titik hilang ke tepi bawah layar; pada momen klimaks kecepatan, turunkan garis cakrawala (Low-Angle) dan tambahkan *banking* tikungan `6–12°` pada `#sideCam`.
+- **Color Script 70–20–10 & *Vector Craft* Lintas-View:** Terapkan *4-Plane Atmospheric Attenuation* agar lapis jauh (`f = 0,06–0,16`) berupa siluet datar sewarna langit tanpa detail jendela, lapis menengah (`f = 0,36–0,64`) memakai *2-tone split* berkontras sedang, subjek utama memiliki kontras & suhu warna paling tajam, dan lapis FG (`f = 1,35–1,60`) berupa siluet gelap pengunci kedalaman. Jaga **Light Direction Anchor** dan arah garis pantulan kaca diagonal tetap seragam di `#side`, `#cabin`, maupun view *Interior Perspektif* (gunakan *window depth* dengan latar mengalir ber-kontras rendah di balik jendela).
 - **Konsistensi Arah Gerak:** Di tampilan samping, subjek selalu menghadap dan melaju dari **kiri ke kanan** (dunia mengalir kanan → kiri). Di tampilan peta, usahakan jalur utama juga mengalir dominan kiri → kanan atau barat → timur agar selaras dengan arah layar.
 
 ---
@@ -58,8 +59,13 @@ Agar penonton langsung mengenali bahwa seluruh sudut pandang masih menceritakan 
 - **Objek Dunia (`wobj`):** Selalu tentukan `t0` (masuk) dan `t1` (dibuang) agar jembatan, papan angka, atau portal terowongan yang sudah dilewati tidak muncul lagi secara keliru.
 - **Jebakan `visibility` SVG:** Jangan pernah menulis `setAttribute('visibility', 'visible')` pada elemen anak di dalam `<div class="view">`. Atribut anak `'visible'` menembus `visibility: hidden` milik view induk! Untuk menampilkan elemen anak, **hapus atributnya** dengan `removeAttribute('visibility')`.
 - **Whip Antar View (`whip()`):** Jangan menggunakan `className` GSAP 3. Gunakan `autoAlpha` / `visibility` + translasi `y` + blur searah (`0,28 dtk` keluar + `0,36 dtk` masuk) agar scrub mundur-maju tetap bersih tanpa view bertumpuk.
+- **Registrasi Viewpoint Tambahan (4–7):** Starter bawaan menyediakan 3 `<div class="view">` (`#side`, `#cabin`, `#map`). Saat menambahkan sudut pandang baru (mis. `#profile`, `#race`, `#interior`, `#headon`), wajib masukkan elemennya ke array `views` dan inisialisasi `tl.set(..., {autoAlpha: 0}, 0)` agar ikut terpantau oleh `runAudit()` dan tidak bocor di frame 0. Sesuaikan pula pembagi kecepatan maksimum di `renderCabin()` dengan nilai puncak `VK` proyek Anda.
 - **Transform Lokal SVG:** Untuk grup yang diskalakan/diputar dari pusat lokalnya (subjek miring, roda berputar, jarum speedometer), tulis atribut `transform` langsung (`translate(x y) rotate(deg)`), jangan `gsap.set` dengan `transformOrigin`.
 - **Kamera Samping Bernapas (`CAMK`):** Terapkan keyframe `[t, zoom, cx, cy]` + osilasi halus `±0,6%` hanya pada `<g id="sideCam">`, bukan pada teks UI `#ui` di luar kamera.
+- **Adaptasi `9:16` (`1080×1920`):** Mengubah `W = 1080, H = 1920` saja akan memotong geometri `1920×1080` bawaan starter (`#cabin` kanan di `x = 1380` & hero di `HX = 1400`). Wajib sesuaikan ketiga view secara vertikal:
+  - **`#side`:** Pindahkan posisi subjek ke `HX ≈ 660–720, HY ≈ 1240–1320`, perpanjang langit (`y: -300..1200`) & tanah/viaduk mengisi `H = 1920`, dan letakkan angka `#deepObjs` di `y ≈ 580–820` (bebas dari zona atas `190 px` & strip UI kanan `160 px`).
+  - **`#cabin`:** Susun ulang kokpit dalam `viewBox="0 0 1080 1920"` — kaca depan panoramik di setengah atas (`x: 60..1020, y: 210..960`), speedometer utama terpusat di `(540, 1270)`, dan panel daya/status ditumpuk berdampingan di bawahnya (`y: 1410–1590`, lebar total `≤ 840 px` agar bebas dari margin bawah `230 px` & strip UI kanan).
+  - **`#map` & `#ui`:** Arahkan titik tengah `mapCam` ke `(540, 960)` dan posisikan `#numA` pada `top: 220px` (di bawah zona bahaya atas `190 px`) dengan font proporsional `≤ 150 px`. Verifikasi seluruh view memakai tombol **Safe** di `?debug=1`.
 
 ---
 
@@ -68,6 +74,7 @@ Agar penonton langsung mengenali bahwa seluruh sudut pandang masih menceritakan 
 - [ ] Jalankan `?debug=1` → klik **Audit**: nol teks `< 30 px` dan nol konflik view
 - [ ] Scrub mundur-maju melewati setiap `whip()` — tidak ada dua `<div class="view">` tampil bersamaan atau objek view lama tembus ke view baru
 - [ ] Subjek utama konsisten warna, siluet, arah gerak, dan proporsi terhadap tiang/pohon/jembatan (`F-04` & `F-07` lolos)
+- [ ] Pemisahan kedalaman *Color Script* & arah cahaya/pantulan kaca konsisten antar lapis parallax dan lintas sudut pandang (`#side`, `#cabin`, `#map`, dll.)
 - [ ] Tidak ada 3 adegan berturut-turut dengan sudut pandang yang sama (minimal memakai 3 sudut/instrumen berbeda pada video ≥ 45 detik)
 - [ ] Dunia tetap mengalir (kecepatan > 0 atau melambat ~40%) saat angka/fakta ditampilkan — tidak ada detik yang beku total
 - [ ] Angka yang berubah (speedometer, odometer, jarak) memakai `font-variant-numeric: tabular-nums` dan muncul **setelah** zoom-out peta/kamera selesai

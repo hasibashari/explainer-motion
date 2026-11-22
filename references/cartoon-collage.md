@@ -49,7 +49,7 @@ Adegan 1: (960, 540)     → Adegan 2: (3560, 540)    → Adegan 3: (6160, 540)
 Adegan 6: (960, 2240)    ← Adegan 5: (3560, 2240)   ← Adegan 4: (6160, 2240)
 ```
 
-Di starter v2.0, panggil `sizeWorld(minX, minY, maxX, maxY)` (margin otomatis `±1600 px` di setiap sisi) agar `.paper`, `.grain`, dan `.stain` **selalu menutup 100% area perjalanan kamera** tanpa celah hitam.
+Di starter v2.1, panggil `sizeWorld(minX, minY, maxX, maxY)` (margin otomatis `±1600 px` di setiap sisi) agar `.paper`, `.grain`, dan `.stain` **selalu menutup 100% area perjalanan kamera** tanpa celah hitam.
 
 ---
 
@@ -57,9 +57,10 @@ Di starter v2.0, panggil `sizeWorld(minX, minY, maxX, maxY)` (margin otomatis `�
 
 - **Pemisahan Wrapper Blur vs Drop-Shadow (Wajib!):**
   Jangan memasang `filter: drop-shadow(...)` pada elemen `.cut` yang menjadi target `blurTween()`. Saat `blurTween` menyetel `style.filter = 'none'` di akhir gerakan, drop-shadow akan hilang permanen.
-  **Pola benar di starter v2.0:** `.cut` memegang posisi, transform, dan motion blur; **`.cut-body`** di dalamnya memegang `filter: drop-shadow(0 28px 36px rgba(34,30,27,.26))` (dan filter warna seperti grayscale diletakkan pada `<img>`).
+  **Pola benar di starter v2.1:** `.cut` memegang posisi, transform, dan motion blur; **`.cut-body`** di dalamnya memegang `filter: drop-shadow(0 28px 36px rgba(34,30,27,.26))` (dan filter warna seperti grayscale diletakkan pada `<img>`).
 - **Cutout Hidup:** Setelah mendarat lewat `fly()`, tiap cutout memiliki ayunan organik minimal `±22–28 px` (`1,4–1,8 dtk`, `sine.inOut`, `yoyo: true`, `repeat: -1`), rotasi kecil `±1,5°`, dan fase/durasi berbeda agar tidak bergerak serempak seperti robot.
-- **Kalimat per Kata (`say/unsay`):** Kata kunci memakai `<span class="hl"><i></i>kata</span>` (varian warna default oranye, `.t` teal, `.r` merah). Jangan membungkus frasa panjang ke satu `.w` nowrap (meluber di 9:16).
+- **Kalimat per Kata (`say/unsay`):** Kata kunci memakai `<span class="hl"><i></i>kata</span>` (varian warna default oranye, `.t` teal, `.r` merah). Jangan membungkus frasa panjang ke satu `.w` nowrap (meluber di 9:16). Catatan CSS: default `.line` memakai `left: 120px; right: 120px;` untuk Area 1; pada **Area 2+**, wajib tambahkan `right: auto; width: 1680px;` (atau lebar target area) agar lebar kalimat tidak menyusut menjadi nol.
+- **Format `9:16` (`.safe` per Area, Bukan `#world`):** Jangan membungkus `#world` dengan `.safe` karena akan mengecilkan `.paper`/`.grain`/`.stain` ke 78% dan memunculkan tepi hitam. Letakkan kelas `.safe` di dalam pembungkus konten tiap area atau sesuaikan koordinat elemen langsung di dalam zona aman (`±190 px` atas, `±230 px` bawah, & strip ikon UI kanan `±160 px`).
 - **Teks Hantu (`.ghost`):** Pilih satu gaya konsisten untuk seluruh video dengan opacity **`0,18–0,25`** (bukan `0,07` yang tenggelam ke warna kertas).
 - **Anotasi SVG (`draw`):** Set `opacity: 0` hingga detik mulai agar `stroke-linecap: round` tidak menyisakan titik nyasar; gunakan `clip-path: inset()` agar mendukung garis utuh maupun putus-putus.
 - **Konsistensi Cutout Generate:** Lihat `references/asset-consistency.md` untuk *Style Lock Prompt* batch generation agar seluruh cutout memiliki ketebalan outline, pencahayaan, dan harmoni warna yang seragam.

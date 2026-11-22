@@ -200,7 +200,7 @@
       <text x="14" y="150" class="note">• Full-frame whip (0.28s + 0.36s)</text>
       <text x="14" y="168" class="note">• Banking tikungan: 6–12°</text>
       <text x="14" y="184" class="note">• Peta: zoom 2.3× → 1.0× lalu angka</text>
-      <text x="14" y="204" class="mono">whip(from, to, at, dir)</text>
+      <text x="14" y="204" class="mono">whip(at, from, to, dir)</text>
     </g>
 
     <!-- Cartoon Collage camera -->

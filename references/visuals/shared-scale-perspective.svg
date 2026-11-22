@@ -24,7 +24,7 @@
   <!-- TOP PANEL: 1H Semi-Realistic Proportion Scale Ladder -->
   <g id="panel-scale-ladder" transform="translate(36, 78)">
     <rect class="card" width="1208" height="300" rx="12"/>
-    <text x="20" y="28" class="h2">1. Tangga Proporsi Berbasis Jangkar Manusia (1 H = 1,7 m · Baseline Cartoon Stage H = 320 px, rig scale 0.64)</text>
+    <text x="20" y="28" class="h2">1. Tangga Proporsi Berbasis Jangkar Manusia (1 H = 1,7 m · Baseline Cartoon Stage ≈ 330–345 px, rig baseScale 0.60)</text>
     <text x="20" y="46" class="note">Cek cepat: kepala tokoh wajib &lt; ambang pintu · atap sedan sejajar dada/bahu · untuk gedung tinggi gunakan Low-Angle + Crop/Tilt (jangan diperkecil jadi mainan).</text>
 
     <!-- Scale baseline grid -->
@@ -34,7 +34,7 @@
       <line x1="16" y1="192" x2="1152" y2="192" stroke="#22c55e" stroke-width="2"/>
       <!-- 1.0 H line (y = 136) -->
       <line x1="16" y1="136" x2="1152" y2="136" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="5 4"/>
-      <text x="24" y="130" class="mono">1.0 H (1,7 m · 320 px)</text>
+      <text x="24" y="130" class="mono">1.0 H (1,7 m · ~340 px)</text>
       <!-- 2.0 H line (y = 80) -->
       <line x1="16" y1="80" x2="1152" y2="80" stroke="#475569" stroke-width="1" stroke-dasharray="4 4"/>
       <text x="24" y="74" class="note">2.0 H (3,4 m)</text>
@@ -193,23 +193,23 @@
     </g>
   </g>
 
-  <!-- BOTTOM RIGHT: Perspective & Atmospheric Depth Rules -->
+  <!-- BOTTOM RIGHT: Perspective, Color Script 70-20-10, & Vector Lighting Rules -->
   <g id="panel-depth-rules" transform="translate(852, 396)">
     <rect class="card" width="392" height="292" rx="12"/>
-    <text x="20" y="28" class="h2">3. Resep Kedalaman &amp; Perspektif 2D</text>
+    <text x="20" y="28" class="h2">3. Color Script 70–20–10, Cahaya, &amp; Parallax</text>
 
     <g transform="translate(20, 48)">
       <rect width="352" height="66" rx="8" fill="#0f172a" stroke="#38bdf8"/>
-      <text x="14" y="22" class="lbl" fill="#38bdf8">A. Kedalaman Atmosfer (4 Lapis)</text>
-      <text x="14" y="40" class="note">BG Jauh (pucat, saturasi rendah, ikut warna langit)</text>
-      <text x="14" y="56" class="note">→ BG Dekat → MG (kontras tajam) → FG (gelap/besar).</text>
+      <text x="14" y="22" class="lbl" fill="#38bdf8">A. Kedalaman 4 Lapis &amp; Color Script 70–20–10</text>
+      <text x="14" y="40" class="note">70% BG/Latar analogus tenang → 20% Arsitektur MG</text>
+      <text x="14" y="56" class="note">→ 10% Subjek kontras tajam + FG gelap pengunci tepi.</text>
     </g>
 
     <g transform="translate(20, 126)">
       <rect width="352" height="66" rx="8" fill="#0f172a" stroke="#f59e0b"/>
-      <text x="14" y="22" class="lbl" fill="#f59e0b">B. Volume 2,5D &amp; Bidang Jalan</text>
-      <text x="14" y="40" class="note">Tampilkan sisi samping objek teredup sh(hex, 0.85)</text>
-      <text x="14" y="56" class="note">+ jalan/trotoar trapesium menuju garis cakrawala.</text>
+      <text x="14" y="22" class="lbl" fill="#f59e0b">B. Light Anchor, 2,5D, &amp; 2-Tone Craft</text>
+      <text x="14" y="40" class="note">1 arah cahaya konsisten → sisi 2,5D sh(hex, 0.85),</text>
+      <text x="14" y="56" class="note">2-tone split, pantulan kaca diagonal, &amp; light beam.</text>
     </g>
 
     <g transform="translate(20, 204)">

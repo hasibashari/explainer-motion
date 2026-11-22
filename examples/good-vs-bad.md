@@ -91,11 +91,11 @@ Gunakan dokumen ini sebagai **rubrik diskriminatif** pada Langkah 2 (*review Bea
 - **Contoh BURUK (Tolak):**
   - Jarak antar area Cartoon Collage terlalu sempit (`dx < 2200`) sehingga pinggiran cutout area berikutnya ikut masuk ke sudut layar saat `home()`.
   - Lupa memanggil `sizeWorld(...)` sehingga muncul tepi hitam pekat di pinggir kertas saat kamera bergerak `into()`.
-  - Pada rasio `9:16`, kepala tokoh atau kata terakhir kalimat menempel di tepi layar atau tertimpa zona UI atas (±190 px) / bawah (±230 px).
+  - Pada rasio `9:16`, kepala tokoh atau kata terakhir kalimat menempel di tepi layar atau tertimpa zona UI atas (`±190 px`), bawah (`±230 px`), atau strip ikon UI kanan (`±160 px`).
   - Ukuran font jatuh di bawah `30 px` pada panggung 1080 px.
 - **Contoh BENAR (Terima):**
   - Cartoon Collage memakai grid zig-zag `dx = 2600 px, dy = 1700 px` + `sizeWorld(minX, minY, maxX, maxY)` (margin otomatis `±1600 px`).
-  - Format `9:16` membungkus konten utama dalam `.safe { transform: scale(.78); transform-origin: 50% 45%; }` dengan latar penuh 100% dan semua teks `≥ 30 px`.
+  - Format `9:16` membungkus **konten fokus saja** (bukan latar belakang atau `#world`) dalam `.safe { transform: scale(.78); transform-origin: 50% 45%; }` atau mengadaptasi koordinat langsung ke area aman (`±190 px` atas, `±230 px` bawah, `±160 px` kanan), dengan latar penuh 100% dan semua teks `≥ 30 px`.
 - **Cek di `?debug=1`:** Klik **Audit** (cek font `<30px` dan batas `.paper`), aktifkan overlay **Safe** saat mode `9:16`, dan scrub seluruh transisi `into()`.
 
 ---
@@ -107,7 +107,7 @@ Gunakan dokumen ini sebagai **rubrik diskriminatif** pada Langkah 2 (*review Bea
   - Semua bangunan digambar sebagai persegi datar 2D tanpa sisi kedalaman, tanah hanya berupa garis horizontal datar tanpa bidang perspektif, serta tidak ada variasi sudut kamera (*Eye-Level* datar di seluruh panggung).
   - Di **Continuous Action**, semua lapisan parallax bergerak dengan rasio kecepatan hampir sama sehingga jarak jauh-dekat terasa menempel datar.
 - **Contoh BENAR (Terima):**
-  - Mengunci jangkar **`1 H`** (dewasa `≈ 320–340 px`, `scale: 0.60–0.68` pada *Medium Shot*): pintu standar `1,24 H` (`~400–420 px`), mobil sedan `0,87 H × 2,55 H` (atap sejajar dada–bahu tokoh), bus/truk `1,85 H`, dan bangunan 1 lantai `1,95–2,6 H`.
+  - Mengunci jangkar **`1 H`** (dewasa `≈ 330–345 px`, `baseScale: 0.58–0.64`, default `0.60` pada *Medium Shot*): pintu standar `1,24 H` (`~400–420 px`), mobil sedan `0,87 H × 2,55 H` (atap sejajar dada–bahu tokoh), bus/truk `1,85 H`, dan bangunan 1 lantai `1,95–2,6 H`.
   - Objek raksasa (gedung bertingkat, menara, gardu) menerapkan ***Architectural Cropping*** (biarkan atap melampaui tepi atas kanvas) dan dipadukan dengan ***Low-Angle*** (cakrawala rendah) + ***Vertical Tilt*** kamera ke atas — tanpa pernah menurunkan zoom di bawah `1,08×`.
   - Bangunan menampilkan sisi kedalaman **2.5D** lebih gelap (`sh(hex, 0.85)`), bidang jalan/halaman trapesium mengarah ke garis cakrawala, atmosfer BG lebih pudar, dan bingkai FG besar gelap di tepi bawah/sudut.
   - Di **Continuous Action**, rasio kecepatan `strip()` berjenjang wajar mengikuti jarak nyata (`0.06 → 0.16 → 0.36 → 0.64 → 0.95–1.00 → 1.40–1.55`). *(Catatan: Cartoon Collage dikecualikan untuk skala metaforis/editorial yang disengaja, selama hierarki ukuran utama vs pendukung tetap jernih.)*
