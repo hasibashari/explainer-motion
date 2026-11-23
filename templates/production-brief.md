@@ -1,6 +1,7 @@
 # Production Brief Template — Style Brief, Pacing VO, Beat Sheet, & Asset Manifest
 
-Salin dan isi kerangka ringkas ini ke brief proyek pada **workspace output user** (jangan menimpa berkas template asli skill) pada **Langkah 2**, lalu tunjukkan kepada user untuk disetujui **sebelum menulis kode HTML/GSAP**.
+> **[HARD STOP GATE — FASE 1 PRA-PRODUKSI]**
+> Salin dan isi kerangka ini sebagai `production-brief.md` bersama draf naskah narasi **`vo-script.md`** di **workspace output user** (jangan menimpa berkas template asli skill) pada **Langkah 2–3**, sajikan ringkasannya kepada user, lalu **BERHENTI & TUNGGU PERSETUJUAN EKSPLISIT USER** sebelum menyalin starter atau menulis kode `index.html`.
 
 ---
 

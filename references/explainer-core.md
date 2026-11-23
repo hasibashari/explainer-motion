@@ -21,27 +21,34 @@ Gunakan matriks sinyal topik ini sebelum merekomendasikan gaya pada Langkah Nol:
   - Fokus pada **komponen baterai, sejarah, dan perbandingan angka** → pilih **Cartoon Collage**.
 - Pilih **satu gaya utama** sebagai rumah estetika agar video konsisten dari detik 0 sampai akhir.
 
-### Diagram Alur Kerja Ujung-ke-Ujung & Loop Validasi QC
+### Diagram Alur Kerja Ujung-ke-Ujung (2 Fase + Hard Stop Gate)
 
 ```text
+═══════════════════ FASE 1: PRA-PRODUKSI & NASKAH (GILIRAN 1) ═══════════════════
 [Langkah 0: Kunci 3 Keputusan]
-  (Gaya + Rasio + Durasi)
+  (Gaya + Rasio + Durasi — lewati yang sudah disebut user)
                │
                ▼
 [Langkah 1: Query references/reference-index.md]
   Muat maks. 4 berkas relevan (1 gaya + 1–2 SVG + 1 studi kasus)
                │
                ▼
-[Langkah 2: Isi templates/production-brief.md] ──► (Persetujuan User)
-  Style Brief · Pacing VO · Beat Sheet · Manifest
+[Langkah 2 & 3: Susun Paket Pra-Produksi di Workspace User]
+  • production-brief.md (Style Brief · Pacing VO · Beat Sheet · Character/Asset Bible)
+  • vo-script.md        (Draf naskah narasi VO lengkap, 1 paragraf = 1 babak)
                │
                ▼
-[Langkah 3: Kunci Konsistensi Aset]
-  Character / Subject Bible (references/asset-consistency.md)
-               │
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║  [HARD STOP GATE — WAJIB BERHENTI & AKHIRI GILIRAN DI SINI]                   ║
+║  Sajikan Brief, Beat Sheet, Character Bible, & Naskah VO untuk di-ACC user.   ║
+║  DILARANG menyalin starter atau menulis index.html sebelum user menyetujui    ║
+║  (kecuali user secara eksplisit meminta bypass tahap brief/persetujuan).      ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+               │  (User membalas: "oke / lanjut / setuju")
                ▼
-[Langkah 4: Salin Starter assets/starter-*.html & Bangun]
-  Ekstrak prinsip (ANTI-COPY), terapkan ke topik user
+════════════════════ FASE 2: PRODUKSI & QC (GILIRAN 2+) ════════════════════════
+[Langkah 4: Salin Starter assets/starter-*.html & Bangun index.html]
+  Ekstrak prinsip (ANTI-COPY), terapkan sesuai Brief & Beat Sheet yang di-ACC
                │
                ▼
 [Langkah 5: Audit Dua Lapis — templates/qc-audit-scorecard.md]
@@ -52,8 +59,8 @@ Gunakan matriks sinyal topik ini sebelum merekomendasikan gaya pada Langkah Nol:
         │             │
         ▼             ▼
   Terapkan resep   [Langkah 6: Penyerahan]
-  examples/        index.html standalone + naskah VO
-  before-after.md  (pesan penutup + Beat Sheet & vo-script.md)
+  examples/        index.html standalone + vo-script.md final
+  before-after.md  (ringkasan Beat Sheet ber-timestamp di pesan penutup)
         │             │
         └─► ulangi    └─► Siap rekam layar (?clean=1) &
             Langkah 5     sinkronisasi audio manual di video editor
@@ -72,7 +79,9 @@ Jika user hanya memberi topik singkat (mis. *"buatkan explainer tentang X"*), aj
 2. **Rasio**: `16:9` *(default — layar/YouTube)* · `9:16` *(Reels/TikTok/Shorts)*
 3. **Durasi**: `30 dtk` · `60 dtk` *(default)* · `90 dtk`
 
-**Yang tidak perlu ditanyakan:** audio/suara (default: output berfokus murni pada visual HTML tanpa audio tertanam; naskah VO tetap ditulis di `vo-script.md` agar siap disinkronkan secara manual di video editor), caption (default: tanpa subtitle di bawah layar), dan player (default: tanpa kontrol player, autoplay + loop, `?clean=1` untuk menahan frame 0, scrub hanya lewat `?debug=1`).
+**Jika ketiga keputusan sudah lengkap di prompt pertama:** Lewati pertanyaan Langkah Nol, lalu langsung masuk ke **Fase 1 (Langkah 2–3)** untuk menyusun `production-brief.md` (Style Brief, Beat Sheet, Character/Asset Manifest) dan `vo-script.md`, kemudian **WAJIB BERHENTI (Hard Stop Gate)** untuk meminta persetujuan user sebelum membangun `index.html`.
+
+**Yang tidak perlu ditanyakan:** audio/suara (default: output berfokus murni pada visual HTML tanpa audio tertanam; naskah VO disusun sejak Fase 1 di `vo-script.md` agar siap direview lalu disinkronkan secara manual di video editor), caption (default: tanpa subtitle di bawah layar), dan player (default: tanpa kontrol player, autoplay + loop, `?clean=1` untuk menahan frame 0, scrub hanya lewat `?debug=1`).
 
 ---
 
@@ -176,7 +185,7 @@ Ukuran huruf **minimum** pada panggung referensi sisi pendek `1080 px` (`1920×1
 ## 6. Penyerahan Visual & Naskah Narasi
 
 - **Fokus visual murni siap rekam:** `index.html` tidak menyertakan atau memutar audio (musik, VO, maupun SFX disinkronkan secara manual di video editor pada tahap editing akhir). Buka dengan `?clean=1` untuk menahan frame `0.00` secara bersih sebelum merekam layar, lalu tekan `R` atau `Space` untuk memulai pemutaran.
-- **Penyerahan wajib:** Serahkan satu berkas `index.html`, sertakan **naskah VO lengkap** (satu paragraf = satu adegan, angka ditulis dengan kata, sesuai pacing `2,2–2,5 kata/dtk`) beserta **ringkasan timestamp/Beat Sheet** langsung di dalam pesan penutup, sekaligus simpan naskah sebagai `vo-script.md`.
+- **Penyerahan wajib (Fase 2, pasca-ACC):** Serahkan satu berkas `index.html`, perbarui `vo-script.md` jika ada penyesuaian durasi/timing saat produksi, dan sertakan **naskah VO final** (satu paragraf = satu adegan, angka ditulis dengan kata, sesuai pacing `2,2–2,5 kata/dtk`) beserta **ringkasan timestamp/Beat Sheet** langsung di dalam pesan penutup.
 
 ---
 

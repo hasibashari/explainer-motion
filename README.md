@@ -44,8 +44,8 @@ Setiap hasil kerja yang dibuat agen adalah satu berkas HTML mandiri: klik dua ka
 Proyek ini adalah **Agent Skill murni** (bukan aplikasi web dan tidak membutuhkan server lokal) dengan **4 folder inti fungsional** (`references/`, `examples/`, `templates/`, `assets/`). Arahkan AI coding agent untuk memulai dari `SKILL.md`:
 
 1. **Selalu dibaca:** `SKILL.md`, `references/explainer-core.md`, `references/anti-ppt.md`, dan `references/reference-index.md` (untuk pemuatan selektif maks. 4 berkas tambahan per fase).
-2. **Perencanaan & Konsistensi:** `templates/production-brief.md` + `references/asset-consistency.md` + 1 studi kasus `examples/case-*.md` sesuai gaya.
-3. **Muat tepat satu modul gaya, diagram visual SVG-nya, & starternya:**
+2. **Fase 1 — Pra-Produksi & Naskah (Wajib ACC User sebelum coding):** Muat `templates/production-brief.md` + `references/asset-consistency.md` + 1 studi kasus `examples/case-*.md` sesuai gaya untuk menyusun `production-brief.md` (*Style Brief*, *Beat Sheet*, *Character/Asset Manifest*) dan draf naskah narasi `vo-script.md`, lalu **berhenti menunggu persetujuan user** sebelum membuat `index.html`.
+3. **Fase 2 — Bangun `index.html` (Pasca-ACC):** Muat tepat satu modul gaya, diagram visual SVG-nya, & starternya:
    - **Cartoon Stage** → `references/cartoon-stage.md` + `references/visuals/stage-*.svg` + `assets/starter-cartoon-stage.html`
    - **Continuous Action** → `references/continuous-action.md` + `references/visuals/continuous-viewpoints-continuity.svg` + `assets/starter-continuous-action.html`
    - **Cartoon Collage** → `references/cartoon-collage.md` + `references/visuals/collage-spatial-blueprints.svg` + `assets/starter-cartoon-collage.html`
@@ -71,7 +71,7 @@ references/                                [BACA] Pengetahuan, aturan, indeks, &
     shared-good-vs-bad.svg                 Split-screen perbandingan Baik vs Buruk (F-01..F-07)
     stage-anatomy.svg                      Anatomi panggung Cartoon Stage, 3 bidang kedalaman, >=10 benda bergerak
     stage-poses-expressions.svg            Hierarki rig aditif J(), 6 pose siluet, 6 ekspresi wajah
-    stage-character-details.svg            Anatomi 6 gestur tangan berjari, grip 3-lapis prop, kepala 3 sudut, rambut berlapis
+    stage-character-details.svg            Anatomi 9 gestur tangan Bezier (termasuk carry vs grip), puppet rig ~5 kepala, 4 sudut, rambut berlapis
     continuous-viewpoints-continuity.svg   Lapisan #side/#deepObjs, 3 Subject Anchors, katalog 7 sudut pandang
     collage-spatial-blueprints.svg         Spatial World Map zig-zag, akresi 3–5, timing say(), .cut/.cut-body
 examples/                                  [PELAJARI] Pembelajaran kontrastif & studi kasus ujung-ke-ujung (flat)

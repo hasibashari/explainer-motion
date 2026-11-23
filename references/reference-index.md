@@ -51,7 +51,7 @@ Bila terjadi pertentangan antar-sumber, selesaikan berdasarkan urutan prioritas 
 
 | ID | Gaya | Tahap Workflow | Pemicu Tugas (*Task Trigger*) | Pola Kegagalan Dicegah | Format | Jalur Berkas | Prinsip Inti untuk Diekstrak |
 |---|---|---|---|---|---|---|---|
-| `DOC-CORE` | Semua | Langkah 0, 1, 2, 6 | Mulai proyek baru, pilih gaya, hitung VO, 9:16, penyerahan visual | Salah pilih gaya, VO kepanjangan, 9:16 terpotong (`F-06`) | Teks + Diagram | `references/explainer-core.md` | Decision Tree, Langkah Nol 3 keputusan, rumus 2,2–2,5 kata/dtk, shot grammar, `.safe` 9:16, penyerahan visual + `vo-script.md` |
+| `DOC-CORE` | Semua | Langkah 0, 1, 2, 6 | Mulai proyek baru, pilih gaya, hitung VO, 9:16, penyerahan visual | Salah pilih gaya, VO kepanjangan, lompat ke `index.html`, 9:16 terpotong (`F-06`) | Teks + Diagram | `references/explainer-core.md` | Decision Tree, Alur 2 Fase + Hard Stop Gate, Langkah Nol, rumus 2,2–2,5 kata/dtk, shot grammar, `.safe` 9:16, `vo-script.md` |
 | `DOC-ANTIPPT` | Semua | Langkah 2, 5 | Mencegah gaya slide, cek kualitas sebelum serah | Slide terselubung / skala rusak (`F-01` s.d. `F-07`) | Teks | `references/anti-ppt.md` | Daftar larangan slide, perbaikan teknis, pemeriksaan `?debug=1` |
 | `DOC-CONSIST` | Semua | Langkah 3 | Ada ≥1 tokoh, cutout generate, atau objek lintas adegan | Karakter berubah wajah/gaya antar adegan | Teks | `references/asset-consistency.md` | Character Bible, Multi-Character Registry, Style Lock Prompt Presets, Subject Anchor |
 | `DOC-STAGE` | Cartoon Stage | Langkah 2, 4, 5 | Produksi explainer panggung berkarakter tanpa caption | Miniatur `<1,08`, sendi lepas (`F-02`), caption bocor | Teks | `references/cartoon-stage.md` | 7 hukum Stage, `J()` aditif, zoom logaritmik, ≥10 benda bergerak |
@@ -70,7 +70,7 @@ Bila terjadi pertentangan antar-sumber, selesaikan berdasarkan urutan prioritas 
 | `EX-STAGE` | Cartoon Stage | Langkah 2, 3, 4 | Kalibrasi kualitas *Production Brief → Beat → Kode* Stage | Brief dangkal, lompatan teori ke kode | Studi Kasus | `examples/case-cartoon-stage.md` | Contoh lengkap alur kerja Cartoon Stage dari prompt mentah hingga QC |
 | `EX-CONT` | Continuous Action | Langkah 2, 3, 4 | Kalibrasi kualitas *Brief → VK/Viewpoints → Kode* Action | Brief tanpa profil `VK` atau pengulangan sudut | Studi Kasus | `examples/case-continuous-action.md` | Contoh lengkap alur kerja Continuous Action dari prompt mentah hingga QC |
 | `EX-COLL` | Cartoon Collage | Langkah 2, 3, 4 | Kalibrasi kualitas *Brief → World Map → Akresi → Kode* | Kolase jadi 1 gambar + 1 kalimat | Studi Kasus | `examples/case-cartoon-collage.md` | Contoh lengkap alur kerja Cartoon Collage dari prompt mentah hingga QC |
-| `TPL-BRIEF` | Semua | Langkah 2 | Menyusun dokumen pra-produksi untuk disetujui user | Coding langsung tanpa rencana terukur | Template | `templates/production-brief.md` | Struktur Style Brief, target VO, Beat Sheet, dan Character/Asset Manifest |
+| `TPL-BRIEF` | Semua | Langkah 2 (Fase 1) | Menyusun paket pra-produksi + draf `vo-script.md` untuk di-ACC user | Coding `index.html` langsung tanpa persetujuan naskah & brief | Template | `templates/production-brief.md` | Struktur Style Brief, target VO, Beat Sheet, Character/Asset Manifest, & Hard Stop Gate sebelum coding |
 | `TPL-QC` | Semua | Langkah 5 | Audit final sebelum penyerahan | Lolos teknis tetapi gagal kualitas visual | Template | `templates/qc-audit-scorecard.md` | Kartu skor 2 lapis: metrik `?debug=1` + audit kualitatif `F-01..F-07` |
 
 ---
